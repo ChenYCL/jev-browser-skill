@@ -1,5 +1,15 @@
 # Changelog
 
+## 0.1.1 — 2026-09-22
+
+- `run --step-screenshots <dir>` (CLI) / `step_screenshots_dir` (MCP): save the page as Jev saw it
+  before every step, plus `final.png`.
+- Journals now record `targets`: id → description for the top click/type/select candidates.
+- `scripts/make-demo-gif.mjs`: compose a side-by-side GIF/MP4 (page vs. Jev's judgment) from a run.
+- README demos recorded in ego lite (GitHub navigation; choosing among identical buttons).
+- CI runs unit + mock e2e only; the live suite is local by design, no API key in the cloud.
+- Docs: CLI reference, data-flow/privacy section, Windows `--copy` note, env vars.
+
 ## 0.1.0 — 2026-09-22
 
 Initial release.

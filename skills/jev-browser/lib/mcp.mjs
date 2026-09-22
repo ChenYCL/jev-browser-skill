@@ -8,7 +8,7 @@ import { TypeSafeClient } from "./typesafe.mjs";
 import { doctor } from "./doctor.mjs";
 import { rankProbabilities } from "./util.mjs";
 
-export const MCP_VERSION = "0.1.0";
+export const MCP_VERSION = "0.1.1";
 const SUPPORTED_PROTOCOLS = ["2025-06-18", "2025-03-26", "2024-11-05"];
 
 export const TOOLS = [
@@ -30,6 +30,7 @@ export const TOOLS = [
         keep: { type: "boolean", description: "Keep the final page open for the user (default: true on success)." },
         headless: { type: "boolean", description: "chrome only: run without a window." },
         screenshot_path: { type: "string", description: "Absolute path for a final PNG screenshot." },
+        step_screenshots_dir: { type: "string", description: "Directory for one PNG per step (the page as Jev saw it) plus final.png." },
       },
       required: ["goal"],
     },
@@ -102,6 +103,7 @@ export async function callTool(name, args = {}, { log = () => {} } = {}) {
         keep: args.keep,
         headless: args.headless,
         screenshotPath: args.screenshot_path,
+        stepScreenshotsDir: args.step_screenshots_dir,
       };
       return executeJob({ config, job, log });
     }

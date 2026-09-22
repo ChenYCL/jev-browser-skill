@@ -1,6 +1,6 @@
 {
   "name": "jev-browser",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "description": "Jev-judged browser automation skill: TypeSafe System One judgments + a code controller driving ego lite, Chrome or Safari.",
   "type": "module",
   "license": "MIT",

@@ -1,6 +1,6 @@
 {
   "name": "jev-browser-skill",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "private": true,
   "description": "Repository for the jev-browser agent skill (TypeSafe Jev + NanoJev-style code controller for browser use).",
   "type": "module",

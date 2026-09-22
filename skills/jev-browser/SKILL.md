@@ -12,7 +12,7 @@ description: >
   score) from the CLI or MCP. Triggers: "browse", "open the site and …", "use the
   browser to …", "jev browser", "computer use", "自动操作浏览器", "用浏览器完成".
 metadata:
-  version: "0.1.0"
+  version: "0.1.1"
   requires: "Node 22+, TYPESAFE_API_KEY, ego lite (default) or Chrome or Safari"
 ---
 
@@ -72,7 +72,8 @@ Rules for good goals and inputs:
   step costs roughly $0.0002 at a few thousand input tokens.
 
 Other `run` flags: `--keep` / `--no-keep` (leave the final page open; default keep on
-success), `--space-id` + `--page-label` (ego: resume), `--screenshot <file>`, `--journal-dir <dir>`,
+success), `--space-id` + `--page-label` (ego: resume), `--screenshot <file>`, `--step-screenshots <dir>`
+(one PNG per step, the page as Jev saw it), `--journal-dir <dir>`,
 `--no-journal`, `--model <id>`, `-q/--quiet` (no progress on stderr). `judge` accepts
 `--state-file` / `--questions-file`; `pick` accepts `--context <json|text>` and `--no-none`;
 `doctor --offline` skips the live API probe; `install --copy` copies instead of symlinking

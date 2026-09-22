@@ -23,7 +23,7 @@ export const STATUS = Object.freeze({
  *   handOff?() -> object|void       finish({success, keep}) -> void
  *   historyLength?() -> number      describe() -> {backend, ...ids for resume}
  */
-export async function runGoal({ driver, client, config, goal, startUrl, inputs = {}, secrets = {}, log = () => {}, onStep, screenshotPath, runId = makeRunId() }) {
+export async function runGoal({ driver, client, config, goal, startUrl, inputs = {}, secrets = {}, log = () => {}, onStep, screenshotPath, stepScreenshotsDir, runId = makeRunId() }) {
   const startedAt = Date.now();
   const thr = config.thresholds;
   const allInputs = { ...inputs, ...secrets };
@@ -49,9 +49,20 @@ export async function runGoal({ driver, client, config, goal, startUrl, inputs =
 
   const stateKey = (o) => observationHash(o);
   const observe = async () => sanitizeObservation(await driver.observe(), secretValues);
+  if (stepScreenshotsDir) await ensureDir(stepScreenshotsDir);
+  const snap = async (name) => {
+    if (!stepScreenshotsDir) return null;
+    try {
+      return await driver.screenshot(path.join(stepScreenshotsDir, `${name}.png`));
+    } catch (error) {
+      log(`step screenshot failed: ${error.message}`);
+      return null;
+    }
+  };
   let handedOff = false;
   /** Screenshot (while the browser is still open), close the browser, then assemble the result. */
   const conclude = async (status, extra = {}, { success = false } = {}) => {
+    await snap("final");
     if (screenshotPath && obs) {
       try {
         result.screenshot = await driver.screenshot(screenshotPath);
@@ -96,6 +107,7 @@ export async function runGoal({ driver, client, config, goal, startUrl, inputs =
       memory.visits.set(obs.url, (memory.visits.get(obs.url) ?? 0) + 1);
       if (memory.hashes.get(hash) > 4) return await conclude(STATUS.stuck, { reason: "the same page state was seen more than four times" });
 
+      const stepShot = await snap(`step-${String(step).padStart(2, "0")}`);
       const { state, questions, meta } = buildStepQuestions({
         obs,
         goal,
@@ -124,6 +136,8 @@ export async function runGoal({ driver, client, config, goal, startUrl, inputs =
         costUsd: judged.costUsd,
         ms: judged.ms,
         cacheHit: judged.cacheHit,
+        targets: describeTargets(judged.answers, obs), // id → description for the top candidates, for humans reading the journal
+        ...(stepShot ? { screenshot: stepShot } : {}),
       };
       log(`step ${step}: goal_done=${decision.goalDone.toFixed(2)} blocker=${decision.blocker.top}(${decision.blocker.p.toFixed(2)}) action=${decision.actions[0]?.[0]}(${(decision.actions[0]?.[1] ?? 0).toFixed(2)}) cost=$${client.totals.costUsd.toFixed(4)}`);
 
@@ -318,6 +332,18 @@ async function executeAction({ driver, chosen, obs, allInputs, client, goal, sec
     default:
       return sleep(0);
   }
+}
+
+function describeTargets(answers, obs) {
+  const byId = new Map(obs.elements.map((el) => [el.id, el]));
+  const out = {};
+  for (const id of ["click_target", "type_target", "select_target"]) {
+    for (const [key] of (answers[id]?.ranked ?? []).slice(0, 3)) {
+      const el = byId.get(key);
+      if (el) out[key] = describeElement(el);
+    }
+  }
+  return out;
 }
 
 function compactAnswers(answers) {

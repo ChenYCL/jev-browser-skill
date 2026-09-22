@@ -71,6 +71,7 @@ export async function runWithDriver({ driver, config, job, log = () => {} }) {
     secrets: job.secrets ?? {},
     log,
     screenshotPath: job.screenshotPath,
+    stepScreenshotsDir: job.stepScreenshotsDir,
     runId,
   });
   await requestJournal?.flush();

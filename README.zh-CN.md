@@ -28,6 +28,22 @@
 
 ---
 
+## 演示
+
+在 **ego lite** 里的真实运行，由工具自己录制（`--step-screenshots`）：左边是每一步之前 Jev 看到的页面，右边是 Jev 对这一步的校准判断，以及代码控制器据此执行的动作。
+
+<p align="center">
+  <img src="assets/demo-github.gif" alt="jev-browser 在 ego lite 中浏览 NanoJev 的 GitHub 仓库" width="900">
+</p>
+
+三个一模一样的 "Start free trial" 按钮，目标只说了 Team 方案。Jev 仅凭页面结构以 1.00 的概率选中正确的那个：
+
+<p align="center">
+  <img src="assets/demo-team-plan.gif" alt="jev-browser 在三个同名按钮中选中 Team 方案" width="900">
+</p>
+
+任何带 `--step-screenshots <dir>` 的运行都可以用 `node scripts/make-demo-gif.mjs <run.json> out.gif` 复现（`assets/` 里另有 MP4 版本）。
+
 `jev-browser` 在**真实浏览器**里完成一句自然语言描述的目标。每一步它观察页面，向
 [Jev](https://typesafe.ai) 一次性并行问一组**小而有类型的问题**（目标完成了吗？有阻碍吗？该做哪类动作？点哪个元素？填哪个给定的值？），然后由**代码**执行动作、记忆、控制预算并决定何时停止。设计沿用
 [NanoJev](https://github.com/TianyuCodings/NanoJev) 的思路：**模型只做原子判断，规划放在代码里。**
@@ -165,7 +181,7 @@ jev-browser pick --question "Which link opens the plans page?" --candidate prici
 `run` 的参数：`-g/--goal` · `-u/--url` · `-i/--input` · `-s/--secret` · `-b/--backend ego\|chrome\|safari` ·
 `--max-steps` · `--budget-usd` · `--max-ms` · `--model` · `--space-id` 与 `--page-label`（ego：续跑某个 task space）·
 `--keep` / `--no-keep`（结果页是否保留，默认成功即保留）· `--headless` · `--cdp-url`（chrome：附着已有实例）·
-`--screenshot <file>` · `--dry-run` · `--journal-dir <dir>` · `--no-journal` · `--json` · `-q/--quiet`。
+`--screenshot <file>` · `--step-screenshots <dir>`（每步一张 PNG，Jev 看到的页面）· `--dry-run` · `--journal-dir <dir>` · `--no-journal` · `--json` · `-q/--quiet`。
 `jev-browser --help` 输出同样的列表。
 
 ### 结果
@@ -215,6 +231,8 @@ npm test                      # 单元 + e2e；有 TYPESAFE_API_KEY 用真实 Je
 npm run test:e2e:mock         # 完全离线（需要 Chrome）
 JEV_BROWSER_TEST_SAFARI=1 npm run test:e2e   # 同时驱动 Safari
 ```
+
+CI（`.github/workflows/test.yml`）在 Ubuntu 上用无头 Chrome 跑单元测试和 mock e2e；真实 Jev 的套件只在本地跑，云端不需要也不存放任何 API key。
 
 e2e 套件会起一个 fixture 站点（商品目录、搜索、登录、定价 / 试用、购物车、含下拉框的联系表单、超长文档页、受限区域），对每个后端跑 9 个目标场景：导航、输入并搜索、用密钥登录、在三个同名 "Start free trial" 按钮里选对的、加购、表单 + 下拉框、滚动找按钮、遇阻碍交接、不可能目标的上限；另有 observe / dry-run、CLI 全流程、ego 交接 → 续跑。测试不会往仓库之外写任何文件。
 

@@ -28,6 +28,26 @@
 
 ---
 
+## Demo
+
+Real run in **ego lite**, recorded by the tool itself (`--step-screenshots`): left, the page exactly
+as Jev saw it before each step; right, Jev's calibrated judgment for that step and the action the
+code controller executed.
+
+<p align="center">
+  <img src="assets/demo-github.gif" alt="jev-browser navigating the NanoJev GitHub repository in ego lite" width="900">
+</p>
+
+Three identical "Start free trial" buttons; the goal names the Team plan. Jev picks the right one
+from page structure alone, at probability 1.00:
+
+<p align="center">
+  <img src="assets/demo-team-plan.gif" alt="jev-browser choosing the Team plan among identical buttons" width="900">
+</p>
+
+Reproduce with `node scripts/make-demo-gif.mjs <run.json> out.gif` after any run made with `--step-screenshots <dir>`
+(MP4 variants are in `assets/`).
+
 `jev-browser` accomplishes a natural-language goal in a **real browser**. At every step it
 observes the page, asks [Jev](https://typesafe.ai) a handful of small **typed questions in one
 request** (is the goal done? is something blocking? what kind of action? which element? which
@@ -173,7 +193,7 @@ for credentials.
 `run` options: `-g/--goal` · `-u/--url` · `-i/--input` · `-s/--secret` · `-b/--backend ego\|chrome\|safari` ·
 `--max-steps` · `--budget-usd` · `--max-ms` · `--model` · `--space-id` and `--page-label` (ego: resume a
 task space) · `--keep` / `--no-keep` (leave the final page open; default keep on success) · `--headless` ·
-`--cdp-url` (chrome: attach) · `--screenshot <file>` · `--dry-run` · `--journal-dir <dir>` · `--no-journal` ·
+`--cdp-url` (chrome: attach) · `--screenshot <file>` · `--step-screenshots <dir>` (one PNG per step, the page as Jev saw it) · `--dry-run` · `--journal-dir <dir>` · `--no-journal` ·
 `--json` · `-q/--quiet`. `jev-browser --help` prints the same list.
 
 ### Results
@@ -228,6 +248,9 @@ npm test                      # unit + e2e; live Jev when TYPESAFE_API_KEY is se
 npm run test:e2e:mock         # fully offline (needs Chrome)
 JEV_BROWSER_TEST_SAFARI=1 npm run test:e2e   # also drive Safari
 ```
+
+CI (`.github/workflows/test.yml`) runs the unit suite and the mock e2e suite on Ubuntu with headless Chrome;
+the live suite is meant to be run locally, so no API key is ever needed in the cloud.
 
 The e2e suite serves a fixture site (catalog, search, login, pricing/trial, cart, contact form
 with a dropdown, long docs page, restricted area) and runs nine goal scenarios per backend:

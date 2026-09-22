@@ -36,7 +36,8 @@ run options:
       --space-id N    ego: resume an existing task space   --page-label p1
       --keep / --no-keep   keep the final page open (default: keep on success)
       --headless      chrome: no window        --cdp-url http://127.0.0.1:9222  chrome: attach
-      --screenshot f  save a final PNG         --dry-run   observe + print the first-step questions, no Jev call
+      --screenshot f  save a final PNG         --step-screenshots dir   save the page as Jev saw it before every step
+      --dry-run       observe + print the first-step questions, no Jev call
       --json          print only the JSON result   -q, --quiet   no progress logs
 
 Config precedence: defaults < ~/.config/jev-browser/config.json < ./jev-browser.config.json (or $JEV_BROWSER_CONFIG) < env < flags
@@ -60,6 +61,7 @@ const OPTIONS = {
   headless: { type: "boolean" },
   "cdp-url": { type: "string" },
   screenshot: { type: "string" },
+  "step-screenshots": { type: "string" },
   "dry-run": { type: "boolean" },
   json: { type: "boolean" },
   quiet: { type: "boolean", short: "q" },
@@ -160,6 +162,7 @@ async function main(argv) {
         headless: values.headless || undefined,
         cdpUrl: values["cdp-url"],
         screenshotPath: values.screenshot ? path.resolve(values.screenshot) : undefined,
+        stepScreenshotsDir: values["step-screenshots"] ? path.resolve(values["step-screenshots"]) : undefined,
       };
       log(`backend=${config.backend} model=${config.model} maxSteps=${config.maxSteps} budget=$${config.budgetUsd}`);
       const result = await executeJob({ config, job, log });
