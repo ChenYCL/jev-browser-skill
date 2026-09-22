@@ -71,6 +71,18 @@ Rules for good goals and inputs:
 - Budgets: `--max-steps` (25), `--budget-usd` (0.25), `--max-ms` (300000). A
   step costs roughly $0.0002 at a few thousand input tokens.
 
+Other `run` flags: `--keep` / `--no-keep` (leave the final page open; default keep on
+success), `--space-id` + `--page-label` (ego: resume), `--screenshot <file>`, `--journal-dir <dir>`,
+`--no-journal`, `--model <id>`, `-q/--quiet` (no progress on stderr). `judge` accepts
+`--state-file` / `--questions-file`; `pick` accepts `--context <json|text>` and `--no-none`;
+`doctor --offline` skips the live API probe; `install --copy` copies instead of symlinking
+(Windows) and `--home <dir>` targets another home directory.
+
+What leaves the machine: the goal, non-secret inputs, and a compact page view (URL, title,
+headings, ≤3000 chars of visible text, element descriptions incl. current values, previous-page
+excerpt, last action) go to `api.typesafe.ai` once per step. No screenshots, cookies or HTML;
+secrets never. Journals stay local with secrets redacted.
+
 The JSON result carries `status`, `steps`, `finalUrl`, `finalTitle`,
 `finalTextExcerpt`, `usage.costUsd`, `journalDir`, and `resume` info:
 

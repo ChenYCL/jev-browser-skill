@@ -113,6 +113,7 @@ jev-browser install --targets claude-code,claude-desktop --dry-run
 - **Claude Code 插件**：`claude plugin marketplace add ChenYCL/jev-browser-skill`，再 `claude plugin install jev-browser@jev-browser-skill`
 - **skills.sh**：`npx skills add ChenYCL/jev-browser-skill --skill jev-browser`
 - **手动**：把 `skills/jev-browser/` 复制到你的 Agent 读取 skill 的目录。
+- **Windows**：建议 `install --copy`（软链需要开发者模式或管理员权限）。
 
 MCP 宿主启动 server 时没有你的 shell 环境变量，所以 `install` 会在 `TYPESAFE_API_KEY` 已导出时把 key 存进
 `~/.config/jev-browser/config.json`（权限 0600）。注册后重启宿主。
@@ -146,6 +147,26 @@ jev-browser pick --question "Which link opens the plans page?" --candidate prici
 ```
 
 要点：目标用**英文**描述**最终状态**（Jev 的主训练语言是英文，中文可用但精度略低，让 Agent 先翻译）；所有需要输入的内容放进 `--input`（目标里的引号字符串会自动加入）；凭据用 `--secret`。
+
+
+### CLI 速查
+
+| 命令 | 用途 |
+| --- | --- |
+| `run` | 完成一个目标（`--goal`、`--url`、`--input k=v`…、`--secret k=v`…） |
+| `observe` | 打印 Jev 眼中的页面（`--url`、`--screenshot`） |
+| `judge` | 原始 System One 调用（`--state` / `--state-file`、`--questions` / `--questions-file`、`--model`） |
+| `pick` | 在命名候选里做一次 Choice（`--question`、`--candidate id=desc`…、`--context`、`--no-none`） |
+| `doctor` | 环境检查（`--offline` 跳过在线 API 探测，`--json`） |
+| `config` | `show` · `path` · `set <key.path> <value>` · `unset <key.path>` · `set-key [<key> \| --from-env]` |
+| `install` | `--targets a,b` · `--dry-run` · `--copy`（复制而非软链，Windows 请用它）· `--uninstall` · `--home <dir>` |
+| `mcp` | 通过 stdio 提供 MCP server |
+
+`run` 的参数：`-g/--goal` · `-u/--url` · `-i/--input` · `-s/--secret` · `-b/--backend ego\|chrome\|safari` ·
+`--max-steps` · `--budget-usd` · `--max-ms` · `--model` · `--space-id` 与 `--page-label`（ego：续跑某个 task space）·
+`--keep` / `--no-keep`（结果页是否保留，默认成功即保留）· `--headless` · `--cdp-url`（chrome：附着已有实例）·
+`--screenshot <file>` · `--dry-run` · `--journal-dir <dir>` · `--no-journal` · `--json` · `-q/--quiet`。
+`jev-browser --help` 输出同样的列表。
 
 ### 结果
 
@@ -184,7 +205,8 @@ jev-browser config set-key --from-env              # 给 MCP 宿主持久化 key
 
 环境变量：`TYPESAFE_API_KEY` `TYPESAFE_BASE_URL` `TYPESAFE_DEFAULT_MODEL` `JEV_BROWSER_BACKEND`
 `JEV_BROWSER_MAX_STEPS` `JEV_BROWSER_BUDGET_USD` `JEV_BROWSER_JOURNAL_DIR` `JEV_BROWSER_CHROME_CDP_URL`
-`JEV_BROWSER_HEADLESS` `JEV_BROWSER_EGO_SERVER_NAME`。全部键见 [`references/config.md`](skills/jev-browser/references/config.md)。
+`JEV_BROWSER_HEADLESS` `JEV_BROWSER_EGO_SERVER_NAME` `CHROME_PATH`（指定 Chrome 可执行文件）
+`JEV_BROWSER_CONFIG`（指定项目配置文件）。全部键见 [`references/config.md`](skills/jev-browser/references/config.md)。
 
 ## 测试与稳定性
 
@@ -206,6 +228,10 @@ e2e 套件会起一个 fixture 站点（商品目录、搜索、登录、定价 
 | 行覆盖率 | 整体 87 %（controller 92 %，questions / config / util 100 %，observe 99.6 %） |
 
 真实网站首次即成功（ego lite）：TypeSafe 文档站 → *Choice* 页，2 步 / 9 s / $0.0005；GitHub → NanoJev 仓库的 `docs/ATOMIC_PLANNING.md`，4 步 / 23 s / $0.0016。
+
+## 哪些数据会离开本机
+
+每一步向 `api.typesafe.ai` 发一次请求，内容是：目标、非密钥的 `inputs`、当前页面的精简视图（URL、标题、标题层级、最多 `observation.maxTextChars`（3000）字符的可见文本、已列出的可交互元素描述：角色、名称、链接、占位符、当前值）、上一页摘要和上一步动作。除此之外什么都不发：没有截图、没有 cookie、没有 HTML、没有 `secrets`（其值被替换成固定标记，密码框的值显示为 `(hidden)`）。日志只留在本机的 `journalDir`，密钥已脱敏。TypeSafe 声明 API 请求不用于训练，见其[法律页面](https://docs.typesafe.ai/legal)。需要可复现时用 `config set model jev-1.13.0` 固定模型版本。
 
 ## 设计要点
 

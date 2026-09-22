@@ -119,6 +119,7 @@ Other routes:
 - **Claude Code plugin**: `claude plugin marketplace add ChenYCL/jev-browser-skill` then `claude plugin install jev-browser@jev-browser-skill`
 - **skills.sh**: `npx skills add ChenYCL/jev-browser-skill --skill jev-browser`
 - **Manual**: copy `skills/jev-browser/` anywhere your agent reads skills from.
+- **Windows**: prefer `install --copy` (symlinks need Developer Mode or elevation).
 
 MCP hosts start servers without your shell environment, so the installer stores the key in
 `~/.config/jev-browser/config.json` (mode 0600) when `TYPESAFE_API_KEY` is exported. Restart the host afterwards.
@@ -154,6 +155,26 @@ jev-browser pick --question "Which link opens the plans page?" --candidate prici
 Tips that matter: write goals in English describing the **end state**; put everything that
 must be typed in `--input` (quoted strings in the goal are added automatically); use `--secret`
 for credentials.
+
+
+### CLI reference
+
+| command | purpose |
+| --- | --- |
+| `run` | accomplish a goal (`--goal`, `--url`, `--input k=v`…, `--secret k=v`…) |
+| `observe` | print the page as Jev sees it (`--url`, `--screenshot`) |
+| `judge` | raw System One call (`--state` / `--state-file`, `--questions` / `--questions-file`, `--model`) |
+| `pick` | one Choice over named candidates (`--question`, `--candidate id=desc`…, `--context`, `--no-none`) |
+| `doctor` | environment check (`--offline` skips the live API probe, `--json`) |
+| `config` | `show` · `path` · `set <key.path> <value>` · `unset <key.path>` · `set-key [<key> \| --from-env]` |
+| `install` | `--targets a,b` · `--dry-run` · `--copy` (copy instead of symlink; use on Windows) · `--uninstall` · `--home <dir>` |
+| `mcp` | MCP server over stdio |
+
+`run` options: `-g/--goal` · `-u/--url` · `-i/--input` · `-s/--secret` · `-b/--backend ego\|chrome\|safari` ·
+`--max-steps` · `--budget-usd` · `--max-ms` · `--model` · `--space-id` and `--page-label` (ego: resume a
+task space) · `--keep` / `--no-keep` (leave the final page open; default keep on success) · `--headless` ·
+`--cdp-url` (chrome: attach) · `--screenshot <file>` · `--dry-run` · `--journal-dir <dir>` · `--no-journal` ·
+`--json` · `-q/--quiet`. `jev-browser --help` prints the same list.
 
 ### Results
 
@@ -196,7 +217,8 @@ jev-browser config set-key --from-env              # persist the key for MCP hos
 
 Environment: `TYPESAFE_API_KEY` `TYPESAFE_BASE_URL` `TYPESAFE_DEFAULT_MODEL` `JEV_BROWSER_BACKEND`
 `JEV_BROWSER_MAX_STEPS` `JEV_BROWSER_BUDGET_USD` `JEV_BROWSER_JOURNAL_DIR` `JEV_BROWSER_CHROME_CDP_URL`
-`JEV_BROWSER_HEADLESS` `JEV_BROWSER_EGO_SERVER_NAME`. Every key is documented in
+`JEV_BROWSER_HEADLESS` `JEV_BROWSER_EGO_SERVER_NAME` `CHROME_PATH` (Chrome executable override)
+`JEV_BROWSER_CONFIG` (explicit project config file). Every key is documented in
 [`references/config.md`](skills/jev-browser/references/config.md).
 
 ## Tests and stability
@@ -225,6 +247,18 @@ Measured on macOS with live Jev (2026-09-22):
 
 Real sites, first try, via ego lite: TypeSafe docs → the *Choice* page in 2 steps / 9 s / $0.0005;
 GitHub → `docs/ATOMIC_PLANNING.md` in NanoJev in 4 steps / 23 s / $0.0016.
+
+## What leaves your machine
+
+Each step sends one request to `api.typesafe.ai` containing the goal, the non-secret `inputs`, and a
+compact view of the current page: URL, title, headings, up to `observation.maxTextChars` (3000) of
+visible text, the descriptions of listed interactive elements (role, name, href, placeholder,
+current value), the previous page's excerpt and the last action. Nothing else is sent: no
+screenshots, no cookies, no HTML, no `secrets` (their values are replaced by a fixed marker, and
+password fields report `(hidden)`). Journals stay local under `journalDir` with secrets redacted.
+TypeSafe states that API requests are not used for training; see their
+[legal page](https://docs.typesafe.ai/legal). Pin a model version with `config set model jev-1.13.0`
+if reproducibility matters.
 
 ## Design notes
 

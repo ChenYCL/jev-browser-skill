@@ -42,6 +42,11 @@ same across browsers.
   dedicated profile are therefore encrypted with a mock key, which is fine as
   long as the profile is only used by jev-browser.
 - Node 22+ is required for the global `WebSocket`.
+- Executable lookup order: `chrome.executable` → `CHROME_PATH` → well-known paths for Chrome,
+  Chromium, Canary, Edge and Brave (macOS, Linux, Windows).
+- On Linux the launcher adds `--disable-dev-shm-usage --disable-gpu`; when `CI` is set it also
+  adds `--no-sandbox` (container runners lack user namespaces). The GitHub Actions workflow
+  runs the mock e2e suite this way on `ubuntu-latest`.
 
 ## Safari (safaridriver / WebDriver)
 

@@ -42,3 +42,15 @@ after registering.
 - Long runs: each `jev_browse` call is bounded by `max_steps` / `budget_usd`;
   keep goals small and chain calls, resuming ego task spaces with `space_id`
   after a `needs_user` result.
+
+## Claude Code
+
+Claude Code does not need the MCP server: the skill is used through the CLI. The repository's
+root `.mcp.json` still registers it for convenience with
+`"${CLAUDE_PLUGIN_ROOT:-.}/skills/jev-browser/bin/jev-browser.mjs"`: inside a plugin the variable
+expands to the plugin root; when Claude Code loads it as a project-level `.mcp.json` the fallback
+`.` resolves against the project directory. To register it user-wide instead:
+
+```bash
+claude mcp add --scope user jev-browser -- node "$(pwd)/skills/jev-browser/bin/jev-browser.mjs" mcp
+```
