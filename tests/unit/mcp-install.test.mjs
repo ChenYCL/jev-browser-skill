@@ -79,8 +79,9 @@ test("installer links skill dirs, registers MCP hosts, backs up and uninstalls (
   const skillDir = path.join(ROOT, "skills", "jev-browser");
   await fs.mkdir(path.join(home, ".codex"), { recursive: true });
   await fs.writeFile(path.join(home, ".codex", "config.toml"), 'model = "x"\n\n[mcp_servers.other]\ncommand = "y"\n');
-  await fs.mkdir(path.join(home, "Library", "Application Support", "Claude"), { recursive: true });
-  await fs.writeFile(path.join(home, "Library", "Application Support", "Claude", "claude_desktop_config.json"), JSON.stringify({ mcpServers: { existing: { command: "z" } }, preferences: { a: 1 } }));
+  const desktopFile = targetDefinitions({ home, skillDir }).find((d) => d.id === "claude-desktop").dest; // platform-specific path
+  await fs.mkdir(path.dirname(desktopFile), { recursive: true });
+  await fs.writeFile(desktopFile, JSON.stringify({ mcpServers: { existing: { command: "z" } }, preferences: { a: 1 } }));
 
   const dry = await installTargets({ targets: ["claude-code", "claude-desktop", "codex-mcp"], home, skillDir, dryRun: true, env: { TYPESAFE_API_KEY: "k" } });
   assert.deepEqual(dry.results.map((r) => r.action), ["would link", "would register", "would register"]);
@@ -91,7 +92,7 @@ test("installer links skill dirs, registers MCP hosts, backs up and uninstalls (
   for (const r of applied.results) assert.notEqual(r.action, "error", `${r.id}: ${r.error}`);
   assert.equal(await fs.readlink(path.join(home, ".claude", "skills", "jev-browser")), skillDir);
   assert.equal(await fs.readlink(path.join(home, ".codex", "skills", "jev-browser")), skillDir);
-  const desktop = JSON.parse(await fs.readFile(path.join(home, "Library", "Application Support", "Claude", "claude_desktop_config.json"), "utf8"));
+  const desktop = JSON.parse(await fs.readFile(desktopFile, "utf8"));
   assert.deepEqual(desktop.mcpServers["jev-browser"].args, [path.join(skillDir, "bin", "jev-browser.mjs"), "mcp"]);
   assert.deepEqual(desktop.mcpServers.existing, { command: "z" });
   assert.deepEqual(desktop.preferences, { a: 1 });
