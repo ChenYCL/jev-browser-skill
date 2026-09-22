@@ -1,0 +1,27 @@
+{
+  "name": "jev-browser",
+  "version": "0.1.0",
+  "description": "Jev-judged browser automation skill: TypeSafe System One judgments + a code controller driving ego lite, Chrome or Safari.",
+  "type": "module",
+  "license": "MIT",
+  "bin": {
+    "jev-browser": "./bin/jev-browser.mjs"
+  },
+  "engines": {
+    "node": ">=22"
+  },
+  "files": [
+    "bin",
+    "lib",
+    "references",
+    "SKILL.md",
+    "LICENSE",
+    "README.md"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/ChenYCL/jev-browser-skill.git",
+    "directory": "skills/jev-browser"
+  },
+  "homepage": "https://github.com/ChenYCL/jev-browser-skill#readme"
+}

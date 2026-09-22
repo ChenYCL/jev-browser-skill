@@ -1,0 +1,41 @@
+name: test
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+
+jobs:
+  unit-and-mock-e2e:
+    name: unit + e2e (mock Jev, headless Chrome)
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+      - run: node --version && google-chrome --version
+      - run: npm test
+        env:
+          CI: "true"
+          JEV_BROWSER_TEST_MODE: mock
+
+  live-e2e:
+    name: e2e (live Jev, headless Chrome)
+    runs-on: ubuntu-latest
+    env:
+      TYPESAFE_API_KEY: ${{ secrets.TYPESAFE_API_KEY }}
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+      - name: Skip notice
+        if: env.TYPESAFE_API_KEY == ''
+        run: echo "TYPESAFE_API_KEY secret not set; live e2e skipped"
+      - name: Live e2e
+        if: env.TYPESAFE_API_KEY != ''
+        run: npm test
+        env:
+          CI: "true"
+          JEV_BROWSER_TEST_MODE: live

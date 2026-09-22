@@ -1,0 +1,19 @@
+{
+  "name": "jev-browser",
+  "version": "0.1.0",
+  "description": "Jev-judged browser automation: TypeSafe System One judgments + a NanoJev-style code controller driving ego lite, Chrome or Safari.",
+  "author": {
+    "name": "ChenYCL",
+    "url": "https://github.com/ChenYCL"
+  },
+  "license": "MIT",
+  "homepage": "https://github.com/ChenYCL/jev-browser-skill",
+  "repository": "https://github.com/ChenYCL/jev-browser-skill",
+  "keywords": [
+    "browser",
+    "computer-use",
+    "typesafe",
+    "jev",
+    "mcp"
+  ]
+}

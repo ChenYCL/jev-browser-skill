@@ -1,0 +1,8 @@
+{
+  "mcpServers": {
+    "jev-browser": {
+      "command": "node",
+      "args": ["${CLAUDE_PLUGIN_ROOT:-.}/skills/jev-browser/bin/jev-browser.mjs", "mcp"]
+    }
+  }
+}

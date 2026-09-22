@@ -1,0 +1,15 @@
+{
+  "name": "jev-browser-skill",
+  "description": "Agent skill for Jev-judged browser use (ego lite / Chrome / Safari).",
+  "owner": {
+    "name": "ChenYCL",
+    "url": "https://github.com/ChenYCL"
+  },
+  "plugins": [
+    {
+      "name": "jev-browser",
+      "description": "Browser automation where Jev supplies calibrated page judgments and code owns the control loop; includes CLI + MCP server.",
+      "source": "./"
+    }
+  ]
+}

@@ -1,0 +1,47 @@
+{
+  "name": "jev-browser-skill",
+  "version": "0.1.0",
+  "private": true,
+  "description": "Repository for the jev-browser agent skill (TypeSafe Jev + NanoJev-style code controller for browser use).",
+  "type": "module",
+  "license": "MIT",
+  "bin": {
+    "jev-browser": "./skills/jev-browser/bin/jev-browser.mjs"
+  },
+  "engines": {
+    "node": ">=22"
+  },
+  "scripts": {
+    "test": "node --test --test-timeout=300000 tests/unit tests/e2e",
+    "test:unit": "node --test tests/unit",
+    "test:e2e": "node --test --test-timeout=300000 tests/e2e",
+    "test:e2e:mock": "JEV_BROWSER_TEST_MODE=mock node --test --test-timeout=300000 tests/e2e",
+    "doctor": "node skills/jev-browser/bin/jev-browser.mjs doctor",
+    "install:agents": "node skills/jev-browser/bin/jev-browser.mjs install"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/ChenYCL/jev-browser-skill.git"
+  },
+  "homepage": "https://github.com/ChenYCL/jev-browser-skill#readme",
+  "bugs": {
+    "url": "https://github.com/ChenYCL/jev-browser-skill/issues"
+  },
+  "keywords": [
+    "browser-automation",
+    "computer-use",
+    "agent-skill",
+    "typesafe",
+    "jev",
+    "system-one",
+    "nanojev",
+    "mcp",
+    "claude-code",
+    "codex",
+    "cursor",
+    "claude-desktop",
+    "ego-lite",
+    "chrome-devtools-protocol",
+    "safaridriver"
+  ]
+}
