@@ -2,7 +2,7 @@
 import path from "node:path";
 import { runGoal } from "./controller.mjs";
 import { buildStepQuestions } from "./questions.mjs";
-import { pageStateForModel } from "./observe.mjs";
+import { keywordsFor, pageStateForModel } from "./observe.mjs";
 import { TypeSafeClient } from "./typesafe.mjs";
 import { JsonlWriter, ensureDir, runId as makeRunId } from "./util.mjs";
 
@@ -32,14 +32,14 @@ export async function runWithDriver({ driver, config, job, log = () => {} }) {
   const mode = job.mode ?? "run";
   if (mode === "observe") {
     await driver.start({ url: job.startUrl });
-    const observation = await driver.observe();
+    const observation = await driver.observe(job.goal ? { keywords: keywordsFor(job.goal, job.inputs ?? {}) } : {});
     if (job.screenshotPath) await driver.screenshot(job.screenshotPath).catch(() => {});
     await driver.finish({ success: true, keep: job.keep ?? false });
     return { mode, backend: driver.name, observation, page: pageStateForModel(observation), resume: driver.describe?.() ?? null };
   }
   if (mode === "dry-run") {
     await driver.start({ url: job.startUrl });
-    const observation = await driver.observe();
+    const observation = await driver.observe({ keywords: keywordsFor(job.goal, { ...(job.inputs ?? {}), ...(job.secrets ?? {}) }, Object.keys(job.secrets ?? {})) });
     const { state, questions, meta } = buildStepQuestions({ obs: observation, goal: job.goal, inputs: { ...(job.inputs ?? {}), ...(job.secrets ?? {}) }, secretKeys: Object.keys(job.secrets ?? {}) });
     await driver.finish({ success: true, keep: job.keep ?? false });
     return { mode, backend: driver.name, state, questions, meta, estimatedInputTokens: estimateTokens({ state, questions }), estimatedCostUsd: (estimateTokens({ state, questions }) * config.pricePerMtok) / 1e6 };

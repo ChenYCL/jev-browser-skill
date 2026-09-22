@@ -22,12 +22,12 @@ export const ACTION_DESCRIPTIONS = Object.freeze({
     use_when: "A dropdown must be set to a value implied by `goal` or `inputs`.",
   },
   scroll_down: {
-    what: "Scroll down to reveal content below the current viewport.",
-    use_when: "The element or information needed for `goal` is probably further down and is not listed in `page.elements`.",
+    what: "Scroll down to reveal content that is not listed in `page.elements` and not in `page.visible_text`.",
+    use_when: "Nothing listed can serve `goal` and more content probably exists further down. Never needed to reach an element that is already listed: clicking scrolls to it automatically.",
   },
   scroll_up: {
-    what: "Scroll up to reveal content above the current viewport.",
-    use_when: "The needed element or information is probably above the current position.",
+    what: "Scroll up to reveal content above the current position that is not listed.",
+    use_when: "Nothing listed can serve `goal` and the needed content is probably above.",
   },
   go_back: {
     what: "Go back to the previous page in browser history.",
@@ -133,7 +133,7 @@ export function buildStepQuestions({ obs, goal, inputs = {}, secretKeys = [], pr
       instructions: {
         question: "Which single browser action should be performed next to make progress toward `goal` from the current `page`?",
         rules: [
-          "Prefer acting on elements already listed in `page.elements` over scrolling.",
+          "Every element in `page.elements` can be clicked, filled or selected right now, even when its in_viewport is false (the browser scrolls to it). Scroll only when the needed element or text is not listed at all.",
           "Use `type` only when a value in `inputs` belongs in a listed text field.",
           "Use `stop` when `goal` is already accomplished or nothing listed can help.",
           "Consider `last_action` and `history`: do not repeat an action that produced no change.",

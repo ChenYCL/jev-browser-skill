@@ -11,6 +11,7 @@ export const ENUMERATOR_SOURCE = String.raw`
   var maxTextChars = opts.maxTextChars || 3000;
   var maxHeadings = opts.maxHeadings || 12;
   var maxNameChars = opts.maxNameChars || 80;
+  var keywords = Array.isArray(opts.keywords) ? opts.keywords.map(function (k) { return String(k).toLowerCase(); }).filter(Boolean) : [];
   var doc = document;
   var win = window;
   var vw = win.innerWidth || doc.documentElement.clientWidth;
@@ -142,6 +143,8 @@ export const ENUMERATOR_SOURCE = String.raw`
       entry.selectable = true;
       entry.options = Array.prototype.slice.call(el.options || [], 0, 50).map(function (o) { return { value: o.value, label: clip(o.label || o.text, 60) }; });
       entry.value = el.value;
+      var selected = el.options && el.selectedIndex >= 0 ? el.options[el.selectedIndex] : null;
+      entry.selectedLabel = selected ? clip(selected.label || selected.text, 60) : "";
     }
     if (role === "checkbox" || role === "radio") {
       entry.checked = !!el.checked || el.getAttribute("aria-checked") === "true";
@@ -149,8 +152,22 @@ export const ENUMERATOR_SOURCE = String.raw`
     entry.clickable = role !== "textbox" || entry.inputType === "contenteditable" ? true : false;
     elements.push(entry);
   }
-  // Viewport first, then by document position.
-  elements.sort(function (a, b) { return (a.inViewport === b.inViewport ? 0 : a.inViewport ? -1 : 1) || a.top - b.top; });
+  // Goal-aware ordering (deterministic, in code): elements whose name/href mention goal keywords come first,
+  // so a relevant link far down a long page is still offered instead of being truncated away.
+  // Keywords that match a large share of elements carry no signal and are ignored.
+  if (keywords.length && elements.length) {
+    var counts = keywords.map(function () { return 0; });
+    var hay = elements.map(function (e) { return ((e.name || "") + " " + (e.href || "") + " " + (e.placeholder || "")).toLowerCase(); });
+    for (var h = 0; h < hay.length; h++) for (var q = 0; q < keywords.length; q++) if (hay[h].indexOf(keywords[q]) !== -1) counts[q]++;
+    var useful = keywords.filter(function (_, q) { return counts[q] > 0 && counts[q] <= Math.max(3, elements.length * 0.25); });
+    for (var g = 0; g < elements.length; g++) {
+      var score = 0;
+      for (var u = 0; u < useful.length; u++) if (hay[g].indexOf(useful[u]) !== -1) score += 1;
+      elements[g].keywordHits = score;
+    }
+  }
+  // Keyword hits first, then viewport, then document position.
+  elements.sort(function (a, b) { return (b.keywordHits || 0) - (a.keywordHits || 0) || (a.inViewport === b.inViewport ? 0 : a.inViewport ? -1 : 1) || a.top - b.top; });
   var omitted = Math.max(0, elements.length - maxCandidates);
   elements = elements.slice(0, maxCandidates);
   // Clear stale ids, then tag the chosen elements.
@@ -189,6 +206,17 @@ export const ENUMERATOR_SOURCE = String.raw`
 })
 `.trim();
 
+const KEYWORD_STOPWORDS = new Set(["the","and","for","with","from","into","then","that","this","page","open","click","find","goal","site","website","link","button","about","after","before","which","where","when","what","your","their","there","here","make","show","view","goto","navigate","reach","using","use","its","are","was","has","have","not","but","all","any","one","two","new","get","see","its"]);
+
+/** Goal + input tokens (≥3 chars, no stopwords) used to prioritise candidate elements in code. */
+export function keywordsFor(goal, inputs = {}, secretKeys = []) {
+  const text = [goal, ...Object.entries(inputs).filter(([k]) => !secretKeys.includes(k)).map(([, v]) => String(v))].join(" ");
+  const tokens = text.toLowerCase().match(/[\p{L}\p{N}][\p{L}\p{N}'-]{2,}/gu) ?? [];
+  const out = [];
+  for (const t of tokens) if (!KEYWORD_STOPWORDS.has(t) && !out.includes(t)) out.push(t);
+  return out.slice(0, 40);
+}
+
 /** Expression string that evaluates to the observation JSON in the page. */
 export function enumeratorExpression(opts = {}) {
   return `(${ENUMERATOR_SOURCE})(${JSON.stringify(opts)})`;
@@ -208,8 +236,10 @@ export function describeElement(el) {
       if (el.required) bits.push("required");
       return `text field ${name} (${bits.join(", ")})`;
     }
-    case "select":
-      return `dropdown ${name} (options: ${(el.options ?? []).map((o) => o.label || o.value).slice(0, 12).join(" | ")}${el.options?.length > 12 ? " | …" : ""})`;
+    case "select": {
+      const current = el.selectedLabel && el.value !== "" ? `currently "${el.selectedLabel}"` : "nothing selected yet";
+      return `dropdown ${name} (${current}; options: ${(el.options ?? []).map((o) => o.label || o.value).slice(0, 12).join(" | ")}${el.options?.length > 12 ? " | …" : ""})`;
+    }
     case "checkbox":
     case "radio":
       return `${el.role} ${name} (${el.checked ? "checked" : "unchecked"})`;
@@ -225,14 +255,19 @@ export function elementFingerprint(el) {
   return [el.role, el.name, el.href ?? "", el.placeholder ?? "", el.inputType ?? ""].join("|");
 }
 
-/** Hash used for loop / no-change detection. Ignores the scroll position on purpose. */
+/**
+ * Hash used for loop / no-change detection. Includes the viewport (scroll bucket + which elements
+ * are visible) so a scroll that reveals something counts as a change, while scrolling at the end
+ * of the page does not.
+ */
 export function observationHash(obs) {
   return sha256({
     url: obs.url,
     title: obs.title,
     text: obs.text,
     dialog: obs.dialog,
-    elements: obs.elements.map((el) => [el.role, el.name, el.href, el.value, el.checked]),
+    scroll: Math.round((obs.scroll?.y ?? 0) / 40),
+    elements: obs.elements.map((el) => [el.role, el.name, el.href, el.value, el.checked, el.inViewport ? 1 : 0]),
   });
 }
 

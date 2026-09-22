@@ -30,42 +30,38 @@
 
 ## Demo
 
-Real run in **ego lite**, recorded by the tool itself (`--step-screenshots`): left, the page exactly
-as Jev saw it before each step; right, Jev's calibrated judgment for that step and the action the
-code controller executed.
+Real runs in **ego lite**, recorded by the tool itself (`run --step-screenshots`). Left: the page
+exactly as Jev saw it before each step. Right: Jev's calibrated judgment for that step and the
+action the code controller executed. Every demo is a single `jev-browser run` command.
+
+**Wikipedia, multi-hop on a real site** — type into the search box and press Enter, pick the right
+result, follow links across three articles (a 500-link page: goal-aware candidate ordering keeps the
+relevant links in the list). 6 steps · $0.0029 · 21 s.
+[▶ MP4 1080p](assets/demo-wikipedia.mp4)
 
 <p align="center">
-  <img src="assets/demo-github.gif" alt="jev-browser navigating the NanoJev GitHub repository in ego lite" width="900">
+  <img src="assets/demo-wikipedia.gif" alt="jev-browser on Wikipedia in ego lite" width="900">
 </p>
 
-Three identical "Start free trial" buttons; the goal names the Team plan. Jev picks the right one
-from page structure alone, at probability 1.00:
+**Sign in with a secret, then fill a form with a dropdown** — the password is typed but shown to
+Jev only as `inputs.password`; the topic is chosen from the dropdown's options in a second
+question. 10 steps · $0.0013 · 18 s. [▶ MP4 1080p](assets/demo-form.mp4)
+
+<p align="center">
+  <img src="assets/demo-form.gif" alt="jev-browser signing in and filling a contact form in ego lite" width="900">
+</p>
+
+**Three identical "Start free trial" buttons** — the goal names the Team plan; Jev picks the right
+button from page structure alone at probability 1.00. 3 steps · $0.0003 · 3 s.
+[▶ MP4 1080p](assets/demo-team-plan.mp4) · Bonus: [GitHub repository navigation (MP4)](assets/demo-github.mp4)
 
 <p align="center">
   <img src="assets/demo-team-plan.gif" alt="jev-browser choosing the Team plan among identical buttons" width="900">
 </p>
 
-Reproduce with `node scripts/make-demo-gif.mjs <run.json> out.gif` after any run made with `--step-screenshots <dir>`
-(MP4 variants are in `assets/`).
-
-`jev-browser` accomplishes a natural-language goal in a **real browser**. At every step it
-observes the page, asks [Jev](https://typesafe.ai) a handful of small **typed questions in one
-request** (is the goal done? is something blocking? what kind of action? which element? which
-provided value?), and **code** executes the chosen action, keeps memory, enforces budgets and
-decides when to stop. It follows the split popularised by
-[NanoJev](https://github.com/TianyuCodings/NanoJev): *atomic judgments from the model, planning
-in code.*
-
-```bash
-jev-browser run --goal "Open the pricing page and start a free trial of the Team plan" --url https://example.com
-```
-
-```
-observed https://example.com/ (10 elements)
-step 1: goal_done=0.03 blocker=none(0.97) action=click(0.96)   → clicked link 'Pricing'
-step 2: goal_done=0.03 blocker=none(0.98) action=click(1.00)   → clicked button 'Start free trial'  (the Team one)
-step 3: goal_done=0.98 → success   3 requests · 6.5k tokens · $0.0003 · 3.2 s
-```
+GitHub does not play repository MP4s inline, so the GIFs above are previews; the MP4s are the
+full-quality recordings (1080p, crossfades). Reproduce any of them with
+`node scripts/make-demo.mjs <run.json> out.mp4 --gif out.gif` after a run made with `--step-screenshots <dir>`.
 
 ## Why
 
@@ -291,6 +287,11 @@ if reproducibility matters.
   already tried are deprioritised, so A → B → back → A does not repeat forever.
 - **Select, don't generate.** Typed values, dropdown options and URLs are chosen from candidates
   supplied by code; Jev 1.13 reads literally and does not generate text.
+- **Goal-aware candidates.** Before truncating to `observation.maxCandidates`, code ranks
+  elements whose name or href mention goal/input keywords first, then viewport, then position, so a
+  relevant link far down a long page is still offered. Keywords matching most elements are ignored.
+- **"Probably done" is not done.** A model `stop` at 70–85 % goal probability first spends one more
+  step on an untried action; only ≥ 85 % (or no alternatives) ends the run.
 - **Speculative fan-out.** All questions of a step go in one request; unused answers are free
   in latency and cheap in tokens.
 - **Verification before success.** Success needs `goal_done ≥ 0.85` on the *current* page, and

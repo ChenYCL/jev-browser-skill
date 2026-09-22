@@ -112,8 +112,8 @@ export class SafariDriver {
     await this.settle();
   }
 
-  async observe() {
-    return this.execute(`return (${ENUMERATOR_SOURCE})(arguments[0]);`, [this.config.observation]);
+  async observe(extra = {}) {
+    return this.execute(`return (${ENUMERATOR_SOURCE})(arguments[0]);`, [{ ...this.config.observation, ...extra }]);
   }
 
   async element(id) {

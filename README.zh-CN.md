@@ -30,34 +30,27 @@
 
 ## 演示
 
-在 **ego lite** 里的真实运行，由工具自己录制（`--step-screenshots`）：左边是每一步之前 Jev 看到的页面，右边是 Jev 对这一步的校准判断，以及代码控制器据此执行的动作。
+在 **ego lite** 里的真实运行，由工具自己录制（`run --step-screenshots`）。左边是每一步之前 Jev 看到的页面，右边是 Jev 对这一步的校准判断以及代码控制器执行的动作。每个演示都只是一条 `jev-browser run` 命令。
+
+**Wikipedia 真实站点多跳**：在搜索框输入并回车、选中正确的结果、跨三篇文章跟链接（500 多个链接的长页面，靠"目标关键词优先"的候选排序把相关链接留在列表里）。6 步 · $0.0029 · 21 s。[▶ MP4 1080p](assets/demo-wikipedia.mp4)
 
 <p align="center">
-  <img src="assets/demo-github.gif" alt="jev-browser 在 ego lite 中浏览 NanoJev 的 GitHub 仓库" width="900">
+  <img src="assets/demo-wikipedia.gif" alt="jev-browser 在 ego lite 中操作 Wikipedia" width="900">
 </p>
 
-三个一模一样的 "Start free trial" 按钮，目标只说了 Team 方案。Jev 仅凭页面结构以 1.00 的概率选中正确的那个：
+**用密钥登录，再填一个带下拉框的表单**：密码会被输入，但 Jev 只看到 `inputs.password` 这个名字；下拉框的选项由第二个问题从选项列表里选出。10 步 · $0.0013 · 18 s。[▶ MP4 1080p](assets/demo-form.mp4)
+
+<p align="center">
+  <img src="assets/demo-form.gif" alt="jev-browser 在 ego lite 中登录并填写联系表单" width="900">
+</p>
+
+**三个一模一样的 "Start free trial" 按钮**：目标只说了 Team 方案，Jev 仅凭页面结构以 1.00 的概率选中正确的那个。3 步 · $0.0003 · 3 s。[▶ MP4 1080p](assets/demo-team-plan.mp4) · 另有：[GitHub 仓库导航（MP4）](assets/demo-github.mp4)
 
 <p align="center">
   <img src="assets/demo-team-plan.gif" alt="jev-browser 在三个同名按钮中选中 Team 方案" width="900">
 </p>
 
-任何带 `--step-screenshots <dir>` 的运行都可以用 `node scripts/make-demo-gif.mjs <run.json> out.gif` 复现（`assets/` 里另有 MP4 版本）。
-
-`jev-browser` 在**真实浏览器**里完成一句自然语言描述的目标。每一步它观察页面，向
-[Jev](https://typesafe.ai) 一次性并行问一组**小而有类型的问题**（目标完成了吗？有阻碍吗？该做哪类动作？点哪个元素？填哪个给定的值？），然后由**代码**执行动作、记忆、控制预算并决定何时停止。设计沿用
-[NanoJev](https://github.com/TianyuCodings/NanoJev) 的思路：**模型只做原子判断，规划放在代码里。**
-
-```bash
-jev-browser run --goal "Open the pricing page and start a free trial of the Team plan" --url https://example.com
-```
-
-```
-observed https://example.com/ (10 elements)
-step 1: goal_done=0.03 blocker=none(0.97) action=click(0.96)   → clicked link 'Pricing'
-step 2: goal_done=0.03 blocker=none(0.98) action=click(1.00)   → clicked button 'Start free trial'  （三个同名按钮里选中 Team 那个）
-step 3: goal_done=0.98 → success   3 次请求 · 6.5k tokens · $0.0003 · 3.2 s
-```
+GitHub 不会内联播放仓库里的 MP4，所以上面的 GIF 是预览，MP4 才是完整画质（1080p、带转场）。任何带 `--step-screenshots <dir>` 的运行都可以用 `node scripts/make-demo.mjs <run.json> out.mp4 --gif out.gif` 复现。
 
 ## 为什么用它
 
@@ -256,6 +249,8 @@ e2e 套件会起一个 fixture 站点（商品目录、搜索、登录、定价 
 - **动态合法动作**：像 NanoJev 的贪吃蛇控制器一样，代码先过滤动作集合（到底了就没有 `scroll_down`，没有输入项就没有 `type`），模型只在合法动作里做选择。
 - **边记忆**：产生"无变化"的 `(页面状态, 动作)` 会被屏蔽，已试过的会被降权，A → B → 返回 → A 不会无限重复。
 - **只选不生成**：输入值、下拉选项、URL 都从代码给出的候选里选；Jev 1.13 按字面理解，不生成文本。
+- **目标感知的候选排序**：截断到 `observation.maxCandidates` 之前，代码先把名称 / 链接里含目标关键词的元素排在前面，再按视口、位置排序，长页面深处的相关链接也能进入候选；匹配大多数元素的关键词会被忽略。
+- **"大概完成"不等于完成**：模型在 70–85 % 时选 stop，控制器会先多走一步没试过的动作；只有 ≥ 85 %（或没有候选）才结束。
 - **投机性并发提问**：一步的所有问题打包成一次请求，没用到的答案几乎不增加延迟。
 - **成功前核验**：成功要求**当前页面**的 `goal_done ≥ 0.85`；步数用尽时再做一次最终核验。
 

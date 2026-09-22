@@ -248,3 +248,25 @@ test("chooseAction respects none preferences and blocked memory", () => {
   const regress = chooseAction({ decision: { ...decision, progress: { probabilities: { 0: 0.8 } } }, obs, meta: { ...meta, allowedActions: [...meta.allowedActions, "go_back"] }, blocked: new Set(), hash: "h", allInputs: {}, thr: DEFAULTS.thresholds });
   assert.equal(regress.kind, "go_back");
 });
+
+test("controller defers a stop at 70–85% goal probability to one more untried action", async () => {
+  const pages = {
+    reissue: sampleObs({ url: "http://x/3310-2017", title: "Nokia 3310 (2017)", text: "reissue", scroll: { y: 0, max: 0, atTop: true, atBottom: true }, elements: [
+      { id: "e1", role: "link", name: "Nokia 3310", href: "/3310", clickable: true, inViewport: true, to: "original" },
+    ] }),
+    original: sampleObs({ url: "http://x/3310", title: "Nokia 3310", text: "the original", elements: [], scroll: { y: 0, max: 0, atTop: true, atBottom: true } }),
+  };
+  const driver = new FakeDriver(pages, "reissue");
+  const client = scriptedClient((state, questions) =>
+    baseAnswers(questions, (q) => ({
+      goal_done: noul(state.page.title === "Nokia 3310" ? 0.95 : 0.75),
+      blocker: choice({ none: 0.98, error_page: 0.02 }),
+      ...(q.action ? { action: choice(Object.fromEntries(Object.keys(q.action.criteria).map((k) => [k, k === "stop" ? 0.7 : k === "click" ? 0.25 : 0.05 / (Object.keys(q.action.criteria).length - 2)]))) } : {}),
+      ...(q.click_target ? { click_target: choice({ e1: 0.8, none: 0.2 }) } : {}),
+    })),
+  );
+  const result = await runGoal({ driver, client, config: await tempConfig(), goal: "Open the Nokia 3310 article", startUrl: "http://x/3310-2017" });
+  assert.equal(result.status, STATUS.success);
+  assert.deepEqual(driver.log, ["click e1"], "the stop was deferred and the untried link was followed");
+  assert.equal(result.finalUrl, "http://x/3310");
+});

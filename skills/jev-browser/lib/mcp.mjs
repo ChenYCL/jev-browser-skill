@@ -8,7 +8,7 @@ import { TypeSafeClient } from "./typesafe.mjs";
 import { doctor } from "./doctor.mjs";
 import { rankProbabilities } from "./util.mjs";
 
-export const MCP_VERSION = "0.1.1";
+export const MCP_VERSION = "0.1.2";
 const SUPPORTED_PROTOCOLS = ["2025-06-18", "2025-03-26", "2024-11-05"];
 
 export const TOOLS = [

@@ -197,12 +197,25 @@ export class EgoDriver {
     }
   }
 
-  async observe() {
-    return this.page.evaluate(enumeratorExpression(this.config.observation));
+  async observe(extra = {}) {
+    return this.page.evaluate(enumeratorExpression({ ...this.config.observation, ...extra }));
   }
 
   async click(id, { label } = {}) {
-    await this.page.click(this.selector(id), { timeout: 5000, label: shortLabel(label ?? "click element") });
+    const selector = this.selector(id);
+    const options = { timeout: 5000, label: shortLabel(label ?? "click element") };
+    try {
+      await this.page.click(selector, options);
+    } catch (error) {
+      // Typical on image links and overlays: "<img> intercepts pointer events". Force the pointer, then fall back to a DOM click.
+      if (!/intercepts pointer events|none can receive input|not visible|outside of the viewport/i.test(error.message)) throw error;
+      try {
+        await this.page.click(selector, { ...options, force: true });
+      } catch {
+        const clicked = await this.page.evaluate(`(() => { const el = document.querySelector(${JSON.stringify(selector)}); if (!el) return false; el.click(); return true; })()`);
+        if (!clicked) throw error;
+      }
+    }
   }
 
   async type(id, text, { submit } = {}) {

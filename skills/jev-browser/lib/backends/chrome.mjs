@@ -308,8 +308,8 @@ export class ChromeDriver {
     await sleep(this.config.settleMs);
   }
 
-  async observe() {
-    return this.evaluate(enumeratorExpression(this.config.observation));
+  async observe(extra = {}) {
+    return this.evaluate(enumeratorExpression({ ...this.config.observation, ...extra }));
   }
 
   async #center(id) {
@@ -368,7 +368,7 @@ export class ChromeDriver {
 
   async back() {
     const { currentIndex, entries } = await this.send("Page.getNavigationHistory");
-    if (currentIndex <= 0) throw new Error("no previous page in history");
+    if (currentIndex <= 0 || /^about:blank$/.test(entries[currentIndex - 1]?.url ?? "")) throw new Error("no previous page in history");
     this.loading = true;
     await this.send("Page.navigateToHistoryEntry", { entryId: entries[currentIndex - 1].id });
     await this.waitForLoad();
@@ -394,7 +394,7 @@ export class ChromeDriver {
   async historyLength() {
     try {
       const { entries } = await this.send("Page.getNavigationHistory");
-      return entries.length;
+      return entries.filter((e) => !/^about:blank$/.test(e.url ?? "")).length;
     } catch {
       return 1;
     }

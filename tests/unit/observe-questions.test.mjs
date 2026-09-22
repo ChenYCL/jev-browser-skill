@@ -1,6 +1,6 @@
 import test from "node:test";
 import assert from "node:assert/strict";
-import { describeElement, elementFingerprint, observationHash, pageStateForModel, ENUMERATOR_SOURCE, enumeratorExpression } from "../../skills/jev-browser/lib/observe.mjs";
+import { describeElement, elementFingerprint, observationHash, pageStateForModel, ENUMERATOR_SOURCE, enumeratorExpression, keywordsFor } from "../../skills/jev-browser/lib/observe.mjs";
 import { buildStepQuestions, interpretAnswers, inputsForModel, buildSelectOptionQuestions } from "../../skills/jev-browser/lib/questions.mjs";
 import { validateQuestions } from "../../skills/jev-browser/lib/typesafe.mjs";
 import { sampleObs } from "../helpers/sample.mjs";
@@ -10,15 +10,18 @@ test("describeElement produces compact model-facing descriptions", () => {
   const obs = sampleObs();
   assert.equal(describeElement(obs.elements[0]), "link 'Pricing' → /pricing");
   assert.equal(describeElement(obs.elements[1]), `text field 'Search' (placeholder "Search products", empty)`);
-  assert.equal(describeElement(obs.elements[3]), "dropdown 'Quantity' (options: 1 | 2)");
+  assert.equal(describeElement(obs.elements[3]), `dropdown 'Quantity' (currently "1"; options: 1 | 2)`);
+  assert.equal(describeElement({ ...obs.elements[3], value: "", selectedLabel: "Choose…" }), "dropdown 'Quantity' (nothing selected yet; options: 1 | 2)");
   assert.equal(describeElement(obs.elements[4]), "checkbox 'Gift wrap' (unchecked)");
 });
 
-test("observationHash ignores scroll position but tracks content", () => {
+test("observationHash tracks content and the viewport, but not tiny scroll jitter", () => {
   const a = observationHash(sampleObs());
-  const b = observationHash(sampleObs({ scroll: { y: 300, max: 900, atTop: false, atBottom: false } }));
+  const same = observationHash(sampleObs({ scroll: { y: 12, max: 900, atTop: false, atBottom: false } }));
+  const scrolled = observationHash(sampleObs({ scroll: { y: 300, max: 900, atTop: false, atBottom: false } }));
   const c = observationHash(sampleObs({ text: "changed" }));
-  assert.equal(a, b);
+  assert.equal(a, same, "a few pixels of scroll is the same state");
+  assert.notEqual(a, scrolled, "a real scroll reveals a different viewport");
   assert.notEqual(a, c);
   assert.equal(elementFingerprint(sampleObs().elements[0]), "link|Pricing|/pricing||");
 });
@@ -83,4 +86,11 @@ test("buildSelectOptionQuestions maps options to opt indexes", () => {
   validateQuestions(questions);
   assert.deepEqual(Object.keys(questions.option.criteria), ["opt0", "opt1", "none"]);
   assert.deepEqual(optionValues, ["1", "2"]);
+});
+
+test("keywordsFor extracts goal and input tokens, skips stopwords and secrets", () => {
+  const words = keywordsFor('Open the article "Snake (video game genre)" then find Nokia 3310', { search: "Snake video", password: "hunter2" }, ["password"]);
+  assert.deepEqual(words, ["article", "snake", "video", "game", "genre", "nokia", "3310"]);
+  assert.equal(words.includes("hunter2"), false);
+  assert.equal(words.includes("the"), false);
 });

@@ -12,7 +12,7 @@ description: >
   score) from the CLI or MCP. Triggers: "browse", "open the site and …", "use the
   browser to …", "jev browser", "computer use", "自动操作浏览器", "用浏览器完成".
 metadata:
-  version: "0.1.1"
+  version: "0.1.2"
   requires: "Node 22+, TYPESAFE_API_KEY, ego lite (default) or Chrome or Safari"
 ---
 

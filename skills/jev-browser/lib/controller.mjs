@@ -2,7 +2,7 @@
 // budgets, sequencing, loop detection and termination (NanoJev's "code planning").
 import path from "node:path";
 import { buildSelectOptionQuestions, buildStepQuestions, interpretAnswers } from "./questions.mjs";
-import { elementFingerprint, describeElement, observationHash, summarizeObservation } from "./observe.mjs";
+import { elementFingerprint, describeElement, keywordsFor, observationHash, summarizeObservation } from "./observe.mjs";
 import { JsonlWriter, ensureDir, extractQuoted, nowIso, redact, runId as makeRunId, sleep, writeJson } from "./util.mjs";
 
 export const STATUS = Object.freeze({
@@ -48,7 +48,8 @@ export async function runGoal({ driver, client, config, goal, startUrl, inputs =
   let lastActionKey = null;
 
   const stateKey = (o) => observationHash(o);
-  const observe = async () => sanitizeObservation(await driver.observe(), secretValues);
+  const keywords = keywordsFor(goal, allInputs, secretKeys);
+  const observe = async () => sanitizeObservation(await driver.observe({ keywords }), secretValues);
   if (stepScreenshotsDir) await ensureDir(stepScreenshotsDir);
   const snap = async (name) => {
     if (!stepScreenshotsDir) return null;
@@ -153,7 +154,15 @@ export async function runGoal({ driver, client, config, goal, startUrl, inputs =
         return await conclude(STATUS.needs_user, { blocker: decision.blocker.top, blockerProbability: decision.blocker.p, handOff, reason: `blocker "${decision.blocker.top}" detected; the user must intervene in the browser` });
       }
 
-      const chosen = chooseAction({ decision, obs, meta, blocked: memory.blocked, tried: memory.tried, hash, allInputs, thr });
+      let chosen = chooseAction({ decision, obs, meta, blocked: memory.blocked, tried: memory.tried, hash, allInputs, thr });
+      if (chosen?.kind === "stop" && decision.goalDone >= thr.goalDoneFinal && decision.goalDone < thr.goalDone) {
+        // "Probably done" is not "done": before accepting a stop at 70–85 %, spend one more step on an untried action if any.
+        const alternative = chooseAction({ decision, obs, meta, blocked: memory.blocked, tried: memory.tried, hash, allInputs, thr, excludeStop: true });
+        if (alternative && !memory.tried.has(`${hash}|${alternative.key}`)) {
+          log(`  stop deferred (goal_done=${decision.goalDone.toFixed(2)} < ${thr.goalDone}); trying ${alternative.label} first`);
+          chosen = alternative;
+        }
+      }
       if (!chosen || chosen.kind === "stop") {
         await journal?.append(redact({ ...stepRow, outcome: "stop", chosen }, secretValues));
         if (decision.goalDone >= thr.goalDoneFinal) {
@@ -166,6 +175,14 @@ export async function runGoal({ driver, client, config, goal, startUrl, inputs =
       let actionError = null;
       try {
         await executeAction({ driver, chosen, obs, allInputs, client, goal, secretKeys, log });
+        if (chosen.kind === "go_back") {
+          const probe = await driver.observe({ keywords });
+          if (!probe.url || /^about:blank$/.test(probe.url)) {
+            const previous = [...memory.history].reverse().find((h) => h.url && h.url !== obs.url && !/^about:blank$/.test(h.url))?.url;
+            if (previous) await driver.navigate(previous);
+            else throw new Error("no previous page in history");
+          }
+        }
       } catch (error) {
         actionError = error.message;
         log(`action failed: ${actionError}`);
@@ -174,10 +191,13 @@ export async function runGoal({ driver, client, config, goal, startUrl, inputs =
       const nextObs = await observe();
       const changed = stateKey(nextObs) !== hash;
       memory.tried.add(`${hash}|${chosen.key}`);
-      if (!changed || actionError) {
+      if (!changed) {
+        // No effect (or the action failed outright): never repeat this edge from this state.
         memory.blocked.add(`${hash}|${chosen.key}`);
         memory.noChangeStreak += 1;
       } else {
+        // The page changed, so the action worked even if the backend reported a verification error
+        // (e.g. a fill whose field disappeared because Enter navigated immediately).
         memory.noChangeStreak = 0;
       }
       lastAction = chosen.label;
@@ -229,7 +249,7 @@ export function sanitizeObservation(obs, secretValues = []) {
  * Pick the first candidate action in model preference order that memory has not blocked,
  * preferring edges never tried from this state (so A→B→back→A does not repeat A→B forever).
  */
-export function chooseAction({ decision, obs, meta, blocked, tried = new Set(), hash, allInputs, thr }) {
+export function chooseAction({ decision, obs, meta, blocked, tried = new Set(), hash, allInputs, thr, excludeStop = false }) {
   const byId = new Map(obs.elements.map((el) => [el.id, el]));
   const candidates = [];
   const push = (c) => candidates.push(c);
@@ -297,9 +317,9 @@ export function chooseAction({ decision, obs, meta, blocked, tried = new Set(), 
         break;
     }
   }
-  const open = candidates.filter((c) => !blocked.has(`${hash}|${c.key}`));
+  const open = candidates.filter((c) => !blocked.has(`${hash}|${c.key}`) && !(excludeStop && c.kind === "stop"));
   // A top-ranked stop is the model saying "done or nothing helps": let the controller judge it now.
-  if (open[0]?.kind === "stop" && decision.actions[0]?.[0] === "stop") return open[0];
+  if (!excludeStop && open[0]?.kind === "stop" && decision.actions[0]?.[0] === "stop") return open[0];
   return open.find((c) => !tried.has(`${hash}|${c.key}`) && c.kind !== "stop") ?? open[0] ?? null;
 }
 
