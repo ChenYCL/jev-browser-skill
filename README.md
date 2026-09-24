@@ -231,6 +231,47 @@ serves an Apple Silicon `llama.cpp` server; Kev (`node skills/jev-browser/bin/je
 tier table with every measured number — scores, latency, disk, memory, each backend's `goal_done`
 bar and the known holes — lives in [SKILL.md](skills/jev-browser/SKILL.md#judging-tiers).
 
+A local tier is one command: `setup` fetches whatever is missing through the launcher itself, starts
+the server in the background, writes `baseUrl` and the placeholder key into your config, then proves
+the endpoint works by asking it one real question.
+
+```bash
+jev-browser setup local-readout   # llama.cpp + the registry GGUF; prints the log path and the pid
+jev-browser setup status          # installed / running / configured, per local tier
+jev-browser setup stop local-readout
+```
+
+`jev-browser setup kev` is the same for the accuracy tier and needs `uv` as well (it clones the Kev
+checkout and runs `uv sync --extra serve`). Both write under `~/.jev-browser/`, never into this repo.
+The manual route still exists — start `bin/jev-local.mjs` yourself and export the two variables it
+prints — and `jev-browser tier use <tier> --persist` still stores that line's values for you.
+
+## WebUI
+
+```bash
+node skills/jev-browser/bin/jev-webui.mjs          # prints http://127.0.0.1:8765/
+node skills/jev-browser/bin/jev-webui.mjs --port 9000 --open
+```
+
+One page over the same skill, not a second implementation: the panels call the same `lib/tiers.mjs`,
+`lib/doctor.mjs` and `lib/config.mjs` the CLI does — so they cannot disagree with `tier status`,
+`doctor` or `config show` — and edits go to the same `~/.config/jev-browser/config.json`. Every
+command it starts is one of this repo's own `bin/*.mjs` scripts, spawned with an argv array (never a
+shell), so no field on the page can become a command.
+
+The server binds **`127.0.0.1` only** — never `0.0.0.0`, so nothing on it is reachable from your
+network — and no route returns your API key: the config panel shows only whether one is set, and
+secrets typed into the Run panel are never echoed back into the page or the log pane.
+
+| panel | what it does |
+| --- | --- |
+| Tiers | the three judging tiers — what each is, what it needs, its port, its 20-item score and its `goal_done` bar, hosted marked as the default — plus what a run would use right now, start/stop for the two local servers with their output streaming into the page, and `tier use`'s text (saving it to the user config is its own labelled button) |
+| Config | the effective configuration with its sources, editable, with the diff a save produced and an unset for every key the user file sets |
+| Doctor | `doctor()` live or offline: every check with its status, detail and hint |
+| Models | the local registry: which GGUF is downloaded, which is the default, which file is serving, and a one-click start with `--model-name` or an existing on-disk `--model <path>` |
+| Judge | a state and a question set against the configured endpoint, with each answer's choice, confidence and probability table |
+| Run | a real run (`jev-browser run --json`) with live progress, the final status / steps / cost and the per-step journal |
+
 ## MCP server
 
 `jev-browser mcp` speaks MCP over stdio with zero dependencies. Tools: `jev_browse`, `jev_observe`,

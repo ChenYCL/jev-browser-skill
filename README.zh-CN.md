@@ -210,6 +210,29 @@ jev-browser tier use kev   # 打印某个 tier 的 export 行和启动命令（�
 表格与全部实测数字（得分、延迟、磁盘、内存、各后端 `goal_done` 阈值、已知短板）见
 [`SKILL.md`](skills/jev-browser/SKILL.md#judging-tiers)；`references/config.md` 只保留阈值 profile 细节。
 
+本地 tier 现在是一条命令：`setup` 通过 launcher 自己把缺的文件拉齐、后台起服务、把 `baseUrl` 和占位 key 写进配置，再用一个真实问题验证端点确实会答。
+
+```bash
+jev-browser setup local-readout   # llama.cpp + 注册表里的 GGUF；打印日志路径和 pid
+jev-browser setup status          # 每个本地 tier：已安装 / 运行中 / 已配置
+jev-browser setup stop local-readout
+```
+
+`jev-browser setup kev` 是精度档的同款命令，额外需要 `uv`（它会 clone Kev 检出并跑 `uv sync --extra serve`）。两者只写 `~/.jev-browser/` 之下，不会写进本仓库。手动方式照旧 —— 自己起 `bin/jev-local.mjs` 并 export 它打印的两行 —— `jev-browser tier use <tier> --persist` 也能把那两行存下来。
+
+## WebUI
+
+```bash
+node skills/jev-browser/bin/jev-webui.mjs          # 打印 http://127.0.0.1:8765/
+node skills/jev-browser/bin/jev-webui.mjs --port 9000 --open
+```
+
+同一个 skill 之上的一层页面，不是第二套实现：各面板直接调用 CLI 用的 `lib/tiers.mjs`、`lib/doctor.mjs`、`lib/config.mjs`，因此不会和 `tier status` / `doctor` / `config show` 给出不一致的结论，改动也写进同一个 `~/.config/jev-browser/config.json`。它启动的每条命令都是本仓库 `bin/*.mjs` 里的脚本，以 argv 数组方式拉起，绝不经过 shell。
+
+**只绑定回环地址**：服务只监听 `127.0.0.1`（绝不 `0.0.0.0`），同网络的其他机器访问不到；任何路由都不会返回你的 API key —— 配置面板只显示"是否已设置"，Run 面板输入的 secret 也不会被回显到页面或日志里。
+
+六个面板（tier / 配置 / doctor / 模型注册表 / judge 试跑 / run）见英文 README 的 [WebUI](README.md#webui) 一节。
+
 ## MCP server
 
 `jev-browser mcp` 通过 stdio 提供 MCP，零依赖。工具：`jev_browse`、`jev_observe`、`jev_judge`、`jev_pick`、`jev_doctor`、`jev_config`。结果同时以 JSON 文本和 `structuredContent` 返回。见 [`references/mcp.md`](skills/jev-browser/references/mcp.md)。
