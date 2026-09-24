@@ -9,7 +9,9 @@ description: >
   trial, reveal content) without a vision model: it drives ego lite by default
   (reusing the user's logged-in Chrome sessions), or Chrome via DevTools protocol,
   or Safari via safaridriver. Also use for any raw Jev judgment (noul / choice /
-  score) from the CLI or MCP. Triggers: "browse", "open the site and …", "use the
+  score) from the CLI or MCP. Three judging backends are first-class options —
+  hosted Jev (the default), a local GGUF readout, and the Kev 4B accuracy tier
+  (`jev-browser tier list`). Triggers: "browse", "open the site and …", "use the
   browser to …", "jev browser", "computer use", "自动操作浏览器", "用浏览器完成".
 metadata:
   version: "0.1.2"
@@ -122,26 +124,45 @@ Follow the TypeSafe skill for designing questions: one narrow judgment per
 question, named state fields referenced in backticks, a `none` option when no
 candidate may fit, thresholds evaluated on real data.
 
-## Fully local (experimental)
+## Judging tiers
 
-There are **two local tiers**, and they are not the same trade. The GGUF readout is the default; Kev
-is the accuracy tier.
+Every step asks its questions over one contract (`/v1/systemone`), and three judging backends serve
+it. All three are first-class options and the CLI shows them the same way; **hosted Jev is the
+default**, so a run with no config file and no environment behaves exactly as it always has.
 
-| | **GGUF readout — default** (`jev-local`) | **Kev — accuracy tier** (`jev-kev`) |
-| --- | --- | --- |
-| how it answers | first-token logprob readout on llama.cpp | trained pointer-head checkpoint on its own MLX runtime |
-| needs | Homebrew `llama.cpp`; **no Python** | a Python venv + MLX |
-| disk | 2.6 GiB (registry default) | 9.34 GB base + 152 MiB adapter |
-| memory | a few GiB | ~18 GB idle, **36 GB GPU footprint** under load at the raised limit — heavy swap on a 48 GB machine |
-| 20 graded items | **0.80** (the 0.8B entry 0.50) | **0.95** patched / **0.90** published |
-| latency | p50 **≈4.3 s per step** (5 questions, one page state) | mean **2.2 s per item**, 12.2 s worst item, **23.8 s** for the packed 5-question step on a 12k-token state |
-| vs hosted Jev (0.95) | below it | **ties it**, and beats it on `click_target` (2/2 vs 1/2) |
-| known hole | `goal_done`, `action` ordering, lists past ~50 candidates | refuses the 55-option `click_target` questions unless the optional row-limit patch is applied |
+```bash
+jev-browser tier list      # the table below, from the CLI
+jev-browser tier status    # what a run would use right now: baseUrl, tier, resolved goal_done bar, endpoint
+jev-browser tier use kev   # one tier's export line and start command (nothing is written unless --persist)
+```
+
+| | **hosted Jev — the default** | **GGUF readout — default local tier** (`jev-local`) | **Kev — accuracy tier** (`jev-kev`) |
+| --- | --- | --- | --- |
+| how it answers | TypeSafe System One over HTTPS | first-token logprob readout on llama.cpp | trained pointer-head checkpoint on its own MLX runtime |
+| needs | a `TYPESAFE_API_KEY` and network access | Homebrew `llama.cpp`; **no Python** | a Python venv + MLX |
+| disk | nothing to download | 2.6 GiB (registry default) | 9.34 GB base + 152 MiB adapter |
+| memory | — | a few GiB | ~18 GB idle, **36 GB GPU footprint** under load at the raised limit — heavy swap on a 48 GB machine |
+| start | nothing — `https://api.typesafe.ai` | `node <skill-dir>/bin/jev-local.mjs` → `127.0.0.1:8092` | `node <skill-dir>/bin/jev-kev.mjs` → `127.0.0.1:8008` |
+| 20 graded items | **0.95** | **0.80** (the 0.8B entry 0.50) | **0.95** patched / **0.90** published |
+| latency | a step costs roughly $0.0002 at a few thousand input tokens | p50 **≈4.3 s per step** (5 questions, one page state) | mean **2.2 s per item**, 12.2 s worst item, **23.8 s** for the packed 5-question step on a 12k-token state |
+| `goal_done` bar | **0.85** / 0.70 | **0.174** | **0.482** |
+| vs hosted Jev (0.95) | — | below it | **ties it**, and beats it on `click_target` (2/2 vs 1/2) |
+| known hole | — | `goal_done`, `action` ordering, lists past ~50 candidates | refuses the 55-option `click_target` questions unless the optional row-limit patch is applied |
 
 Pick the GGUF tier unless the number is the point: it is one command, needs no Python, and 0.80 is
 enough for short states. Pick Kev when you need the accuracy — it is the only local backend that
 matches hosted Jev on this set — and accept a Python venv, a 9.34 GB base and tens of GB of GPU
-memory for it.
+memory for it. Pick hosted Jev for everything else: it is the default, it needs no download, and its
+0.95 is the number the other two are measured against.
+
+### Hosted Jev — the default
+
+`https://api.typesafe.ai` with `TYPESAFE_API_KEY` set: nothing to download, nothing to start, and the
+`goal_done` bar at 0.85 per step / 0.70 final. `jev-browser tier use hosted` prints the export line
+for coming back to it when a config file, an environment variable or a flag has pointed `baseUrl`
+somewhere local. A local endpoint never costs anything, so a loopback `baseUrl` is priced at $0.
+
+### GGUF readout — the default local tier (`jev-local`, port 8092)
 
 One command serves the same `/v1/systemone` contract from a local llama.cpp server — no API
 key, no network, no cost. The answer is read out of the model's first generated token (options
@@ -180,7 +201,7 @@ serving the selected file on the llama port is reused and left running when the 
 rather than silently answered from. A second invocation while one is running prints the same line
 and exits 0, and `doctor` reports the active registry id in its `local model` line.
 
-### Kev: the accuracy tier
+### Kev 4B — the accuracy tier (`jev-kev`, port 8008)
 
 ```bash
 node <skill-dir>/bin/jev-kev.mjs
@@ -210,6 +231,12 @@ exits 2 and says so.
 Cost: a Python venv plus MLX, a 9.34 GB base, and memory as in the table above. On this 48 GB machine
 the raised cap drove swap from 16.7 GB to 28.3 GB used while a full 20-item pass ran; nothing timed
 out, but that is the ceiling to plan around. Numbers: `experiments/kev-4b/README.md`.
+
+### One contract, three `goal_done` bars
+
+The bar is per backend because the three read the question on scales that do not overlap — that is
+what the `goal_done bar` row in the table above records, and why `tier status` and `doctor` resolve
+it from the endpoint rather than from one fixed number.
 
 A single judge is not the same as a whole `run`. Measured over 15 real local runs (goals, journals
 and per-step numbers: `docs/local-backend-run-smoke.md`) a run **can** finish — a Wikipedia search

@@ -1,5 +1,10 @@
 # Backends
 
+These are the **browser** backends (`--backend ego|chrome|safari`). The *judging* backend — which
+model answers the questions — is a separate axis called a **tier**: hosted Jev (the default), the
+local GGUF readout, or Kev 4B. See [`SKILL.md`](../SKILL.md#judging-tiers) or run
+`jev-browser tier list`.
+
 All backends share one perception layer (`lib/observe.mjs`): a script injected
 into the page lists visible interactive elements (links, buttons, inputs,
 selects, checkboxes, ARIA widgets, open shadow roots), tags them with
