@@ -3,3 +3,6 @@ node_modules/
 tests/.artifacts/
 *.log
 *.bak.*
+
+# Model blobs live outside the repo (~/.jev-browser/models); this only guards a stray manual download.
+*.gguf
