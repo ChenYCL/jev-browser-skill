@@ -166,7 +166,24 @@ somewhere local. A local endpoint never costs anything, so a loopback `baseUrl` 
 
 One command serves the same `/v1/systemone` contract from a local llama.cpp server — no API
 key, no network, no cost. The answer is read out of the model's first generated token (options
-are labelled A, B, C …), so nothing is generated and nothing is parsed:
+are labelled A, B, C …), so nothing is generated and nothing is parsed.
+
+`jev-browser setup local-readout` does the whole first run: it finds llama.cpp, fetches the registry
+GGUF through the launcher's own `--download-only`, serves it detached (log and pid under
+`~/.jev-browser/run/`), writes `baseUrl` + the placeholder key into your user config, and then asks
+the endpoint one real question — so "it works" is printed, not assumed:
+
+```bash
+jev-browser setup local-readout
+#   server          127.0.0.1:8092 (pid …)
+#   config          ~/.config/jev-browser/config.json — baseUrl + apiKey=local
+#   log             ~/.jev-browser/run/jev-local-8092.log
+#   verified        noul: P(yes)=0.95 — 569 ms through http://127.0.0.1:8092
+# `jev-browser setup status` reports installed / running / configured per tier;
+# `jev-browser setup stop local-readout` stops the server it started.
+```
+
+Or by hand — the export line the launcher prints is all a run needs:
 
 ```bash
 node <skill-dir>/bin/jev-local.mjs
@@ -177,6 +194,11 @@ node <skill-dir>/bin/jev-local.mjs
 export TYPESAFE_BASE_URL=http://127.0.0.1:8092 TYPESAFE_API_KEY=local
 jev-browser judge --state-file state.json --questions-file questions.json --json   # $0
 ```
+
+A local tier's key is the literal placeholder `local`: the local server ignores the `Authorization`
+header, but the client requires a non-empty key. `jev-browser config set apiKey local` stores it by
+hand, and both `jev-browser setup <tier>` and `jev-browser tier use <tier> --persist` store it for you
+(the export still works and is what the launchers print).
 
 Which model is served is data, not code: `lib/local-models.json` lists each entry with its GGUF
 filename, download URL, exact byte size and label, and its `"default"` picks the one the launcher
@@ -202,6 +224,11 @@ rather than silently answered from. A second invocation while one is running pri
 and exits 0, and `doctor` reports the active registry id in its `local model` line.
 
 ### Kev 4B — the accuracy tier (`jev-kev`, port 8008)
+
+`jev-browser setup kev` is the one-command path for this tier: it checks `uv` (and says
+`brew install uv` when it is missing), clones the Kev checkout and runs `uv sync --extra serve`
+— skip both with `--skip-deps` — then fetches the pinned files, serves detached, writes
+`baseUrl` + the placeholder key and verifies, exactly like `setup local-readout`. By hand:
 
 ```bash
 node <skill-dir>/bin/jev-kev.mjs
@@ -288,6 +315,30 @@ instead of ~0.99). When the option labels cannot be read out at all the server a
 `LOW_LABEL_MASS` naming the question instead of guessing. Measured numbers:
 `experiments/gguf-provider/RESULTS.md` and
 `experiments/gguf-provider/results/local-models-4b.md`.
+
+## WebUI
+
+`node skills/jev-browser/bin/jev-webui.mjs` serves one page on `127.0.0.1:8765` and prints its URL
+(`--port` moves it, `--open` opens your browser, `-q` prints the URL alone). It is a view over this
+skill, not a second implementation: the panels call the same `lib/tiers.mjs`, `lib/doctor.mjs` and
+`lib/config.mjs` the CLI does — so they cannot disagree with `tier status`, `doctor` or
+`config show` — and every edit is written to the same `~/.config/jev-browser/config.json`. Each
+command it starts is one of this skill's own `bin/*.mjs` scripts, spawned with an argv array and
+never a shell, so nothing typed into the page can become a command.
+
+The server binds **127.0.0.1 only** (never `0.0.0.0`): nothing on it is reachable from your network.
+No route returns your API key — the config panel shows only whether one is set — and secrets typed
+into the Run panel are never echoed back into the page or the log pane. Reach for it when you want
+to see what a run would use, start a local tier, or drive one goal by hand without a terminal.
+
+| panel | what it does |
+| --- | --- |
+| Tiers | the three judging tiers (what each needs, its port, its 20-item score, its `goal_done` bar; hosted is marked as the default) and what a run would use right now |
+| Config | the effective configuration with its sources, editable, with the diff a save produced |
+| Doctor | `doctor()` live or offline: every check with its status, detail and hint |
+| Models | the local registry: downloaded? default? serving? — and a start with `--model-name` or an on-disk `--model <path>` |
+| Judge | a state and a question set against the configured endpoint, with each answer's choice, confidence and probabilities |
+| Run | a real `run` with live progress, the final status / steps / cost and the per-step journal |
 
 ## MCP (Claude Desktop, Cursor, Codex)
 

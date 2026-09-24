@@ -11,7 +11,7 @@ masked and the list of sources that contributed.
 
 | key | default | meaning |
 | --- | --- | --- |
-| `apiKey` | null | TypeSafe API key; prefer the `TYPESAFE_API_KEY` env var. `config set-key --from-env` stores it (0600) for MCP hosts |
+| `apiKey` | null | TypeSafe API key; prefer the `TYPESAFE_API_KEY` env var. `config set-key --from-env` stores it (0600) for MCP hosts. A local tier uses the literal placeholder `local` — the local server ignores the `Authorization` header, but the client requires a non-empty key; `jev-browser setup <tier>` and `jev-browser tier use <tier> --persist` store a local tier's `baseUrl` + `apiKey` for you (`config set apiKey local` by hand) |
 | `baseUrl` | `https://api.typesafe.ai` | API base URL (`TYPESAFE_BASE_URL`) |
 | `model` | `jev-latest` | `jev-latest`, `jev-preview`, or a pinned id such as `jev-1.13.0` (`TYPESAFE_DEFAULT_MODEL`) |
 | `timeoutMs` | 20000 | per-request timeout |
