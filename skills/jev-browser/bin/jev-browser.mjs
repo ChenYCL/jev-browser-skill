@@ -8,6 +8,7 @@ import { loadConfig, describeConfig, saveUserConfig, unsetUserConfig, patchFromK
 import { executeJob } from "../lib/runner.mjs";
 import { TypeSafeClient } from "../lib/typesafe.mjs";
 import { doctor, formatDoctor } from "../lib/doctor.mjs";
+import { DEFAULT_TIER, TIERS, describeTier, fetchModels, formatTierList, formatTierStatus, formatTierUse, launcherCommand, probeEndpoint, tierByName, tierEnv, tierRows } from "../lib/tiers.mjs";
 import { installTargets, formatInstall, DEFAULT_TARGETS, DEFAULT_SKILL_DIR } from "../lib/install.mjs";
 import { parseKeyValue, rankProbabilities } from "../lib/util.mjs";
 
@@ -22,6 +23,7 @@ Usage:
   jev-browser judge --state <json|text> --questions <json>   (or --state-file / --questions-file)
   jev-browser pick --question "<q>" --candidate id=description... [--context <json|text>]
   jev-browser doctor [--json] [--offline]
+  jev-browser tier [list | status | use <hosted|local-readout|kev>] [--json] [--persist]
   jev-browser config show | path | set <key.path> <value> | unset <key.path> | set-key [<key> | --from-env]
   jev-browser install [--targets a,b,c] [--dry-run] [--copy] [--uninstall]
   jev-browser mcp                     (MCP server over stdio, for Claude Desktop / Cursor / Codex)
@@ -39,6 +41,18 @@ run options:
       --screenshot f  save a final PNG         --step-screenshots dir   save the page as Jev saw it before every step
       --dry-run       observe + print the first-step questions, no Jev call
       --json          print only the JSON result   -q, --quiet   no progress logs
+
+tier:
+  list (default)      the three judging tiers: what each is, what it needs, how to start it, its port,
+                      its 20-item score and its goal_done bar. Hosted Jev is marked as the default.
+  status              what a run would use right now: baseUrl, whether it is loopback, the resolved
+                      thresholds profile and value, and whether a local endpoint answers.
+  use <tier>          print that tier's export line (and the command that starts it) — nothing is
+                      written to your configuration unless you add --persist.
+      --persist       with "use": store that tier's baseUrl in the user config (never automatic)
+      --json          machine-readable list / status / use
+      --offline       with "status": skip the loopback probe instead of asking the endpoint
+      exit codes: 0 ok, 2 unknown tier or bad usage
 
 Config precedence: defaults < ~/.config/jev-browser/config.json < ./jev-browser.config.json (or $JEV_BROWSER_CONFIG) < env < flags
 Env: TYPESAFE_API_KEY TYPESAFE_BASE_URL TYPESAFE_DEFAULT_MODEL JEV_BROWSER_BACKEND JEV_BROWSER_MAX_STEPS JEV_BROWSER_BUDGET_USD JEV_BROWSER_JOURNAL_DIR JEV_BROWSER_CHROME_CDP_URL JEV_BROWSER_HEADLESS JEV_BROWSER_EGO_SERVER_NAME
@@ -79,6 +93,7 @@ const OPTIONS = {
   copy: { type: "boolean" },
   uninstall: { type: "boolean" },
   "from-env": { type: "boolean" },
+  persist: { type: "boolean" },
   "journal-dir": { type: "string" },
   "no-journal": { type: "boolean" },
   help: { type: "boolean", short: "h" },
@@ -116,6 +131,9 @@ function makeLog(values) {
   return values.quiet ? () => {} : (message) => process.stderr.write(`${message}\n`);
 }
 
+/** A usage/config problem: the user has to change a flag or a value — exit 2, like the launchers. */
+const configError = (message) => Object.assign(new Error(message), { config: true });
+
 function print(value, values, human) {
   if (values.json || !human) process.stdout.write(`${JSON.stringify(value, null, 2)}\n`);
   else process.stdout.write(`${human}\n${JSON.stringify(value, null, 2)}\n`);
@@ -136,6 +154,15 @@ function summarize(result) {
   if (result.journalDir) lines.push(`journal: ${result.journalDir}`);
   if (result.screenshot) lines.push(`screenshot: ${result.screenshot}`);
   return lines.join("\n");
+}
+
+/** `tier` loads the config to describe it — a config it cannot load is a config problem: exit 2. */
+async function loadTierConfig(values) {
+  try {
+    return await loadConfig({ flags: flagsFromValues(values), ...(values.home ? { home: values.home } : {}) });
+  } catch (error) {
+    throw configError(error.message);
+  }
 }
 
 async function main(argv) {
@@ -252,6 +279,38 @@ async function main(argv) {
       }
       throw new Error(`unknown config subcommand ${sub}`);
     }
+    case "tier": {
+      const sub = positionals[1] ?? "list";
+      if (sub === "list") {
+        const rows = tierRows({ skillDir: SKILL_DIR });
+        if (values.json) print({ defaultTier: DEFAULT_TIER, tiers: rows }, { json: true });
+        else process.stdout.write(`${formatTierList(rows)}\n`);
+        return 0;
+      }
+      if (sub === "status") {
+        const { config } = await loadTierConfig(values);
+        // The same path a run takes: one GET /v1/models (skipped for a hosted baseUrl), classified
+        // by config.mjs, resolved by the same function doctor prints.
+        const models = values.offline ? null : await fetchModels({ config });
+        const classification = values.offline ? null : await probeEndpoint({ config, models });
+        const status = describeTier({ config, classification, skillDir: SKILL_DIR });
+        if (values.json) print(status, { json: true });
+        else process.stdout.write(`${formatTierStatus(status)}\n`);
+        return 0;
+      }
+      if (sub === "use") {
+        const name = positionals[2];
+        if (!name) throw configError(`usage: tier use <${TIERS.map((tier) => tier.name).join("|")}>\n\`tier list\` shows what each one is and what it needs.`);
+        const tier = tierByName(name);
+        if (!tier) throw configError(`unknown tier "${name}" (expected ${TIERS.map((t) => t.name).join(", ")})`);
+        const home = values.home;
+        const persisted = values.persist ? await saveUserConfig({ baseUrl: tier.baseUrl }, home ? { home } : {}) : null;
+        if (values.json) print({ tier: tier.name, baseUrl: tier.baseUrl, apiKey: tier.apiKey, port: tier.port, command: launcherCommand(tier, SKILL_DIR), env: tierEnv(tier), persisted }, { json: true });
+        else process.stdout.write(`${formatTierUse(tier, { skillDir: SKILL_DIR, persisted, configPath: userConfigPath(home) })}\n`);
+        return 0;
+      }
+      throw configError(`unknown tier subcommand "${sub}" (expected list, status, use)`);
+    }
     case "install": {
       const targets = values.targets ? values.targets.split(",").map((t) => t.trim()).filter(Boolean) : DEFAULT_TARGETS;
       const out = await installTargets({ targets, home: values.home, skillDir: SKILL_DIR, dryRun: values["dry-run"], copy: values.copy, uninstall: values.uninstall });
@@ -273,5 +332,5 @@ try {
   process.exitCode = await main(process.argv.slice(2));
 } catch (error) {
   process.stderr.write(`error: ${error.message}\n`);
-  process.exitCode = 1;
+  process.exitCode = error.config ? 2 : 1;
 }
