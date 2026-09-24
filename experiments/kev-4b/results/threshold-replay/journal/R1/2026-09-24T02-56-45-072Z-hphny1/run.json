@@ -1,0 +1,28 @@
+{
+  "runId": "2026-09-24T02-56-45-072Z-hphny1",
+  "status": "success",
+  "goal": "the page's main heading says Example Domain",
+  "backend": "chrome",
+  "steps": 1,
+  "startedAt": "2026-09-24T02:56:45.075Z",
+  "journalDir": "/tmp/kev-threshold/journal/R1/2026-09-24T02-56-45-072Z-hphny1",
+  "goalDoneProbability": 0.9668,
+  "finalUrl": "https://example.com/",
+  "finalTitle": "Example Domain",
+  "finalTextExcerpt": "Example Domain This domain is for use in documentation examples without needing permission. Avoid use in operations. Learn more",
+  "usage": {
+    "requests": 1,
+    "cacheHits": 0,
+    "inputTokens": 948,
+    "outputTokens": 245,
+    "costUsd": 0,
+    "ms": 3468
+  },
+  "elapsedMs": 5917,
+  "finishedAt": "2026-09-24T02:56:50.992Z",
+  "resume": {
+    "backend": "chrome",
+    "cdpUrl": "http://127.0.0.1:58857",
+    "targetId": "5EDA16C57B35D9981EBB4C28045CC40C"
+  }
+}

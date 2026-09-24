@@ -1,0 +1,29 @@
+# latency - https://html.duckduckgo.com/html/?q=apple+stock+price
+questions: goal_done(noul) blocker(6) action(5) click_target(55) select_target(3)
+state bytes: 16111
+
+run 0 (cold: alphabet verification + full prefill): wall 2933ms  readout 2856ms  alphabet+render 77ms  input_tokens 6877
+   goal_done         732ms  new_tokens=  525 cached= 6861  labels=all-single-token
+   blocker           323ms  new_tokens=  559 cached= 6870  labels=all-single-token
+   action            232ms  new_tokens=  464 cached= 6913  labels=all-single-token
+   click_target     1404ms  new_tokens= 4835 cached= 6913  labels=all-single-token
+   select_target     165ms  new_tokens=  494 cached= 6861  labels=all-single-token
+
+run 1 (warm): wall 1747ms  readout 1734ms  alphabet+render 13ms  input_tokens 6877
+   goal_done         151ms  new_tokens=  525 cached= 6861  labels=all-single-token
+   blocker           159ms  new_tokens=  559 cached= 6870  labels=all-single-token
+   action            127ms  new_tokens=  464 cached= 6913  labels=all-single-token
+   click_target     1165ms  new_tokens= 4835 cached= 6913  labels=all-single-token
+   select_target     132ms  new_tokens=  494 cached= 6861  labels=all-single-token
+
+run 2 (warm): wall 1743ms  readout 1733ms  alphabet+render 10ms  input_tokens 6877
+   goal_done         144ms  new_tokens=  525 cached= 6861  labels=all-single-token
+   blocker           151ms  new_tokens=  559 cached= 6870  labels=all-single-token
+   action            126ms  new_tokens=  464 cached= 6913  labels=all-single-token
+   click_target     1176ms  new_tokens= 4835 cached= 6913  labels=all-single-token
+   select_target     135ms  new_tokens=  494 cached= 6861  labels=all-single-token
+
+warm mean wall: 1745ms over 2 runs (cold included above for comparison)
+input tokens per step: 6877; cold wall 2933ms -> 2345 tok/s end-to-end
+
+provider totals: {"calls":15,"promptTokens":20631,"completionTokens":15,"promptMs":6072.044000000001,"predictedMs":0.015000000000000006}

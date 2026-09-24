@@ -1,0 +1,77 @@
+{
+  "id": "ddg-typed-type-target",
+  "kind": "browser",
+  "question": "type_target",
+  "type": "choice",
+  "expected": "e3",
+  "predicted": "e3",
+  "correct": true,
+  "got": "choice=e3 P(correct)=0.8577",
+  "ms": 211,
+  "server_latency_ms": 181.2,
+  "usage": {
+    "input_tokens": 6223,
+    "output_tokens": 55
+  },
+  "model_echo": "kev-latest",
+  "analysis": {
+    "type": "choice",
+    "probabilities": {
+      "e3": 0.8577,
+      "none": 0.1423
+    },
+    "p_sum": 1,
+    "p_sum_dev": 0,
+    "sums_conventionally": true,
+    "missing_keys": [],
+    "extra_keys": [],
+    "n_options": 2,
+    "choice": "e3",
+    "reported_choice": "e3",
+    "choice_is_argmax": true,
+    "top": "e3",
+    "top_p": 0.8577,
+    "second_p": 0.1423,
+    "margin": 0.7154,
+    "entropy_bits": 0.5902307545881025,
+    "entropy_norm": 0.5902307545881025,
+    "near_uniform": false,
+    "coinflip_margin": false,
+    "confidence": 0.7154
+  },
+  "request": {
+    "state": {
+      "bytes": 15566,
+      "page_url": "https://html.duckduckgo.com/html/?q=apple+stock+price",
+      "elements": 51,
+      "visible_text_chars": 3000
+    },
+    "questions": {
+      "type_target": {
+        "type": "choice",
+        "instructions": {
+          "question": "If the next action is typing, which text field in `page.elements` should receive a value from `inputs` to make progress toward `goal`?",
+          "rules": [
+            "Prefer empty fields over fields that already contain the right value.",
+            "Choose `none` if no listed field should be filled now."
+          ]
+        },
+        "criteria": {
+          "e3": "text field 'q' (current value \"apple stock price\")",
+          "none": "No listed text field should be filled now."
+        }
+      }
+    }
+  },
+  "response_answers": {
+    "type_target": {
+      "type": "choice",
+      "choice": "e3",
+      "confidence": 0.7154,
+      "probabilities": {
+        "e3": 0.8577,
+        "none": 0.1423
+      }
+    }
+  }
+}

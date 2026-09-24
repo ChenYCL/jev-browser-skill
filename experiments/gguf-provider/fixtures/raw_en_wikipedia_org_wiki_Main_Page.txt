@@ -1,0 +1,834 @@
+backend=ego model=jev-latest maxSteps=25 budget=$0.25
+ego task space 15, page p1
+{
+  "mode": "dry-run",
+  "backend": "ego",
+  "state": {
+    "goal": "find today's price of AAPL",
+    "inputs": "none provided",
+    "page": {
+      "url": "https://en.wikipedia.org/wiki/Main_Page",
+      "title": "Wikipedia, the free encyclopedia",
+      "headings": [
+        "# Welcome to Wikipedia",
+        "## From today's featured article",
+        "## Did you know ...",
+        "## In the news",
+        "## On this day",
+        "## From today's featured list",
+        "## Today's featured video",
+        "## Other areas of Wikipedia",
+        "## Wikipedia's sister projects"
+      ],
+      "dialog": null,
+      "scroll_position": "at the top; more content below",
+      "visible_text": "Jump to content Main menu Search Donate Create account Log in Main Page Talk Read View source View history Tools Appearance hide Text Small Standard Large Width Standard Wide Color Automatic Light Dark Welcome to Wikipedia, the free encyclopedia that anyone can edit. 265,014 active editors7,243,180 articles in English From today's featured article Mary Mallon (September 23, 1869 – November 11, 1938), dubbed Typhoid Mary, was an Irish-born cook who lived in the US and is believed to have infected up to 57 people with the bacteria that cause typhoid fever, with three confirmed deaths. Between 1897 and 1907, Mallon worked at several homes; residents at four of them contracted typhoid. In 1907, she was forcibly quarantined at Riverside Hospital, but was freed in 1910, promising not to work as a cook. A further outbreak at the Sloane Maternity Hospital, where she was working, resulted in 25 cases and two deaths in early 1915. She was again confined, remaining so until her death in 1938. Her nickname became a term for anyone who spreads disease. Mallon's case raises questions about the balance between individual liberty and public health. No other carrier of typhoid was confined for as long as she was. Her story has been reevaluated, particularly during outbreaks of HIV/AIDS, tuberculosis, and COVID-19. (Full article...) Recently featured: Alison FrantzEarly Netherlandish paintingMisti ArchiveBy emailMore featured articlesAbout Did you know ... Lotte Rakhat chocolate bar ... that amendments to Kazakhstan's law on state symbols raised concerns over changes to the packaging of one of Lotte Rakhat's most popular products (pictured)? ... that a promotion for the Jackie Robinson commemorative coins included a baseball card issued by the United States government? ... that \"Candidatus Magnetoglobus multicellularis\", unlike almost all other known prokaryotes, spends its entire life cycle as a multicellular organism? ... that Leona E. Prasse's 1972 Feininger catalogue, which involved the help of the subject's widow, was called an improvement over a previous Feininger book from 1959? ... that the dinosaur that laid the eggs identified as Umbellaoolithus is unknown, but it ate plants? ... that only a shoe and a backpack were found after Makan Nasiri was killed in the 2026 Minab school attack? ... that a story in I Became the Main Role of a BL Drama was published as a script because there were not enough pages or time to include it as a full comic? ... that \"Pistol Nell\" earned her nickname by helping to thwart a bank robbery? ... that Billy Bragg ate Joe Hill's ashes? ArchiveStart a new articleNominate an article In the news Tilcayo An attack on a police complex in Kohat, Pakistan, leaves at least 31 people dead. The tilcayo (pictured), a new species of tiger cat, is formally identified. Former leader of Kosovo Hashim Thaçi is sentenced to 25 years in prison for war crimes during his leadership of the Kosovo Liberation Army. At the Primetime Emmy Awards, Widow's…",
+      "elements": [
+        {
+          "id": "e1",
+          "description": "link 'Archive' → https://en.wikipedia.org/wiki/Wikipedia:Today's_featured_article/September_2026",
+          "in_viewport": true
+        },
+        {
+          "id": "e2",
+          "description": "link 'About' → https://en.wikipedia.org/wiki/Wikipedia:About_Today's_featured_article",
+          "in_viewport": true
+        },
+        {
+          "id": "e3",
+          "description": "link 'Archive' → https://en.wikipedia.org/wiki/Wikipedia:Today's_featured_list/September_2026",
+          "in_viewport": false
+        },
+        {
+          "id": "e4",
+          "description": "link '/wiki/Main_Page' → /wiki/Main_Page",
+          "in_viewport": true
+        },
+        {
+          "id": "e5",
+          "description": "text field 'Search Wikipedia' (type search, placeholder \"Search Wikipedia\", empty)",
+          "in_viewport": true
+        },
+        {
+          "id": "e6",
+          "description": "button 'Search'",
+          "in_viewport": true
+        },
+        {
+          "id": "e7",
+          "description": "link 'Donate' → https://donate.wikimedia.org/?wmf_source=donate&wmf_medium=sidebar&wmf_campaign=en.wikipedia.org&uselang=en",
+          "in_viewport": true
+        },
+        {
+          "id": "e8",
+          "description": "link 'Create account' → /w/index.php?title=Special:CreateAccount&returnto=Main+Page",
+          "in_viewport": true
+        },
+        {
+          "id": "e9",
+          "description": "link 'Log in' → /w/index.php?title=Special:UserLogin&returnto=Main+Page",
+          "in_viewport": true
+        },
+        {
+          "id": "e10",
+          "description": "link 'Main Page' → /wiki/Main_Page",
+          "in_viewport": true
+        },
+        {
+          "id": "e11",
+          "description": "link 'Talk' → /wiki/Talk:Main_Page",
+          "in_viewport": true
+        },
+        {
+          "id": "e12",
+          "description": "link 'Read' → /wiki/Main_Page",
+          "in_viewport": true
+        },
+        {
+          "id": "e13",
+          "description": "link 'View source' → /w/index.php?title=Main_Page&action=edit",
+          "in_viewport": true
+        },
+        {
+          "id": "e14",
+          "description": "link 'View history' → /w/index.php?title=Main_Page&action=history",
+          "in_viewport": true
+        },
+        {
+          "id": "e15",
+          "description": "button 'Hide Appearance'",
+          "in_viewport": true
+        },
+        {
+          "id": "e16",
+          "description": "link 'Wikipedia' → https://en.wikipedia.org/wiki/Wikipedia",
+          "in_viewport": true
+        },
+        {
+          "id": "e17",
+          "description": "link 'free' → https://en.wikipedia.org/wiki/Free_content",
+          "in_viewport": true
+        },
+        {
+          "id": "e18",
+          "description": "link 'anyone can edit' → https://en.wikipedia.org/wiki/Help:Introduction_to_Wikipedia",
+          "in_viewport": true
+        },
+        {
+          "id": "e19",
+          "description": "link '265,014' → https://en.wikipedia.org/wiki/Special:Statistics",
+          "in_viewport": true
+        },
+        {
+          "id": "e20",
+          "description": "link '7,243,180' → https://en.wikipedia.org/wiki/Special:Statistics",
+          "in_viewport": true
+        },
+        {
+          "id": "e21",
+          "description": "link 'English' → https://en.wikipedia.org/wiki/English_language",
+          "in_viewport": true
+        },
+        {
+          "id": "e22",
+          "description": "link 'Mary Mallon' → https://en.wikipedia.org/wiki/Mary_Mallon",
+          "in_viewport": true
+        },
+        {
+          "id": "e23",
+          "description": "link 'An attack on a police complex' → https://en.wikipedia.org/wiki/2026_Kohat_attack",
+          "in_viewport": true
+        },
+        {
+          "id": "e24",
+          "description": "link 'Kohat' → https://en.wikipedia.org/wiki/Kohat",
+          "in_viewport": true
+        },
+        {
+          "id": "e25",
+          "description": "link 'Tilcayo' → https://en.wikipedia.org/wiki/File:Leopardus_tilcayo_(5x3_cropped).jpg",
+          "in_viewport": true
+        },
+        {
+          "id": "e26",
+          "description": "link 'bacteria' → https://en.wikipedia.org/wiki/Bacteria",
+          "in_viewport": true
+        },
+        {
+          "id": "e27",
+          "description": "link 'typhoid fever' → https://en.wikipedia.org/wiki/Typhoid_fever",
+          "in_viewport": true
+        },
+        {
+          "id": "e28",
+          "description": "link 'tilcayo' → https://en.wikipedia.org/wiki/Tilcayo",
+          "in_viewport": true
+        },
+        {
+          "id": "e29",
+          "description": "link 'Mary Mallon' → https://en.wikipedia.org/wiki/File:Mary_Mallon,_aka_Typhoid_Mary.jpg",
+          "in_viewport": true
+        },
+        {
+          "id": "e30",
+          "description": "link 'quarantined' → https://en.wikipedia.org/wiki/Quarantine",
+          "in_viewport": true
+        },
+        {
+          "id": "e31",
+          "description": "link 'Hashim Thaçi' → https://en.wikipedia.org/wiki/Hashim_Thaçi",
+          "in_viewport": true
+        },
+        {
+          "id": "e32",
+          "description": "link 'war crimes during his leadership' → https://en.wikipedia.org/wiki/War_crimes_in_the_Kosovo_War#KLA_war_crimes",
+          "in_viewport": true
+        },
+        {
+          "id": "e33",
+          "description": "link 'Sloane Maternity Hospital' → https://en.wikipedia.org/wiki/Sloane_Hospital_for_Women",
+          "in_viewport": true
+        },
+        {
+          "id": "e34",
+          "description": "link 'Kosovo Liberation Army' → https://en.wikipedia.org/wiki/Kosovo_Liberation_Army",
+          "in_viewport": true
+        },
+        {
+          "id": "e35",
+          "description": "link 'the Primetime Emmy Awards' → https://en.wikipedia.org/wiki/78th_Primetime_Emmy_Awards",
+          "in_viewport": true
+        },
+        {
+          "id": "e36",
+          "description": "link 'Widow's Bay' → https://en.wikipedia.org/wiki/Widow's_Bay",
+          "in_viewport": true
+        },
+        {
+          "id": "e37",
+          "description": "link 'Outstanding Comedy Series' → https://en.wikipedia.org/wiki/Primetime_Emmy_Award_for_Outstanding_Comedy_Series",
+          "in_viewport": true
+        },
+        {
+          "id": "e38",
+          "description": "link 'The Pitt' → https://en.wikipedia.org/wiki/The_Pitt",
+          "in_viewport": true
+        },
+        {
+          "id": "e39",
+          "description": "link 'Outstanding Drama Series' → https://en.wikipedia.org/wiki/Primetime_Emmy_Award_for_Outstanding_Drama_Series",
+          "in_viewport": true
+        },
+        {
+          "id": "e40",
+          "description": "link 'public health' → https://en.wikipedia.org/wiki/Public_health",
+          "in_viewport": true
+        },
+        {
+          "id": "e41",
+          "description": "link 'Iran war' → https://en.wikipedia.org/wiki/2026_Iran_war",
+          "in_viewport": true
+        },
+        {
+          "id": "e42",
+          "description": "link 'Lebanon war' → https://en.wikipedia.org/wiki/2026_Lebanon_war",
+          "in_viewport": true
+        },
+        {
+          "id": "e43",
+          "description": "link 'Russo-Ukrainian war' → https://en.wikipedia.org/wiki/Russo-Ukrainian_war_(2022–present)",
+          "in_viewport": true
+        },
+        {
+          "id": "e44",
+          "description": "link 'timeline' → https://en.wikipedia.org/wiki/Timeline_of_the_Russo-Ukrainian_war_(1_September_2026_–_present)",
+          "in_viewport": true
+        },
+        {
+          "id": "e45",
+          "description": "link 'HIV/AIDS' → https://en.wikipedia.org/wiki/HIV/AIDS",
+          "in_viewport": true
+        },
+        {
+          "id": "e46",
+          "description": "link 'tuberculosis' → https://en.wikipedia.org/wiki/Tuberculosis",
+          "in_viewport": true
+        },
+        {
+          "id": "e47",
+          "description": "link 'Recent deaths' → https://en.wikipedia.org/wiki/Deaths_in_2026",
+          "in_viewport": true
+        },
+        {
+          "id": "e48",
+          "description": "link 'Dolores Sibonga' → https://en.wikipedia.org/wiki/Dolores_Sibonga",
+          "in_viewport": true
+        },
+        {
+          "id": "e49",
+          "description": "link 'Aracy Amaral' → https://en.wikipedia.org/wiki/Aracy_Amaral",
+          "in_viewport": true
+        },
+        {
+          "id": "e50",
+          "description": "link 'Bonnie Greer' → https://en.wikipedia.org/wiki/Bonnie_Greer",
+          "in_viewport": true
+        },
+        {
+          "id": "e51",
+          "description": "link 'COVID-19' → https://en.wikipedia.org/wiki/COVID-19",
+          "in_viewport": true
+        },
+        {
+          "id": "e52",
+          "description": "link 'Full article...' → https://en.wikipedia.org/wiki/Mary_Mallon",
+          "in_viewport": true
+        },
+        {
+          "id": "e53",
+          "description": "link 'Peter Max' → https://en.wikipedia.org/wiki/Peter_Max",
+          "in_viewport": true
+        },
+        {
+          "id": "e54",
+          "description": "link 'Chung Ho-yong' → https://en.wikipedia.org/wiki/Chung_Ho-yong",
+          "in_viewport": true
+        },
+        {
+          "id": "e55",
+          "description": "link 'Win Aung' → https://en.wikipedia.org/wiki/Win_Aung_(footballer)",
+          "in_viewport": true
+        },
+        {
+          "id": "e56",
+          "description": "link 'More current events' → https://en.wikipedia.org/wiki/Portal:Current_events",
+          "in_viewport": true
+        },
+        {
+          "id": "e57",
+          "description": "link 'Nominate an article' → https://en.wikipedia.org/wiki/Wikipedia:In_the_news/Candidates",
+          "in_viewport": true
+        },
+        {
+          "id": "e58",
+          "description": "link 'Alison Frantz' → https://en.wikipedia.org/wiki/Alison_Frantz",
+          "in_viewport": true
+        },
+        {
+          "id": "e59",
+          "description": "link 'Early Netherlandish painting' → https://en.wikipedia.org/wiki/Early_Netherlandish_painting",
+          "in_viewport": true
+        },
+        {
+          "id": "e60",
+          "description": "link 'Misti' → https://en.wikipedia.org/wiki/Misti",
+          "in_viewport": true
+        },
+        {
+          "id": "e61",
+          "description": "link 'By email' → https://lists.wikimedia.org/postorius/lists/daily-article-l.lists.wikimedia.org/",
+          "in_viewport": true
+        },
+        {
+          "id": "e62",
+          "description": "link 'More featured articles' → https://en.wikipedia.org/wiki/Wikipedia:Featured_articles_(linked_from_TFAfooter)",
+          "in_viewport": true
+        },
+        {
+          "id": "e63",
+          "description": "link 'September 23' → https://en.wikipedia.org/wiki/September_23",
+          "in_viewport": false
+        },
+        {
+          "id": "e64",
+          "description": "link 'Celebrate Bisexuality Day' → https://en.wikipedia.org/wiki/Celebrate_Bisexuality_Day",
+          "in_viewport": false
+        },
+        {
+          "id": "e65",
+          "description": "link '1803' → https://en.wikipedia.org/wiki/1803",
+          "in_viewport": false
+        },
+        {
+          "id": "e66",
+          "description": "link 'Maratha' → https://en.wikipedia.org/wiki/Maratha_Empire",
+          "in_viewport": false
+        },
+        {
+          "id": "e67",
+          "description": "link 'East India Company' → https://en.wikipedia.org/wiki/East_India_Company",
+          "in_viewport": false
+        },
+        {
+          "id": "e68",
+          "description": "link 'Lotte Rakhat' → https://en.wikipedia.org/wiki/Lotte_Rakhat",
+          "in_viewport": false
+        },
+        {
+          "id": "e69",
+          "description": "link 'Lotte Rakhat chocolate bar' → https://en.wikipedia.org/wiki/File:Rakhat_Kazakhstan_dark_chocolate_bar_(square_crop).jpg",
+          "in_viewport": false
+        },
+        {
+          "id": "e70",
+          "description": "link 'U2 performing in Sarajevo' → https://en.wikipedia.org/wiki/File:U2_performing_in_Sarajevo_on_Sept_23_1997_(11).jpg",
+          "in_viewport": false
+        },
+        {
+          "id": "e71",
+          "description": "link 'Battle of Assaye' → https://en.wikipedia.org/wiki/Battle_of_Assaye",
+          "in_viewport": false
+        },
+        {
+          "id": "e72",
+          "description": "link 'Jackie Robinson commemorative coins' → https://en.wikipedia.org/wiki/Jackie_Robinson_commemorative_coins",
+          "in_viewport": false
+        },
+        {
+          "id": "e73",
+          "description": "link 'Second Anglo-Maratha War' → https://en.wikipedia.org/wiki/Second_Anglo-Maratha_War",
+          "in_viewport": false
+        },
+        {
+          "id": "e74",
+          "description": "link 'baseball card' → https://en.wikipedia.org/wiki/Baseball_card",
+          "in_viewport": false
+        },
+        {
+          "id": "e75",
+          "description": "link '1884' → https://en.wikipedia.org/wiki/1884",
+          "in_viewport": false
+        },
+        {
+          "id": "e76",
+          "description": "link 'Cape Virgenes' → https://en.wikipedia.org/wiki/Cape_Virgenes",
+          "in_viewport": false
+        },
+        {
+          "id": "e77",
+          "description": "link 'Candidatus Magnetoglobus multicellularis' → https://en.wikipedia.org/wiki/Candidatus_Magnetoglobus_multicellularis",
+          "in_viewport": false
+        },
+        {
+          "id": "e78",
+          "description": "link 'prokaryotes' → https://en.wikipedia.org/wiki/Prokaryote",
+          "in_viewport": false
+        },
+        {
+          "id": "e79",
+          "description": "link 'Tierra del Fuego Gold Rush' → https://en.wikipedia.org/wiki/Tierra_del_Fuego_Gold_Rush",
+          "in_viewport": false
+        },
+        {
+          "id": "e80",
+          "description": "link '1983' → https://en.wikipedia.org/wiki/1983",
+          "in_viewport": false
+        },
+        {
+          "id": "e81",
+          "description": "link 'Gulf Air Flight 771' → https://en.wikipedia.org/wiki/Gulf_Air_Flight_771",
+          "in_viewport": false
+        },
+        {
+          "id": "e82",
+          "description": "link 'Leona E. Prasse' → https://en.wikipedia.org/wiki/Leona_E._Prasse",
+          "in_viewport": false
+        },
+        {
+          "id": "e83",
+          "description": "link '1972 Feininger catalogue' → https://en.wikipedia.org/wiki/Lyonel_Feininger:_A_Definitive_Catalogue_of_His_Graphic_Work",
+          "in_viewport": false
+        },
+        {
+          "id": "e84",
+          "description": "link 'Abu Nidal Organization' → https://en.wikipedia.org/wiki/Abu_Nidal_Organization",
+          "in_viewport": false
+        },
+        {
+          "id": "e85",
+          "description": "link 'the subject's widow' → https://en.wikipedia.org/wiki/Julia_Feininger",
+          "in_viewport": false
+        },
+        {
+          "id": "e86",
+          "description": "link 'a previous Feininger book from 1959' → https://en.wikipedia.org/wiki/Lyonel_Feininger_(Hess_book)",
+          "in_viewport": false
+        },
+        {
+          "id": "e87",
+          "description": "link 'United Arab Emirates' → https://en.wikipedia.org/wiki/United_Arab_Emirates",
+          "in_viewport": false
+        },
+        {
+          "id": "e88",
+          "description": "link '1997' → https://en.wikipedia.org/wiki/1997",
+          "in_viewport": false
+        },
+        {
+          "id": "e89",
+          "description": "link 'U2' → https://en.wikipedia.org/wiki/U2",
+          "in_viewport": false
+        },
+        {
+          "id": "e90",
+          "description": "link 'performed' → https://en.wikipedia.org/wiki/U2_concert_in_Sarajevo",
+          "in_viewport": false
+        },
+        {
+          "id": "e91",
+          "description": "link 'Sarajevo' → https://en.wikipedia.org/wiki/Sarajevo",
+          "in_viewport": false
+        },
+        {
+          "id": "e92",
+          "description": "link 'Umbellaoolithus' → https://en.wikipedia.org/wiki/Umbellaoolithus",
+          "in_viewport": false
+        },
+        {
+          "id": "e93",
+          "description": "link 'Bosnian War' → https://en.wikipedia.org/wiki/Bosnian_War",
+          "in_viewport": false
+        },
+        {
+          "id": "e94",
+          "description": "link 'Makan Nasiri' → https://en.wikipedia.org/wiki/Makan_Nasiri",
+          "in_viewport": false
+        },
+        {
+          "id": "e95",
+          "description": "link '2016' → https://en.wikipedia.org/wiki/2016",
+          "in_viewport": false
+        },
+        {
+          "id": "e96",
+          "description": "link '2026 Minab school attack' → https://en.wikipedia.org/wiki/2026_Minab_school_attack",
+          "in_viewport": false
+        },
+        {
+          "id": "e97",
+          "description": "link 'rape in Germany' → https://en.wikipedia.org/wiki/Rape_in_Germany",
+          "in_viewport": false
+        },
+        {
+          "id": "e98",
+          "description": "link 'I Became the Main Role of a BL Drama' → https://en.wikipedia.org/wiki/I_Became_the_Main_Role_of_a_BL_Drama",
+          "in_viewport": false
+        },
+        {
+          "id": "e99",
+          "description": "link 'script' → https://en.wikipedia.org/wiki/Script_(comics)",
+          "in_viewport": false
+        },
+        {
+          "id": "e100",
+          "description": "link 'Eleonora Gonzaga' → https://en.wikipedia.org/wiki/Eleonora_Gonzaga_(born_1598)",
+          "in_viewport": false
+        }
+      ],
+      "omitted_elements": 82
+    },
+    "previous_page": null,
+    "last_action": null,
+    "history": {
+      "steps_taken": 0,
+      "recent_urls": []
+    }
+  },
+  "questions": {
+    "goal_done": {
+      "type": "noul",
+      "instructions": {
+        "question": "Is `goal` already fully accomplished according to what `page` shows right now?",
+        "rules": [
+          "Judge only from `page` (its url, title, headings, visible_text, dialog and elements).",
+          "A page that merely offers a way to accomplish `goal` does not count as accomplished.",
+          "If `goal` asks to open or view something, it is accomplished when that thing is what `page` shows.",
+          "If `goal` asks to perform an action (submit, add, sign in, start), it is accomplished only when `page` shows the result or confirmation of that action."
+        ]
+      },
+      "criteria": {
+        "true": "`page` shows the end result that `goal` asks for.",
+        "false": "At least one more action is needed, `page` shows something else, or it is unclear."
+      }
+    },
+    "blocker": {
+      "type": "choice",
+      "instructions": {
+        "question": "Does `page` present an obstacle that an automated browser agent cannot resolve with the listed elements and `inputs`, stopping progress toward `goal`?",
+        "rules": [
+          "Pick `none` unless the obstacle is clearly visible in `page`.",
+          "Cookie banners or dialogs that have a listed button to dismiss them are not obstacles."
+        ]
+      },
+      "criteria": {
+        "none": "No obstacle: the page can be operated normally (a login form that can be filled with provided `inputs` is not an obstacle).",
+        "login_required": "The page requires signing in and `inputs` does not provide the credentials needed to sign in.",
+        "verification_challenge": "A CAPTCHA, one-time code, two-factor prompt, or similar human verification is shown.",
+        "consent_or_permission_dialog": "A modal dialog demanding consent, permissions, or a choice from the user blocks the content and nothing listed dismisses it.",
+        "error_page": "The page shows an error (not found, access denied, server error, network failure) instead of the expected content.",
+        "missing_information": "Progress requires information (an account, payment details, a value) that is neither on the page nor in `inputs`."
+      }
+    },
+    "action": {
+      "type": "choice",
+      "instructions": {
+        "question": "Which single browser action should be performed next to make progress toward `goal` from the current `page`?",
+        "rules": [
+          "Every element in `page.elements` can be clicked, filled or selected right now, even when its in_viewport is false (the browser scrolls to it). Scroll only when the needed element or text is not listed at all.",
+          "Use `type` only when a value in `inputs` belongs in a listed text field.",
+          "Use `stop` when `goal` is already accomplished or nothing listed can help.",
+          "Consider `last_action` and `history`: do not repeat an action that produced no change."
+        ]
+      },
+      "criteria": {
+        "click": {
+          "what": "Click one element listed in `page.elements` (a link, button, checkbox, radio, tab, menu item, or similar).",
+          "use_when": "The next step toward `goal` is to open, choose, submit, toggle, or confirm something that is listed."
+        },
+        "scroll_down": {
+          "what": "Scroll down to reveal content that is not listed in `page.elements` and not in `page.visible_text`.",
+          "use_when": "Nothing listed can serve `goal` and more content probably exists further down. Never needed to reach an element that is already listed: clicking scrolls to it automatically."
+        },
+        "wait": {
+          "what": "Do nothing for a moment because the page is still loading or a result is still pending.",
+          "use_when": "The visible text or a dialog indicates loading, processing, or a countdown."
+        },
+        "stop": {
+          "what": "Stop: no listed action can make progress toward `goal`.",
+          "use_when": "`goal` is already accomplished as shown by `page`, or it is impossible from here with the listed actions."
+        }
+      }
+    },
+    "click_target": {
+      "type": "choice",
+      "instructions": {
+        "question": "If the next action is a click, which element in `page.elements` should be clicked to make progress toward `goal`?",
+        "rules": [
+          "Choose `none` if no listed element helps.",
+          "Each option id refers to `page.elements[].id`."
+        ]
+      },
+      "criteria": {
+        "e1": "link 'Archive' → https://en.wikipedia.org/wiki/Wikipedia:Today's_featured_article/September_2026",
+        "e2": "link 'About' → https://en.wikipedia.org/wiki/Wikipedia:About_Today's_featured_article",
+        "e3": "link 'Archive' → https://en.wikipedia.org/wiki/Wikipedia:Today's_featured_list/September_2026",
+        "e4": "link '/wiki/Main_Page' → /wiki/Main_Page",
+        "e6": "button 'Search'",
+        "e7": "link 'Donate' → https://donate.wikimedia.org/?wmf_source=donate&wmf_medium=sidebar&wmf_campaign=en.wikipedia.org&uselang=en",
+        "e8": "link 'Create account' → /w/index.php?title=Special:CreateAccount&returnto=Main+Page",
+        "e9": "link 'Log in' → /w/index.php?title=Special:UserLogin&returnto=Main+Page",
+        "e10": "link 'Main Page' → /wiki/Main_Page",
+        "e11": "link 'Talk' → /wiki/Talk:Main_Page",
+        "e12": "link 'Read' → /wiki/Main_Page",
+        "e13": "link 'View source' → /w/index.php?title=Main_Page&action=edit",
+        "e14": "link 'View history' → /w/index.php?title=Main_Page&action=history",
+        "e15": "button 'Hide Appearance'",
+        "e16": "link 'Wikipedia' → https://en.wikipedia.org/wiki/Wikipedia",
+        "e17": "link 'free' → https://en.wikipedia.org/wiki/Free_content",
+        "e18": "link 'anyone can edit' → https://en.wikipedia.org/wiki/Help:Introduction_to_Wikipedia",
+        "e19": "link '265,014' → https://en.wikipedia.org/wiki/Special:Statistics",
+        "e20": "link '7,243,180' → https://en.wikipedia.org/wiki/Special:Statistics",
+        "e21": "link 'English' → https://en.wikipedia.org/wiki/English_language",
+        "e22": "link 'Mary Mallon' → https://en.wikipedia.org/wiki/Mary_Mallon",
+        "e23": "link 'An attack on a police complex' → https://en.wikipedia.org/wiki/2026_Kohat_attack",
+        "e24": "link 'Kohat' → https://en.wikipedia.org/wiki/Kohat",
+        "e25": "link 'Tilcayo' → https://en.wikipedia.org/wiki/File:Leopardus_tilcayo_(5x3_cropped).jpg",
+        "e26": "link 'bacteria' → https://en.wikipedia.org/wiki/Bacteria",
+        "e27": "link 'typhoid fever' → https://en.wikipedia.org/wiki/Typhoid_fever",
+        "e28": "link 'tilcayo' → https://en.wikipedia.org/wiki/Tilcayo",
+        "e29": "link 'Mary Mallon' → https://en.wikipedia.org/wiki/File:Mary_Mallon,_aka_Typhoid_Mary.jpg",
+        "e30": "link 'quarantined' → https://en.wikipedia.org/wiki/Quarantine",
+        "e31": "link 'Hashim Thaçi' → https://en.wikipedia.org/wiki/Hashim_Thaçi",
+        "e32": "link 'war crimes during his leadership' → https://en.wikipedia.org/wiki/War_crimes_in_the_Kosovo_War#KLA_war_crimes",
+        "e33": "link 'Sloane Maternity Hospital' → https://en.wikipedia.org/wiki/Sloane_Hospital_for_Women",
+        "e34": "link 'Kosovo Liberation Army' → https://en.wikipedia.org/wiki/Kosovo_Liberation_Army",
+        "e35": "link 'the Primetime Emmy Awards' → https://en.wikipedia.org/wiki/78th_Primetime_Emmy_Awards",
+        "e36": "link 'Widow's Bay' → https://en.wikipedia.org/wiki/Widow's_Bay",
+        "e37": "link 'Outstanding Comedy Series' → https://en.wikipedia.org/wiki/Primetime_Emmy_Award_for_Outstanding_Comedy_Series",
+        "e38": "link 'The Pitt' → https://en.wikipedia.org/wiki/The_Pitt",
+        "e39": "link 'Outstanding Drama Series' → https://en.wikipedia.org/wiki/Primetime_Emmy_Award_for_Outstanding_Drama_Series",
+        "e40": "link 'public health' → https://en.wikipedia.org/wiki/Public_health",
+        "e41": "link 'Iran war' → https://en.wikipedia.org/wiki/2026_Iran_war",
+        "e42": "link 'Lebanon war' → https://en.wikipedia.org/wiki/2026_Lebanon_war",
+        "e43": "link 'Russo-Ukrainian war' → https://en.wikipedia.org/wiki/Russo-Ukrainian_war_(2022–present)",
+        "e44": "link 'timeline' → https://en.wikipedia.org/wiki/Timeline_of_the_Russo-Ukrainian_war_(1_September_2026_–_present)",
+        "e45": "link 'HIV/AIDS' → https://en.wikipedia.org/wiki/HIV/AIDS",
+        "e46": "link 'tuberculosis' → https://en.wikipedia.org/wiki/Tuberculosis",
+        "e47": "link 'Recent deaths' → https://en.wikipedia.org/wiki/Deaths_in_2026",
+        "e48": "link 'Dolores Sibonga' → https://en.wikipedia.org/wiki/Dolores_Sibonga",
+        "e49": "link 'Aracy Amaral' → https://en.wikipedia.org/wiki/Aracy_Amaral",
+        "e50": "link 'Bonnie Greer' → https://en.wikipedia.org/wiki/Bonnie_Greer",
+        "e51": "link 'COVID-19' → https://en.wikipedia.org/wiki/COVID-19",
+        "e52": "link 'Full article...' → https://en.wikipedia.org/wiki/Mary_Mallon",
+        "e53": "link 'Peter Max' → https://en.wikipedia.org/wiki/Peter_Max",
+        "e54": "link 'Chung Ho-yong' → https://en.wikipedia.org/wiki/Chung_Ho-yong",
+        "e55": "link 'Win Aung' → https://en.wikipedia.org/wiki/Win_Aung_(footballer)",
+        "e56": "link 'More current events' → https://en.wikipedia.org/wiki/Portal:Current_events",
+        "e57": "link 'Nominate an article' → https://en.wikipedia.org/wiki/Wikipedia:In_the_news/Candidates",
+        "e58": "link 'Alison Frantz' → https://en.wikipedia.org/wiki/Alison_Frantz",
+        "e59": "link 'Early Netherlandish painting' → https://en.wikipedia.org/wiki/Early_Netherlandish_painting",
+        "e60": "link 'Misti' → https://en.wikipedia.org/wiki/Misti",
+        "e61": "link 'By email' → https://lists.wikimedia.org/postorius/lists/daily-article-l.lists.wikimedia.org/",
+        "e62": "link 'More featured articles' → https://en.wikipedia.org/wiki/Wikipedia:Featured_articles_(linked_from_TFAfooter)",
+        "e63": "link 'September 23' → https://en.wikipedia.org/wiki/September_23",
+        "e64": "link 'Celebrate Bisexuality Day' → https://en.wikipedia.org/wiki/Celebrate_Bisexuality_Day",
+        "e65": "link '1803' → https://en.wikipedia.org/wiki/1803",
+        "e66": "link 'Maratha' → https://en.wikipedia.org/wiki/Maratha_Empire",
+        "e67": "link 'East India Company' → https://en.wikipedia.org/wiki/East_India_Company",
+        "e68": "link 'Lotte Rakhat' → https://en.wikipedia.org/wiki/Lotte_Rakhat",
+        "e69": "link 'Lotte Rakhat chocolate bar' → https://en.wikipedia.org/wiki/File:Rakhat_Kazakhstan_dark_chocolate_bar_(square_crop).jpg",
+        "e70": "link 'U2 performing in Sarajevo' → https://en.wikipedia.org/wiki/File:U2_performing_in_Sarajevo_on_Sept_23_1997_(11).jpg",
+        "e71": "link 'Battle of Assaye' → https://en.wikipedia.org/wiki/Battle_of_Assaye",
+        "e72": "link 'Jackie Robinson commemorative coins' → https://en.wikipedia.org/wiki/Jackie_Robinson_commemorative_coins",
+        "e73": "link 'Second Anglo-Maratha War' → https://en.wikipedia.org/wiki/Second_Anglo-Maratha_War",
+        "e74": "link 'baseball card' → https://en.wikipedia.org/wiki/Baseball_card",
+        "e75": "link '1884' → https://en.wikipedia.org/wiki/1884",
+        "e76": "link 'Cape Virgenes' → https://en.wikipedia.org/wiki/Cape_Virgenes",
+        "e77": "link 'Candidatus Magnetoglobus multicellularis' → https://en.wikipedia.org/wiki/Candidatus_Magnetoglobus_multicellularis",
+        "e78": "link 'prokaryotes' → https://en.wikipedia.org/wiki/Prokaryote",
+        "e79": "link 'Tierra del Fuego Gold Rush' → https://en.wikipedia.org/wiki/Tierra_del_Fuego_Gold_Rush",
+        "e80": "link '1983' → https://en.wikipedia.org/wiki/1983",
+        "e81": "link 'Gulf Air Flight 771' → https://en.wikipedia.org/wiki/Gulf_Air_Flight_771",
+        "e82": "link 'Leona E. Prasse' → https://en.wikipedia.org/wiki/Leona_E._Prasse",
+        "e83": "link '1972 Feininger catalogue' → https://en.wikipedia.org/wiki/Lyonel_Feininger:_A_Definitive_Catalogue_of_His_Graphic_Work",
+        "e84": "link 'Abu Nidal Organization' → https://en.wikipedia.org/wiki/Abu_Nidal_Organization",
+        "e85": "link 'the subject's widow' → https://en.wikipedia.org/wiki/Julia_Feininger",
+        "e86": "link 'a previous Feininger book from 1959' → https://en.wikipedia.org/wiki/Lyonel_Feininger_(Hess_book)",
+        "e87": "link 'United Arab Emirates' → https://en.wikipedia.org/wiki/United_Arab_Emirates",
+        "e88": "link '1997' → https://en.wikipedia.org/wiki/1997",
+        "e89": "link 'U2' → https://en.wikipedia.org/wiki/U2",
+        "e90": "link 'performed' → https://en.wikipedia.org/wiki/U2_concert_in_Sarajevo",
+        "e91": "link 'Sarajevo' → https://en.wikipedia.org/wiki/Sarajevo",
+        "e92": "link 'Umbellaoolithus' → https://en.wikipedia.org/wiki/Umbellaoolithus",
+        "e93": "link 'Bosnian War' → https://en.wikipedia.org/wiki/Bosnian_War",
+        "e94": "link 'Makan Nasiri' → https://en.wikipedia.org/wiki/Makan_Nasiri",
+        "e95": "link '2016' → https://en.wikipedia.org/wiki/2016",
+        "e96": "link '2026 Minab school attack' → https://en.wikipedia.org/wiki/2026_Minab_school_attack",
+        "e97": "link 'rape in Germany' → https://en.wikipedia.org/wiki/Rape_in_Germany",
+        "e98": "link 'I Became the Main Role of a BL Drama' → https://en.wikipedia.org/wiki/I_Became_the_Main_Role_of_a_BL_Drama",
+        "e99": "link 'script' → https://en.wikipedia.org/wiki/Script_(comics)",
+        "e100": "link 'Eleonora Gonzaga' → https://en.wikipedia.org/wiki/Eleonora_Gonzaga_(born_1598)",
+        "none": "No listed element should be clicked."
+      }
+    }
+  },
+  "meta": {
+    "allowedActions": [
+      "click",
+      "scroll_down",
+      "wait",
+      "stop"
+    ],
+    "clickableIds": [
+      "e1",
+      "e2",
+      "e3",
+      "e4",
+      "e6",
+      "e7",
+      "e8",
+      "e9",
+      "e10",
+      "e11",
+      "e12",
+      "e13",
+      "e14",
+      "e15",
+      "e16",
+      "e17",
+      "e18",
+      "e19",
+      "e20",
+      "e21",
+      "e22",
+      "e23",
+      "e24",
+      "e25",
+      "e26",
+      "e27",
+      "e28",
+      "e29",
+      "e30",
+      "e31",
+      "e32",
+      "e33",
+      "e34",
+      "e35",
+      "e36",
+      "e37",
+      "e38",
+      "e39",
+      "e40",
+      "e41",
+      "e42",
+      "e43",
+      "e44",
+      "e45",
+      "e46",
+      "e47",
+      "e48",
+      "e49",
+      "e50",
+      "e51",
+      "e52",
+      "e53",
+      "e54",
+      "e55",
+      "e56",
+      "e57",
+      "e58",
+      "e59",
+      "e60",
+      "e61",
+      "e62",
+      "e63",
+      "e64",
+      "e65",
+      "e66",
+      "e67",
+      "e68",
+      "e69",
+      "e70",
+      "e71",
+      "e72",
+      "e73",
+      "e74",
+      "e75",
+      "e76",
+      "e77",
+      "e78",
+      "e79",
+      "e80",
+      "e81",
+      "e82",
+      "e83",
+      "e84",
+      "e85",
+      "e86",
+      "e87",
+      "e88",
+      "e89",
+      "e90",
+      "e91",
+      "e92",
+      "e93",
+      "e94",
+      "e95",
+      "e96",
+      "e97",
+      "e98",
+      "e99",
+      "e100"
+    ],
+    "editableIds": [
+      "e5"
+    ],
+    "selectIds": [],
+    "inputKeys": [],
+    "urlInputKeys": [],
+    "questionCount": 4,
+    "candidateCount": 100
+  },
+  "estimatedInputTokens": 7744,
+  "estimatedCostUsd": 0.00032524800000000004
+}

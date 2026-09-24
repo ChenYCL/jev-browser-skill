@@ -1,0 +1,28 @@
+{
+  "runId": "2026-09-24T02-47-36-951Z-yy7ppu",
+  "status": "success",
+  "goal": "add the Red Gadget to the cart",
+  "backend": "chrome",
+  "steps": 1,
+  "startedAt": "2026-09-24T02:47:36.959Z",
+  "journalDir": "/tmp/kev-threshold/journal/g1/2026-09-24T02-47-36-951Z-yy7ppu",
+  "goalDoneProbability": 0.1952,
+  "finalUrl": "http://127.0.0.1:3111/products/red-gadget",
+  "finalTitle": "Red Gadget · Widgetry",
+  "finalTextExcerpt": "HomeProductsPricingDocsContactSign in Search Go Red Gadget A fast red gadget with a two-year warranty. Price: $25 Quantity 1 2 3 Add to cart © Widgetry Inc.",
+  "usage": {
+    "requests": 1,
+    "cacheHits": 0,
+    "inputTokens": 1449,
+    "outputTokens": 407,
+    "costUsd": 0,
+    "ms": 3663
+  },
+  "elapsedMs": 5488,
+  "finishedAt": "2026-09-24T02:47:42.446Z",
+  "resume": {
+    "backend": "chrome",
+    "cdpUrl": "http://127.0.0.1:56004",
+    "targetId": "FE329B16701FE56453435F724440F4F8"
+  }
+}

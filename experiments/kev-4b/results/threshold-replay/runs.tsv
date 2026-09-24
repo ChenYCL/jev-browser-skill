@@ -1,0 +1,17 @@
+R1	1	?	20	https://example.com
+R2	1	?	22	http://127.0.0.1:3111/products
+p1	0	success	15	http://127.0.0.1:3111/products/red-gadget
+p2	0	success	12	http://127.0.0.1:3111/products
+R5	0	success	11	http://127.0.0.1:3111/consent
+R4	0	success	19	http://127.0.0.1:3111/
+g3	0	success	16	http://127.0.0.1:3111/docs
+g1	0	success	11	http://127.0.0.1:3111/products/red-gadget
+p3	0	success	11	http://127.0.0.1:3111/pricing
+p4	0	success	30	http://127.0.0.1:3111/login
+g4	0	success	42	http://127.0.0.1:3111/contact
+R3	2	stuck	121	https://duckduckgo.com
+R6	3	needs_user	82	https://duckduckgo.com/?q=python+org
+R7	2	error	39	https://en.wikipedia.org/wiki/Special:Search
+R1	1	?	0	https://example.com
+R2	1	?	1	http://127.0.0.1:3111/products
+R8	2	max_steps	169	https://en.wikipedia.org/wiki/Main_Page

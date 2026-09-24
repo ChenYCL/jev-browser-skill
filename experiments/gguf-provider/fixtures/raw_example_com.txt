@@ -1,0 +1,128 @@
+backend=ego model=jev-latest maxSteps=25 budget=$0.25
+ego task space 22, page p1
+{
+  "mode": "dry-run",
+  "backend": "ego",
+  "state": {
+    "goal": "find today's price of AAPL",
+    "inputs": "none provided",
+    "page": {
+      "url": "https://example.com/",
+      "title": "Example Domain",
+      "headings": [
+        "# Example Domain"
+      ],
+      "dialog": null,
+      "scroll_position": "page fits in the viewport",
+      "visible_text": "Example Domain This domain is for use in documentation examples without needing permission. Avoid use in operations. Learn more",
+      "elements": [
+        {
+          "id": "e1",
+          "description": "link 'Learn more' → https://iana.org/domains/example",
+          "in_viewport": true
+        }
+      ],
+      "omitted_elements": 0
+    },
+    "previous_page": null,
+    "last_action": null,
+    "history": {
+      "steps_taken": 0,
+      "recent_urls": []
+    }
+  },
+  "questions": {
+    "goal_done": {
+      "type": "noul",
+      "instructions": {
+        "question": "Is `goal` already fully accomplished according to what `page` shows right now?",
+        "rules": [
+          "Judge only from `page` (its url, title, headings, visible_text, dialog and elements).",
+          "A page that merely offers a way to accomplish `goal` does not count as accomplished.",
+          "If `goal` asks to open or view something, it is accomplished when that thing is what `page` shows.",
+          "If `goal` asks to perform an action (submit, add, sign in, start), it is accomplished only when `page` shows the result or confirmation of that action."
+        ]
+      },
+      "criteria": {
+        "true": "`page` shows the end result that `goal` asks for.",
+        "false": "At least one more action is needed, `page` shows something else, or it is unclear."
+      }
+    },
+    "blocker": {
+      "type": "choice",
+      "instructions": {
+        "question": "Does `page` present an obstacle that an automated browser agent cannot resolve with the listed elements and `inputs`, stopping progress toward `goal`?",
+        "rules": [
+          "Pick `none` unless the obstacle is clearly visible in `page`.",
+          "Cookie banners or dialogs that have a listed button to dismiss them are not obstacles."
+        ]
+      },
+      "criteria": {
+        "none": "No obstacle: the page can be operated normally (a login form that can be filled with provided `inputs` is not an obstacle).",
+        "login_required": "The page requires signing in and `inputs` does not provide the credentials needed to sign in.",
+        "verification_challenge": "A CAPTCHA, one-time code, two-factor prompt, or similar human verification is shown.",
+        "consent_or_permission_dialog": "A modal dialog demanding consent, permissions, or a choice from the user blocks the content and nothing listed dismisses it.",
+        "error_page": "The page shows an error (not found, access denied, server error, network failure) instead of the expected content.",
+        "missing_information": "Progress requires information (an account, payment details, a value) that is neither on the page nor in `inputs`."
+      }
+    },
+    "action": {
+      "type": "choice",
+      "instructions": {
+        "question": "Which single browser action should be performed next to make progress toward `goal` from the current `page`?",
+        "rules": [
+          "Every element in `page.elements` can be clicked, filled or selected right now, even when its in_viewport is false (the browser scrolls to it). Scroll only when the needed element or text is not listed at all.",
+          "Use `type` only when a value in `inputs` belongs in a listed text field.",
+          "Use `stop` when `goal` is already accomplished or nothing listed can help.",
+          "Consider `last_action` and `history`: do not repeat an action that produced no change."
+        ]
+      },
+      "criteria": {
+        "click": {
+          "what": "Click one element listed in `page.elements` (a link, button, checkbox, radio, tab, menu item, or similar).",
+          "use_when": "The next step toward `goal` is to open, choose, submit, toggle, or confirm something that is listed."
+        },
+        "wait": {
+          "what": "Do nothing for a moment because the page is still loading or a result is still pending.",
+          "use_when": "The visible text or a dialog indicates loading, processing, or a countdown."
+        },
+        "stop": {
+          "what": "Stop: no listed action can make progress toward `goal`.",
+          "use_when": "`goal` is already accomplished as shown by `page`, or it is impossible from here with the listed actions."
+        }
+      }
+    },
+    "click_target": {
+      "type": "choice",
+      "instructions": {
+        "question": "If the next action is a click, which element in `page.elements` should be clicked to make progress toward `goal`?",
+        "rules": [
+          "Choose `none` if no listed element helps.",
+          "Each option id refers to `page.elements[].id`."
+        ]
+      },
+      "criteria": {
+        "e1": "link 'Learn more' → https://iana.org/domains/example",
+        "none": "No listed element should be clicked."
+      }
+    }
+  },
+  "meta": {
+    "allowedActions": [
+      "click",
+      "wait",
+      "stop"
+    ],
+    "clickableIds": [
+      "e1"
+    ],
+    "editableIds": [],
+    "selectIds": [],
+    "inputKeys": [],
+    "urlInputKeys": [],
+    "questionCount": 4,
+    "candidateCount": 1
+  },
+  "estimatedInputTokens": 1163,
+  "estimatedCostUsd": 0.000048846000000000006
+}

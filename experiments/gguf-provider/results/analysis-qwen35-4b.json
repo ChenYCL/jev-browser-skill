@@ -1,0 +1,343 @@
+{
+ "slug": "qwen35-4b",
+ "model": "qwen35-4b",
+ "accuracy": {
+  "all": {
+   "n": 20,
+   "correct": 16,
+   "acc": 0.8
+  },
+  "browser": {
+   "n": 15,
+   "correct": 12,
+   "acc": 0.8
+  },
+  "noul": {
+   "n": 5,
+   "correct": 4,
+   "acc": 0.8
+  },
+  "action_click": {
+   "n": 5,
+   "correct": 2,
+   "acc": 0.4
+  },
+  "baseline": {
+   "all": {
+    "n": 20,
+    "correct": 11,
+    "acc": 0.55
+   },
+   "browser": {
+    "n": 15,
+    "correct": 9,
+    "acc": 0.6
+   },
+   "noul": {
+    "n": 5,
+    "correct": 2,
+    "acc": 0.4
+   },
+   "action_click": {
+    "n": 5,
+    "correct": 2,
+    "acc": 0.4
+   }
+  }
+ },
+ "label_mass": {
+  "min": 0.7958,
+  "mean": "0.9407"
+ },
+ "non_single_token_labels": {
+  "count": 0,
+  "distinct": [],
+  "rows_affected": 0
+ },
+ "missing_labels": {
+  "count": 32,
+  "rows_affected": 1
+ },
+ "ms": {
+  "mean": 3072,
+  "median": 727,
+  "max": 13895,
+  "total": 61444
+ },
+ "latency_by_question": {
+  "click_target": {
+   "n": 2,
+   "mean": 12606,
+   "max": 13895
+  },
+  "action": {
+   "n": 3,
+   "mean": 5900,
+   "max": 8508
+  },
+  "blocker": {
+   "n": 2,
+   "mean": 759,
+   "max": 790
+  },
+  "goal_done": {
+   "n": 1,
+   "mean": 627,
+   "max": 627
+  },
+  "type_target": {
+   "n": 3,
+   "mean": 3458,
+   "max": 8444
+  },
+  "submit_after_type": {
+   "n": 2,
+   "mean": 714,
+   "max": 754
+  },
+  "type_value": {
+   "n": 1,
+   "mean": 699,
+   "max": 699
+  },
+  "progress": {
+   "n": 1,
+   "mean": 2419,
+   "max": 2419
+  },
+  "answer": {
+   "n": 5,
+   "mean": 294,
+   "max": 330
+  }
+ },
+ "fixture_step": {
+  "ms": 13809,
+  "input_tokens": 6365,
+  "click_target": {
+   "choice": "e15",
+   "p_choice": 0.49752631030352984,
+   "is_e4": false,
+   "top3": [
+    [
+     "e15",
+     0.49752631030352984
+    ],
+    [
+     "e1",
+     0.2233954421375388
+    ],
+    [
+     "e17",
+     0.10341541991114342
+    ]
+   ]
+  },
+  "action": "click",
+  "goal_done": 0.005977653648835284,
+  "blocker": "none",
+  "select_target": "none"
+ },
+ "per_item": [
+  {
+   "id": "ddg-click-target-aapl",
+   "q": "click_target",
+   "want": "e1",
+   "got": "e15",
+   "correct": false,
+   "ms": 13895,
+   "mass": 0.9942416223501861,
+   "conf": 0.5983153418154805
+  },
+  {
+   "id": "ddg-action-aapl",
+   "q": "action",
+   "want": "click",
+   "got": "click",
+   "correct": true,
+   "ms": 8494,
+   "mass": 0.9930100049352326,
+   "conf": 0.03687207423806582
+  },
+  {
+   "id": "ddg-blocker-aapl",
+   "q": "blocker",
+   "want": "none",
+   "got": "none",
+   "correct": true,
+   "ms": 790,
+   "mass": 0.9970363253900683,
+   "conf": 0.7225273482158092
+  },
+  {
+   "id": "ddg-goal-done-aapl",
+   "q": "goal_done",
+   "want": "false",
+   "got": "false",
+   "correct": true,
+   "ms": 627,
+   "mass": 0.9759872065102332,
+   "conf": null
+  },
+  {
+   "id": "ddg-typed-action",
+   "q": "action",
+   "want": "type",
+   "got": "click",
+   "correct": false,
+   "ms": 8508,
+   "mass": 0.993782950148219,
+   "conf": 0.022115326899705745
+  },
+  {
+   "id": "ddg-typed-type-target",
+   "q": "type_target",
+   "want": "e3",
+   "got": "e3",
+   "correct": true,
+   "ms": 603,
+   "mass": 0.97274497369413,
+   "conf": 0.0663755915484513
+  },
+  {
+   "id": "ddg-typed-submit",
+   "q": "submit_after_type",
+   "want": "true",
+   "got": "true",
+   "correct": true,
+   "ms": 674,
+   "mass": 0.9903231510847224,
+   "conf": null
+  },
+  {
+   "id": "wiki-login-click-target",
+   "q": "click_target",
+   "want": "e9",
+   "got": "e9",
+   "correct": true,
+   "ms": 11317,
+   "mass": 0.9965940330439397,
+   "conf": 0.9787832727033573
+  },
+  {
+   "id": "wiki-typed-type-target",
+   "q": "type_target",
+   "want": "e1",
+   "got": "e1",
+   "correct": true,
+   "ms": 8444,
+   "mass": 0.9705827442553207,
+   "conf": 0.6262876936234341
+  },
+  {
+   "id": "github-login-type-target",
+   "q": "type_target",
+   "want": "e3",
+   "got": "e3",
+   "correct": true,
+   "ms": 1328,
+   "mass": 0.9729172014018796,
+   "conf": 0.6624170205419474
+  },
+  {
+   "id": "github-login-type-value",
+   "q": "type_value",
+   "want": "username",
+   "got": "username",
+   "correct": true,
+   "ms": 699,
+   "mass": 0.9678720828108932,
+   "conf": 0.8817757065484676
+  },
+  {
+   "id": "github-login-submit",
+   "q": "submit_after_type",
+   "want": "false",
+   "got": "false",
+   "correct": true,
+   "ms": 754,
+   "mass": 0.9669964767188609,
+   "conf": null
+  },
+  {
+   "id": "github-login-action",
+   "q": "action",
+   "want": "type",
+   "got": "wait",
+   "correct": false,
+   "ms": 697,
+   "mass": 0.8924592256198022,
+   "conf": 0.07832900634624262
+  },
+  {
+   "id": "github-login-blocker",
+   "q": "blocker",
+   "want": "none",
+   "got": "none",
+   "correct": true,
+   "ms": 727,
+   "mass": 0.9859947369442477,
+   "conf": 0.9294489836077503
+  },
+  {
+   "id": "wiki-progress-after-login-click",
+   "q": "progress",
+   "want": "2",
+   "got": "2.0349084623568126",
+   "correct": true,
+   "ms": 2419,
+   "mass": 0.9858100705813879,
+   "conf": 0.5903510327285357
+  },
+  {
+   "id": "bq-paris",
+   "q": "answer",
+   "want": "true",
+   "got": "true",
+   "correct": true,
+   "ms": 329,
+   "mass": 0.851850128618309,
+   "conf": null
+  },
+  {
+   "id": "bq-penguins",
+   "q": "answer",
+   "want": "false",
+   "got": "true",
+   "correct": false,
+   "ms": 271,
+   "mass": 0.8383698184848574,
+   "conf": null
+  },
+  {
+   "id": "bq-python",
+   "q": "answer",
+   "want": "false",
+   "got": "false",
+   "correct": true,
+   "ms": 292,
+   "mass": 0.79575298028259,
+   "conf": null
+  },
+  {
+   "id": "bq-everest",
+   "q": "answer",
+   "want": "true",
+   "got": "true",
+   "correct": true,
+   "ms": 330,
+   "mass": 0.8283472801727746,
+   "conf": null
+  },
+  {
+   "id": "bq-trap-failed",
+   "q": "answer",
+   "want": "false",
+   "got": "false",
+   "correct": true,
+   "ms": 246,
+   "mass": 0.8439823189544251,
+   "conf": null
+  }
+ ]
+}

@@ -1,0 +1,29 @@
+{
+  "runId": "2026-09-24T02-57-05-363Z-7uoi08",
+  "status": "max_steps",
+  "goal": "open the Wikipedia article about Alan Turing",
+  "backend": "chrome",
+  "steps": 6,
+  "startedAt": "2026-09-24T02:57:05.365Z",
+  "journalDir": "/tmp/kev-threshold/journal/R7/2026-09-24T02-57-05-363Z-7uoi08",
+  "goalDoneProbability": 0.0226,
+  "reason": "reached maxSteps=6",
+  "finalUrl": "https://en.wikipedia.org/w/index.php?search=&title=Special%3ASearch&profile=advanced&fulltext=1&ns0=1",
+  "finalTitle": "Search - Wikipedia",
+  "finalTextExcerpt": "Jump to content Main menu Search Donate Create account Log in Search Help Tools Appearance hide Text Small Standard Large This page always uses small font size Width Standard Wide Color Automatic Light Dark Search Advanced search: Search in: (Article) Privacy policy About Wikipedia Disclaimers Cont…",
+  "usage": {
+    "requests": 7,
+    "cacheHits": 0,
+    "inputTokens": 18130,
+    "outputTokens": 4160,
+    "costUsd": 0,
+    "ms": 46809
+  },
+  "elapsedMs": 68888,
+  "finishedAt": "2026-09-24T02:58:14.252Z",
+  "resume": {
+    "backend": "chrome",
+    "cdpUrl": "http://127.0.0.1:59110",
+    "targetId": "8971AAA33CF5AAD7A144F77615798390"
+  }
+}

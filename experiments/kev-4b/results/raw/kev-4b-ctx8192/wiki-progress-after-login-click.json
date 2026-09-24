@@ -1,0 +1,86 @@
+{
+  "id": "wiki-progress-after-login-click",
+  "kind": "browser",
+  "question": "progress",
+  "type": "score",
+  "expected": "2",
+  "predicted": "1.8823",
+  "correct": true,
+  "got": "score=1.882 p=[0:0.04 1:0.05 2:0.90 3:0.01]",
+  "ms": 1575,
+  "server_latency_ms": 1562.2,
+  "usage": {
+    "input_tokens": 1614,
+    "output_tokens": 161
+  },
+  "model_echo": "kev-latest",
+  "analysis": {
+    "type": "score",
+    "probabilities": {
+      "0": 0.0398,
+      "1": 0.0513,
+      "2": 0.8957,
+      "3": 0.0132
+    },
+    "p_sum": 1,
+    "p_sum_dev": 0,
+    "sums_conventionally": true,
+    "missing_keys": [],
+    "extra_keys": [],
+    "n_options": 4,
+    "choice": "2",
+    "reported_choice": null,
+    "choice_is_argmax": null,
+    "score": 1.8823,
+    "top": "2",
+    "top_p": 0.8957,
+    "second_p": 0.0513,
+    "margin": 0.8444,
+    "entropy_bits": 0.6296782447454287,
+    "entropy_norm": 0.31483912237271433,
+    "near_uniform": false,
+    "coinflip_margin": false,
+    "confidence": 0.952
+  },
+  "request": {
+    "state": {
+      "bytes": 5031,
+      "page_url": "https://auth.wikimedia.org/enwiki/wiki/Special:UserLogin?useformat=desktop&usesul3=1&returnto=Main+Page&centralauthLoginToken=8ba9892a14010d510d885378ffc13139",
+      "elements": 23,
+      "visible_text_chars": 490
+    },
+    "questions": {
+      "progress": {
+        "type": "score",
+        "instructions": {
+          "question": "Compared with `previous_page`, how did `last_action` change progress toward `goal`, judging by `page`?"
+        },
+        "criteria": [
+          "`page` moved away from `goal`: a wrong page, an error, or lost progress compared with `previous_page`.",
+          "No meaningful change toward `goal` compared with `previous_page`.",
+          "`page` is closer to `goal` than `previous_page` was.",
+          "`page` now shows `goal` accomplished."
+        ]
+      }
+    }
+  },
+  "response_answers": {
+    "progress": {
+      "type": "score",
+      "score": 1.8823,
+      "legend": {
+        "0": "`page` moved away from `goal`: a wrong page, an error, or lost progress compared with `previous_page`.",
+        "1": "No meaningful change toward `goal` compared with `previous_page`.",
+        "2": "`page` is closer to `goal` than `previous_page` was.",
+        "3": "`page` now shows `goal` accomplished."
+      },
+      "probabilities": {
+        "0": 0.0398,
+        "1": 0.0513,
+        "2": 0.8957,
+        "3": 0.0132
+      },
+      "confidence": 0.952
+    }
+  }
+}

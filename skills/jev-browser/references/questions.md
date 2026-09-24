@@ -33,7 +33,7 @@ fixed marker. Quoted strings in the goal are added as `quoted_1`, `quoted_2`, �
 
 | id | type | asked when | consumed by code as |
 | --- | --- | --- | --- |
-| `goal_done` | noul | always | success when ≥ `thresholds.goalDone` (0.85); ≥ `goalDoneFinal` (0.7) on the final check or when the model chose `stop` |
+| `goal_done` | noul | always | success when ≥ `thresholds.goalDone` (0.85 hosted; the local backends use their own profiles — 0.174 for the GGUF readout, 0.482 for Kev, see references/config.md); ≥ `goalDoneFinal` on the final check or when the model chose `stop` |
 | `blocker` | choice: none, login_required, verification_challenge, consent_or_permission_dialog, error_page, missing_information | always | `needs_user` when a non-none option has probability ≥ `thresholds.blocker` (0.6) |
 | `action` | choice over the **legal** actions only: click, type, select, scroll_down, scroll_up, go_back, navigate, wait, stop | always | preference order for candidate actions |
 | `click_target` | choice over clickable element ids + `none` | clickable elements exist | element ranking for `click`; if `none` outranks every element, clicking is skipped |

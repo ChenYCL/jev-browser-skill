@@ -1,0 +1,69 @@
+{
+  "id": "bq-penguins",
+  "kind": "noul",
+  "question": "answer",
+  "type": "noul",
+  "expected": "false",
+  "predicted": "false",
+  "correct": true,
+  "got": "P(yes)=0.2567",
+  "ms": 175,
+  "server_latency_ms": 169.1,
+  "usage": {
+    "input_tokens": 77,
+    "output_tokens": 22
+  },
+  "model_echo": "kev-latest",
+  "analysis": {
+    "type": "noul",
+    "noul": 0.2567,
+    "probabilities": {
+      "true": 0.2567,
+      "false": 0.7433000000000001
+    },
+    "p_sum": 1,
+    "p_sum_dev": 0,
+    "sums_conventionally": true,
+    "missing_keys": [],
+    "extra_keys": [],
+    "n_options": 2,
+    "top": "false",
+    "top_p": 0.7433000000000001,
+    "margin": 0.4866000000000001,
+    "entropy_bits": 0.8217256856878922,
+    "entropy_norm": 0.8217256856878922,
+    "dev_from_half": 0.24330000000000002,
+    "near_half": false,
+    "pinned_high": false,
+    "confidence": null
+  },
+  "request": {
+    "state": {
+      "bytes": 138,
+      "page_url": null,
+      "elements": null,
+      "visible_text_chars": null
+    },
+    "questions": {
+      "answer": {
+        "type": "noul",
+        "instructions": {
+          "question": "Can penguins fly?",
+          "rules": [
+            "Answer only from the passage in the state."
+          ]
+        },
+        "criteria": {
+          "true": "The passage states this.",
+          "false": "The passage does not state this."
+        }
+      }
+    }
+  },
+  "response_answers": {
+    "answer": {
+      "type": "noul",
+      "noul": 0.2567
+    }
+  }
+}

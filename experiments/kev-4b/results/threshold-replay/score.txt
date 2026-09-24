@@ -1,0 +1,94 @@
+
+R1 (success)
+  s1  goal_done=0.967  met   ?       changed=n  Example Domain                      https://example.com/
+
+R2 (success)
+  s1  goal_done=0.016  not   ?       changed=y  Products · Widgetry                 http://127.0.0.1:3111/products
+  s2  goal_done=0.167  not   ?       changed=y  Red Gadget · Widgetry               http://127.0.0.1:3111/products/red-gadget
+  s3  goal_done=0.994  met   ?       changed=n  Cart · Widgetry                     http://127.0.0.1:3111/cart/add
+
+R3 (stuck)
+  s1  goal_done=0.013  not   ?       changed=y  DuckDuckGo - Protection. Privacy.   https://duckduckgo.com/
+  s2  goal_done=0.016  not   ?       changed=y  DuckDuckGo - Protection. Privacy.   https://duckduckgo.com/
+  s3  goal_done=0.018  not   ?       changed=y  DuckDuckGo - Protection. Privacy.   https://duckduckgo.com/
+  s4  goal_done=0.019  not   ?       changed=n  DuckDuckGo - Protection. Privacy.   https://duckduckgo.com/
+  s5  goal_done=0.017  not   ?       changed=n  DuckDuckGo - Protection. Privacy.   https://duckduckgo.com/
+
+R4 (success)
+  s1  goal_done=0.028  not   ?       changed=y  Home · Widgetry                     http://127.0.0.1:3111/
+  s2  goal_done=0.145  not   ?       changed=y  Docs · Widgetry                     http://127.0.0.1:3111/docs
+  s3  goal_done=0.683  met   ?       changed=n  Docs · Widgetry                     http://127.0.0.1:3111/docs
+
+R5 (success)
+  s1  goal_done=0.341  not   ?       changed=n  Consent · Widgetry                  http://127.0.0.1:3111/consent
+
+R6 (needs_user)
+  s1  goal_done=0.037  not   ?       changed=n  python org at DuckDuckGo            https://duckduckgo.com/?q=python+org
+
+R7 (max_steps)
+  s1  goal_done=0.014  not   ?       changed=y  Search - Wikipedia                  https://en.wikipedia.org/wiki/Special:Search
+  s2  goal_done=0.034  not   ?       changed=y  Search - Wikipedia                  https://en.wikipedia.org/w/index.php?search=&t
+  s3  goal_done=0.018  not   ?       changed=y  Search - Wikipedia                  https://en.wikipedia.org/wiki/Special:Search
+  s4  goal_done=0.028  not   ?       changed=y  Search - Wikipedia                  https://en.wikipedia.org/wiki/Special:Search
+  s5  goal_done=0.040  not   ?       changed=y  Search - Wikipedia                  https://en.wikipedia.org/w/index.php?search=&t
+  s6  goal_done=0.023  not   ?       changed=y  Search - Wikipedia                  https://en.wikipedia.org/w/index.php?search=&t
+  s7  goal_done=0.023  not   ?       changed=n                                      https://en.wikipedia.org/w/index.php?search=&t
+
+R8 (max_steps)
+  s1  goal_done=0.011  not   ?       changed=y  Wikipedia, the free encyclopedia    https://en.wikipedia.org/wiki/Main_Page
+  s2  goal_done=0.015  not   ?       changed=y  Search - Wikipedia                  https://en.wikipedia.org/w/index.php?search=&t
+  s3  goal_done=0.021  not   ?       changed=n  Wikipedia, the free encyclopedia    https://en.wikipedia.org/wiki/Main_Page
+  s4  goal_done=0.021  not   ?       changed=y  Wikipedia, the free encyclopedia    https://en.wikipedia.org/wiki/Main_Page
+  s5  goal_done=0.020  not   ?       changed=y  Search - Wikipedia                  https://en.wikipedia.org/w/index.php?search=&t
+  s6  goal_done=0.017  not   ?       changed=y  Search - Wikipedia                  https://en.wikipedia.org/w/index.php?search=&t
+  s7  goal_done=0.033  not   ?       changed=y  Search - Wikipedia                  https://en.wikipedia.org/w/index.php?search=&t
+  s8  goal_done=0.034  not   ?       changed=n  Search - Wikipedia                  https://en.wikipedia.org/w/index.php?search=&t
+  s9  goal_done=0.033  not   ?       changed=n                                      https://en.wikipedia.org/w/index.php?search=&t
+
+g1 (success)
+  s1  goal_done=0.195  not   ?       changed=n  Red Gadget · Widgetry               http://127.0.0.1:3111/products/red-gadget
+
+g3 (success)
+  s1  goal_done=0.058  not   ?       changed=y  Docs · Widgetry                     http://127.0.0.1:3111/docs
+  s2  goal_done=0.847  met   ?       changed=n  Docs · Widgetry                     http://127.0.0.1:3111/docs
+
+g4 (success)
+  s1  goal_done=0.072  not   ?       changed=y  Contact · Widgetry                  http://127.0.0.1:3111/contact
+  s2  goal_done=0.051  not   ?       changed=y  Contact · Widgetry                  http://127.0.0.1:3111/contact
+  s3  goal_done=0.052  not   ?       changed=y  Contact · Widgetry                  http://127.0.0.1:3111/contact
+  s4  goal_done=0.073  not   ?       changed=n  Contact · Widgetry                  http://127.0.0.1:3111/contact
+  s5  goal_done=0.084  not   ?       changed=y  Contact · Widgetry                  http://127.0.0.1:3111/contact
+  s6  goal_done=0.188  not   ?       changed=n                                      http://127.0.0.1:3111/contact
+
+p1 (success)
+  s1  goal_done=0.988  met   ?       changed=n  Red Gadget · Widgetry               http://127.0.0.1:3111/products/red-gadget
+
+p2 (success)
+  s1  goal_done=0.986  met   ?       changed=n  Products · Widgetry                 http://127.0.0.1:3111/products
+
+p3 (success)
+  s1  goal_done=0.257  not   ?       changed=n  Pricing · Widgetry                  http://127.0.0.1:3111/pricing
+
+p4 (success)
+  s1  goal_done=0.070  not   ?       changed=y  Sign in · Widgetry                  http://127.0.0.1:3111/login
+  s2  goal_done=0.029  not   ?       changed=y  Sign in · Widgetry                  http://127.0.0.1:3111/login
+  s3  goal_done=0.083  not   ?       changed=y  Sign in · Widgetry                  http://127.0.0.1:3111/login
+  s4  goal_done=0.990  met   ?       changed=n  Dashboard · Widgetry                http://127.0.0.1:3111/dashboard
+
+steps labelled: 7 met, 39 not-met (46 readings from 15 runs)
+lowest met reading:     0.683
+worst not-met reading:  0.341
+band: (0.341, 0.683]  — any value in it separates the two sides
+geometric midpoint (the rule §9 used): 0.482
+current loopback default 0.174 does NOT separate them
+
+threshold  correct_success  false_success  false_stuck  correct_stuck   (first trigger per run)
+0.1                      5              6            0              4   R1:1 R2:2! R3:- R4:2! R5:1! R6:- R7:- R8:- g1:1! g3:2 g4:6! p1:1 p2:1 p3:1! p4:4
+0.174                    7              4            0              4   R1:1 R2:3 R3:- R4:3 R5:1! R6:- R7:- R8:- g1:1! g3:2 g4:6! p1:1 p2:1 p3:1! p4:4
+0.25                     7              2            0              6   R1:1 R2:3 R3:- R4:3 R5:1! R6:- R7:- R8:- g1:- g3:2 g4:- p1:1 p2:1 p3:1! p4:4
+0.3                      7              1            0              7   R1:1 R2:3 R3:- R4:3 R5:1! R6:- R7:- R8:- g1:- g3:2 g4:- p1:1 p2:1 p3:- p4:4
+0.4                      7              0            0              8   R1:1 R2:3 R3:- R4:3 R5:- R6:- R7:- R8:- g1:- g3:2 g4:- p1:1 p2:1 p3:- p4:4
+0.482                    7              0            0              8   R1:1 R2:3 R3:- R4:3 R5:- R6:- R7:- R8:- g1:- g3:2 g4:- p1:1 p2:1 p3:- p4:4
+0.5                      7              0            0              8   R1:1 R2:3 R3:- R4:3 R5:- R6:- R7:- R8:- g1:- g3:2 g4:- p1:1 p2:1 p3:- p4:4
+0.7                      6              0            1              8   R1:1 R2:3 R3:- R4:- R5:- R6:- R7:- R8:- g1:- g3:2 g4:- p1:1 p2:1 p3:- p4:4
+0.85                     5              0            2              8   R1:1 R2:3 R3:- R4:- R5:- R6:- R7:- R8:- g1:- g3:- g4:- p1:1 p2:1 p3:- p4:4

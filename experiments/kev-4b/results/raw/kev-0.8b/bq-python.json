@@ -1,0 +1,69 @@
+{
+  "id": "bq-python",
+  "kind": "noul",
+  "question": "answer",
+  "type": "noul",
+  "expected": "false",
+  "predicted": "false",
+  "correct": true,
+  "got": "P(yes)=0.1312",
+  "ms": 35,
+  "server_latency_ms": 33.1,
+  "usage": {
+    "input_tokens": 91,
+    "output_tokens": 22
+  },
+  "model_echo": "kev-latest",
+  "analysis": {
+    "type": "noul",
+    "noul": 0.1312,
+    "probabilities": {
+      "true": 0.1312,
+      "false": 0.8688
+    },
+    "p_sum": 1,
+    "p_sum_dev": 0,
+    "sums_conventionally": true,
+    "missing_keys": [],
+    "extra_keys": [],
+    "n_options": 2,
+    "top": "false",
+    "top_p": 0.8688,
+    "margin": 0.7376,
+    "entropy_bits": 0.5607200292191274,
+    "entropy_norm": 0.5607200292191274,
+    "dev_from_half": 0.3688,
+    "near_half": false,
+    "pinned_high": false,
+    "confidence": null
+  },
+  "request": {
+    "state": {
+      "bytes": 171,
+      "page_url": null,
+      "elements": null,
+      "visible_text_chars": null
+    },
+    "questions": {
+      "answer": {
+        "type": "noul",
+        "instructions": {
+          "question": "Was Python created before 1990?",
+          "rules": [
+            "Answer only from the passage in the state."
+          ]
+        },
+        "criteria": {
+          "true": "The passage states this.",
+          "false": "The passage does not state this."
+        }
+      }
+    }
+  },
+  "response_answers": {
+    "answer": {
+      "type": "noul",
+      "noul": 0.1312
+    }
+  }
+}

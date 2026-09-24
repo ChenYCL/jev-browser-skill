@@ -1,0 +1,343 @@
+{
+ "slug": "qwen35-08b-c16384",
+ "model": "qwen3.5-0.8b-q8-c16384",
+ "accuracy": {
+  "all": {
+   "n": 20,
+   "correct": 10,
+   "acc": 0.5
+  },
+  "browser": {
+   "n": 15,
+   "correct": 7,
+   "acc": 0.467
+  },
+  "noul": {
+   "n": 5,
+   "correct": 3,
+   "acc": 0.6
+  },
+  "action_click": {
+   "n": 5,
+   "correct": 1,
+   "acc": 0.2
+  },
+  "baseline": {
+   "all": {
+    "n": 20,
+    "correct": 11,
+    "acc": 0.55
+   },
+   "browser": {
+    "n": 15,
+    "correct": 9,
+    "acc": 0.6
+   },
+   "noul": {
+    "n": 5,
+    "correct": 2,
+    "acc": 0.4
+   },
+   "action_click": {
+    "n": 5,
+    "correct": 2,
+    "acc": 0.4
+   }
+  }
+ },
+ "label_mass": {
+  "min": 0.9896,
+  "mean": "0.9950"
+ },
+ "non_single_token_labels": {
+  "count": 0,
+  "distinct": [],
+  "rows_affected": 0
+ },
+ "missing_labels": {
+  "count": 55,
+  "rows_affected": 2
+ },
+ "ms": {
+  "mean": 777,
+  "median": 179,
+  "max": 4178,
+  "total": 15535
+ },
+ "latency_by_question": {
+  "click_target": {
+   "n": 2,
+   "mean": 3776,
+   "max": 4178
+  },
+  "action": {
+   "n": 3,
+   "mean": 1186,
+   "max": 1744
+  },
+  "blocker": {
+   "n": 2,
+   "mean": 208,
+   "max": 239
+  },
+  "goal_done": {
+   "n": 1,
+   "mean": 164,
+   "max": 164
+  },
+  "type_target": {
+   "n": 3,
+   "mean": 746,
+   "max": 1380
+  },
+  "submit_after_type": {
+   "n": 2,
+   "mean": 193,
+   "max": 217
+  },
+  "type_value": {
+   "n": 1,
+   "mean": 139,
+   "max": 139
+  },
+  "progress": {
+   "n": 1,
+   "mean": 545,
+   "max": 545
+  },
+  "answer": {
+   "n": 5,
+   "mean": 108,
+   "max": 131
+  }
+ },
+ "fixture_step": {
+  "ms": 3111,
+  "input_tokens": 6365,
+  "click_target": {
+   "choice": "e4",
+   "p_choice": 0.7773421801454121,
+   "is_e4": true,
+   "top3": [
+    [
+     "e4",
+     0.7773421801454121
+    ],
+    [
+     "e1",
+     0.11305405119132338
+    ],
+    [
+     "e2",
+     0.06814492128997716
+    ]
+   ]
+  },
+  "action": "click",
+  "goal_done": 0.6290276217118848,
+  "blocker": "none",
+  "select_target": "e6"
+ },
+ "per_item": [
+  {
+   "id": "ddg-click-target-aapl",
+   "q": "click_target",
+   "want": "e1",
+   "got": "e4",
+   "correct": false,
+   "ms": 4178,
+   "mass": 0.9976122754554255,
+   "conf": 0.7967042839835122
+  },
+  {
+   "id": "ddg-action-aapl",
+   "q": "action",
+   "want": "click",
+   "got": "click",
+   "correct": true,
+   "ms": 1744,
+   "mass": 0.9965594566856413,
+   "conf": 0.022821536844849222
+  },
+  {
+   "id": "ddg-blocker-aapl",
+   "q": "blocker",
+   "want": "none",
+   "got": "none",
+   "correct": true,
+   "ms": 239,
+   "mass": 0.9987406590887759,
+   "conf": 0.7060473134823853
+  },
+  {
+   "id": "ddg-goal-done-aapl",
+   "q": "goal_done",
+   "want": "false",
+   "got": "true",
+   "correct": false,
+   "ms": 164,
+   "mass": 0.9928874386347007,
+   "conf": null
+  },
+  {
+   "id": "ddg-typed-action",
+   "q": "action",
+   "want": "type",
+   "got": "click",
+   "correct": false,
+   "ms": 1635,
+   "mass": 0.9964867387967118,
+   "conf": 0.035229141236022166
+  },
+  {
+   "id": "ddg-typed-type-target",
+   "q": "type_target",
+   "want": "e3",
+   "got": "e3",
+   "correct": true,
+   "ms": 156,
+   "mass": 0.9955513947381459,
+   "conf": 0.28915501626797835
+  },
+  {
+   "id": "ddg-typed-submit",
+   "q": "submit_after_type",
+   "want": "true",
+   "got": "true",
+   "correct": true,
+   "ms": 169,
+   "mass": 0.9962470004870861,
+   "conf": null
+  },
+  {
+   "id": "wiki-login-click-target",
+   "q": "click_target",
+   "want": "e9",
+   "got": "e4",
+   "correct": false,
+   "ms": 3374,
+   "mass": 0.993176917687583,
+   "conf": 0.7556664381352238
+  },
+  {
+   "id": "wiki-typed-type-target",
+   "q": "type_target",
+   "want": "e1",
+   "got": "e1",
+   "correct": true,
+   "ms": 1380,
+   "mass": 0.998599301953591,
+   "conf": 0.8478461582753123
+  },
+  {
+   "id": "github-login-type-target",
+   "q": "type_target",
+   "want": "e3",
+   "got": "e5",
+   "correct": false,
+   "ms": 701,
+   "mass": 0.9958426591442024,
+   "conf": 0.5363275289276503
+  },
+  {
+   "id": "github-login-type-value",
+   "q": "type_value",
+   "want": "username",
+   "got": "password",
+   "correct": false,
+   "ms": 139,
+   "mass": 0.9895673723431057,
+   "conf": 0.09236574736873504
+  },
+  {
+   "id": "github-login-submit",
+   "q": "submit_after_type",
+   "want": "false",
+   "got": "true",
+   "correct": false,
+   "ms": 217,
+   "mass": 0.9942794497386604,
+   "conf": null
+  },
+  {
+   "id": "github-login-action",
+   "q": "action",
+   "want": "type",
+   "got": "stop",
+   "correct": false,
+   "ms": 179,
+   "mass": 0.9924446064581629,
+   "conf": 0.01934554490781104
+  },
+  {
+   "id": "github-login-blocker",
+   "q": "blocker",
+   "want": "none",
+   "got": "none",
+   "correct": true,
+   "ms": 176,
+   "mass": 0.9981295839657863,
+   "conf": 0.4661312297747059
+  },
+  {
+   "id": "wiki-progress-after-login-click",
+   "q": "progress",
+   "want": "2",
+   "got": "1.5653991543433758",
+   "correct": true,
+   "ms": 545,
+   "mass": 0.9974624966385004,
+   "conf": 0.031070977089497465
+  },
+  {
+   "id": "bq-paris",
+   "q": "answer",
+   "want": "true",
+   "got": "true",
+   "correct": true,
+   "ms": 110,
+   "mass": 0.9964795840205714,
+   "conf": null
+  },
+  {
+   "id": "bq-penguins",
+   "q": "answer",
+   "want": "false",
+   "got": "true",
+   "correct": false,
+   "ms": 110,
+   "mass": 0.9937146686183902,
+   "conf": null
+  },
+  {
+   "id": "bq-python",
+   "q": "answer",
+   "want": "false",
+   "got": "true",
+   "correct": false,
+   "ms": 97,
+   "mass": 0.9926513995093449,
+   "conf": null
+  },
+  {
+   "id": "bq-everest",
+   "q": "answer",
+   "want": "true",
+   "got": "true",
+   "correct": true,
+   "ms": 91,
+   "mass": 0.9914311991122828,
+   "conf": null
+  },
+  {
+   "id": "bq-trap-failed",
+   "q": "answer",
+   "want": "false",
+   "got": "false",
+   "correct": true,
+   "ms": 131,
+   "mass": 0.9922979538667418,
+   "conf": null
+  }
+ ]
+}

@@ -1,0 +1,72 @@
+{
+  "id": "ddg-goal-done-aapl",
+  "kind": "browser",
+  "question": "goal_done",
+  "type": "noul",
+  "expected": "false",
+  "predicted": "false",
+  "correct": true,
+  "got": "P(yes)=0.0613",
+  "ms": 408,
+  "server_latency_ms": 390.2,
+  "usage": {
+    "input_tokens": 6584,
+    "output_tokens": 23
+  },
+  "model_echo": "kev-latest",
+  "analysis": {
+    "type": "noul",
+    "noul": 0.0613,
+    "probabilities": {
+      "true": 0.0613,
+      "false": 0.9387
+    },
+    "p_sum": 1,
+    "p_sum_dev": 0,
+    "sums_conventionally": true,
+    "missing_keys": [],
+    "extra_keys": [],
+    "n_options": 2,
+    "top": "false",
+    "top_p": 0.9387,
+    "margin": 0.8774,
+    "entropy_bits": 0.33258396313800187,
+    "entropy_norm": 0.33258396313800187,
+    "dev_from_half": 0.4387,
+    "near_half": false,
+    "pinned_high": false,
+    "confidence": null
+  },
+  "request": {
+    "state": {
+      "bytes": 16355,
+      "page_url": "https://html.duckduckgo.com/html/?q=apple+stock+price",
+      "elements": 55,
+      "visible_text_chars": 3000
+    },
+    "questions": {
+      "goal_done": {
+        "type": "noul",
+        "instructions": {
+          "question": "Is `goal` already fully accomplished according to what `page` shows right now?",
+          "rules": [
+            "Judge only from `page` (its url, title, headings, visible_text, dialog and elements).",
+            "A page that merely offers a way to accomplish `goal` does not count as accomplished.",
+            "If `goal` asks to open or view something, it is accomplished when that thing is what `page` shows.",
+            "If `goal` asks to perform an action (submit, add, sign in, start), it is accomplished only when `page` shows the result or confirmation of that action."
+          ]
+        },
+        "criteria": {
+          "true": "`page` shows the end result that `goal` asks for.",
+          "false": "At least one more action is needed, `page` shows something else, or it is unclear."
+        }
+      }
+    }
+  },
+  "response_answers": {
+    "goal_done": {
+      "type": "noul",
+      "noul": 0.0613
+    }
+  }
+}

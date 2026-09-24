@@ -1,0 +1,53 @@
+{
+  "model": "gguf-local",
+  "ending": "answer",
+  "items": 0,
+  "overall": {
+    "n": 0,
+    "correct": 0,
+    "accuracy": null
+  },
+  "by_question": {},
+  "by_kind": {},
+  "latency_ms": {
+    "total": 0,
+    "mean": 0,
+    "median": null,
+    "max": null
+  },
+  "rows": [],
+  "rotations": [
+    {
+      "id": "ddg-click-target-aapl",
+      "rotation": 0,
+      "expected": "e1",
+      "got": "e1",
+      "correct": true,
+      "p_correct": 0.9510992917265342
+    },
+    {
+      "id": "ddg-click-target-aapl",
+      "rotation": 1,
+      "expected": "e54",
+      "got": "e2",
+      "correct": false,
+      "p_correct": 2.781070483060389e-7
+    },
+    {
+      "id": "ddg-click-target-aapl",
+      "rotation": 2,
+      "expected": "e53",
+      "got": "e1",
+      "correct": false,
+      "p_correct": 6.407450873476023e-9
+    },
+    {
+      "id": "ddg-click-target-aapl",
+      "rotation": 3,
+      "expected": "e52",
+      "got": "e1",
+      "correct": false,
+      "p_correct": 8.884153434046503e-7
+    }
+  ]
+}

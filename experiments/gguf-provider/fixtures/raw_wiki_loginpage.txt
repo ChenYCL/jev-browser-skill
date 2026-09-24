@@ -1,0 +1,286 @@
+backend=ego model=jev-latest maxSteps=25 budget=$0.25
+ego task space 26, page p1
+{
+  "mode": "dry-run",
+  "backend": "ego",
+  "state": {
+    "goal": "log in to Wikipedia",
+    "inputs": "none provided",
+    "page": {
+      "url": "https://auth.wikimedia.org/enwiki/wiki/Special:UserLogin?useformat=desktop&usesul3=1&returnto=Main+Page&centralauthLoginToken=8ba9892a14010d510d885378ffc13139",
+      "title": "Log in - Wikipedia",
+      "headings": [
+        "# Log in"
+      ],
+      "dialog": null,
+      "scroll_position": "at the top; more content below",
+      "visible_text": "Jump to content Main menu Donate Create account Log in Log in Tools Appearance hide Text Small Standard Large This page always uses small font size Width Standard Wide Color Automatic Light Dark Username Password Keep me logged in (for up to one year) Log in Help with logging in Forgot your password? Don't have an account?Join Wikipedia Privacy policy About Wikipedia Disclaimers Contact Wikipedia Legal & safety contacts Code of Conduct Developers Statistics Cookie statement Mobile view",
+      "elements": [
+        {
+          "id": "e1",
+          "description": "link 'https://en.wikipedia.org/wiki/Main_Page' → https://en.wikipedia.org/wiki/Main_Page",
+          "in_viewport": true
+        },
+        {
+          "id": "e2",
+          "description": "link 'Donate' → https://donate.wikimedia.org/?wmf_source=donate&wmf_medium=sidebar&wmf_campaign=auth.wikimedia.org&uselang=en",
+          "in_viewport": true
+        },
+        {
+          "id": "e3",
+          "description": "link 'Create account' → /enwiki/w/index.php?title=Special:CreateAccount&returnto=Main+Page&centralauthLoginToken=8ba9892a14010d510d885378ffc131…",
+          "in_viewport": true
+        },
+        {
+          "id": "e4",
+          "description": "link 'Log in' → /enwiki/w/index.php?title=Special:UserLogin&returnto=Main+Page&centralauthLoginToken=8ba9892a14010d510d885378ffc13139&u…",
+          "in_viewport": true
+        },
+        {
+          "id": "e5",
+          "description": "button 'Hide Appearance'",
+          "in_viewport": true
+        },
+        {
+          "id": "e6",
+          "description": "text field 'Username' (type input, placeholder \"Enter your username\", empty)",
+          "in_viewport": true
+        },
+        {
+          "id": "e7",
+          "description": "text field 'Password' (type password, placeholder \"Enter your password\", empty)",
+          "in_viewport": true
+        },
+        {
+          "id": "e8",
+          "description": "button 'Log in'",
+          "in_viewport": true
+        },
+        {
+          "id": "e9",
+          "description": "link 'Help with logging in' → https://www.mediawiki.org/wiki/Special:MyLanguage/Help:Logging_in",
+          "in_viewport": true
+        },
+        {
+          "id": "e10",
+          "description": "link 'Forgot your password?' → /enwiki/w/index.php?title=Special:PasswordReset&returnto=Main+Page&centralauthLoginToken=8ba9892a14010d510d885378ffc131…",
+          "in_viewport": true
+        },
+        {
+          "id": "e11",
+          "description": "link 'Join Wikipedia' → /enwiki/w/index.php?title=Special:CreateAccount&returnto=Main+Page&centralauthLoginToken=8ba9892a14010d510d885378ffc131…",
+          "in_viewport": true
+        },
+        {
+          "id": "e12",
+          "description": "link 'Wikimedia Foundation' → https://www.wikimedia.org/",
+          "in_viewport": true
+        },
+        {
+          "id": "e13",
+          "description": "link 'Powered by MediaWiki' → https://www.mediawiki.org/",
+          "in_viewport": true
+        },
+        {
+          "id": "e14",
+          "description": "link 'Privacy policy' → https://foundation.wikimedia.org/wiki/Special:MyLanguage/Policy:Privacy_policy",
+          "in_viewport": true
+        },
+        {
+          "id": "e15",
+          "description": "link 'About Wikipedia' → https://en.wikipedia.org/wiki/Wikipedia:About",
+          "in_viewport": true
+        },
+        {
+          "id": "e16",
+          "description": "link 'Disclaimers' → https://en.wikipedia.org/wiki/Wikipedia:General_disclaimer",
+          "in_viewport": true
+        },
+        {
+          "id": "e17",
+          "description": "link 'Contact Wikipedia' → //en.wikipedia.org/wiki/Wikipedia:Contact_us",
+          "in_viewport": true
+        },
+        {
+          "id": "e18",
+          "description": "link 'Legal & safety contacts' → https://foundation.wikimedia.org/wiki/Special:MyLanguage/Legal:Wikimedia_Foundation_Legal_and_Safety_Contact_Information",
+          "in_viewport": true
+        },
+        {
+          "id": "e19",
+          "description": "link 'Code of Conduct' → https://foundation.wikimedia.org/wiki/Special:MyLanguage/Policy:Universal_Code_of_Conduct",
+          "in_viewport": true
+        },
+        {
+          "id": "e20",
+          "description": "link 'Developers' → https://developer.wikimedia.org",
+          "in_viewport": true
+        },
+        {
+          "id": "e21",
+          "description": "link 'Statistics' → https://stats.wikimedia.org/#/en.wikipedia.org",
+          "in_viewport": true
+        },
+        {
+          "id": "e22",
+          "description": "link 'Cookie statement' → https://foundation.wikimedia.org/wiki/Special:MyLanguage/Policy:Cookie_statement",
+          "in_viewport": true
+        },
+        {
+          "id": "e23",
+          "description": "link 'Mobile view' → //auth.wikimedia.org/enwiki/w/index.php?title=Special:UserLogin&centralauthLoginToken=8ba9892a14010d510d885378ffc13139&…",
+          "in_viewport": true
+        }
+      ],
+      "omitted_elements": 0
+    },
+    "previous_page": null,
+    "last_action": null,
+    "history": {
+      "steps_taken": 0,
+      "recent_urls": []
+    }
+  },
+  "questions": {
+    "goal_done": {
+      "type": "noul",
+      "instructions": {
+        "question": "Is `goal` already fully accomplished according to what `page` shows right now?",
+        "rules": [
+          "Judge only from `page` (its url, title, headings, visible_text, dialog and elements).",
+          "A page that merely offers a way to accomplish `goal` does not count as accomplished.",
+          "If `goal` asks to open or view something, it is accomplished when that thing is what `page` shows.",
+          "If `goal` asks to perform an action (submit, add, sign in, start), it is accomplished only when `page` shows the result or confirmation of that action."
+        ]
+      },
+      "criteria": {
+        "true": "`page` shows the end result that `goal` asks for.",
+        "false": "At least one more action is needed, `page` shows something else, or it is unclear."
+      }
+    },
+    "blocker": {
+      "type": "choice",
+      "instructions": {
+        "question": "Does `page` present an obstacle that an automated browser agent cannot resolve with the listed elements and `inputs`, stopping progress toward `goal`?",
+        "rules": [
+          "Pick `none` unless the obstacle is clearly visible in `page`.",
+          "Cookie banners or dialogs that have a listed button to dismiss them are not obstacles."
+        ]
+      },
+      "criteria": {
+        "none": "No obstacle: the page can be operated normally (a login form that can be filled with provided `inputs` is not an obstacle).",
+        "login_required": "The page requires signing in and `inputs` does not provide the credentials needed to sign in.",
+        "verification_challenge": "A CAPTCHA, one-time code, two-factor prompt, or similar human verification is shown.",
+        "consent_or_permission_dialog": "A modal dialog demanding consent, permissions, or a choice from the user blocks the content and nothing listed dismisses it.",
+        "error_page": "The page shows an error (not found, access denied, server error, network failure) instead of the expected content.",
+        "missing_information": "Progress requires information (an account, payment details, a value) that is neither on the page nor in `inputs`."
+      }
+    },
+    "action": {
+      "type": "choice",
+      "instructions": {
+        "question": "Which single browser action should be performed next to make progress toward `goal` from the current `page`?",
+        "rules": [
+          "Every element in `page.elements` can be clicked, filled or selected right now, even when its in_viewport is false (the browser scrolls to it). Scroll only when the needed element or text is not listed at all.",
+          "Use `type` only when a value in `inputs` belongs in a listed text field.",
+          "Use `stop` when `goal` is already accomplished or nothing listed can help.",
+          "Consider `last_action` and `history`: do not repeat an action that produced no change."
+        ]
+      },
+      "criteria": {
+        "click": {
+          "what": "Click one element listed in `page.elements` (a link, button, checkbox, radio, tab, menu item, or similar).",
+          "use_when": "The next step toward `goal` is to open, choose, submit, toggle, or confirm something that is listed."
+        },
+        "scroll_down": {
+          "what": "Scroll down to reveal content that is not listed in `page.elements` and not in `page.visible_text`.",
+          "use_when": "Nothing listed can serve `goal` and more content probably exists further down. Never needed to reach an element that is already listed: clicking scrolls to it automatically."
+        },
+        "wait": {
+          "what": "Do nothing for a moment because the page is still loading or a result is still pending.",
+          "use_when": "The visible text or a dialog indicates loading, processing, or a countdown."
+        },
+        "stop": {
+          "what": "Stop: no listed action can make progress toward `goal`.",
+          "use_when": "`goal` is already accomplished as shown by `page`, or it is impossible from here with the listed actions."
+        }
+      }
+    },
+    "click_target": {
+      "type": "choice",
+      "instructions": {
+        "question": "If the next action is a click, which element in `page.elements` should be clicked to make progress toward `goal`?",
+        "rules": [
+          "Choose `none` if no listed element helps.",
+          "Each option id refers to `page.elements[].id`."
+        ]
+      },
+      "criteria": {
+        "e1": "link 'https://en.wikipedia.org/wiki/Main_Page' → https://en.wikipedia.org/wiki/Main_Page",
+        "e2": "link 'Donate' → https://donate.wikimedia.org/?wmf_source=donate&wmf_medium=sidebar&wmf_campaign=auth.wikimedia.org&uselang=en",
+        "e3": "link 'Create account' → /enwiki/w/index.php?title=Special:CreateAccount&returnto=Main+Page&centralauthLoginToken=8ba9892a14010d510d885378ffc131…",
+        "e4": "link 'Log in' → /enwiki/w/index.php?title=Special:UserLogin&returnto=Main+Page&centralauthLoginToken=8ba9892a14010d510d885378ffc13139&u…",
+        "e5": "button 'Hide Appearance'",
+        "e8": "button 'Log in'",
+        "e9": "link 'Help with logging in' → https://www.mediawiki.org/wiki/Special:MyLanguage/Help:Logging_in",
+        "e10": "link 'Forgot your password?' → /enwiki/w/index.php?title=Special:PasswordReset&returnto=Main+Page&centralauthLoginToken=8ba9892a14010d510d885378ffc131…",
+        "e11": "link 'Join Wikipedia' → /enwiki/w/index.php?title=Special:CreateAccount&returnto=Main+Page&centralauthLoginToken=8ba9892a14010d510d885378ffc131…",
+        "e12": "link 'Wikimedia Foundation' → https://www.wikimedia.org/",
+        "e13": "link 'Powered by MediaWiki' → https://www.mediawiki.org/",
+        "e14": "link 'Privacy policy' → https://foundation.wikimedia.org/wiki/Special:MyLanguage/Policy:Privacy_policy",
+        "e15": "link 'About Wikipedia' → https://en.wikipedia.org/wiki/Wikipedia:About",
+        "e16": "link 'Disclaimers' → https://en.wikipedia.org/wiki/Wikipedia:General_disclaimer",
+        "e17": "link 'Contact Wikipedia' → //en.wikipedia.org/wiki/Wikipedia:Contact_us",
+        "e18": "link 'Legal & safety contacts' → https://foundation.wikimedia.org/wiki/Special:MyLanguage/Legal:Wikimedia_Foundation_Legal_and_Safety_Contact_Information",
+        "e19": "link 'Code of Conduct' → https://foundation.wikimedia.org/wiki/Special:MyLanguage/Policy:Universal_Code_of_Conduct",
+        "e20": "link 'Developers' → https://developer.wikimedia.org",
+        "e21": "link 'Statistics' → https://stats.wikimedia.org/#/en.wikipedia.org",
+        "e22": "link 'Cookie statement' → https://foundation.wikimedia.org/wiki/Special:MyLanguage/Policy:Cookie_statement",
+        "e23": "link 'Mobile view' → //auth.wikimedia.org/enwiki/w/index.php?title=Special:UserLogin&centralauthLoginToken=8ba9892a14010d510d885378ffc13139&…",
+        "none": "No listed element should be clicked."
+      }
+    }
+  },
+  "meta": {
+    "allowedActions": [
+      "click",
+      "scroll_down",
+      "wait",
+      "stop"
+    ],
+    "clickableIds": [
+      "e1",
+      "e2",
+      "e3",
+      "e4",
+      "e5",
+      "e8",
+      "e9",
+      "e10",
+      "e11",
+      "e12",
+      "e13",
+      "e14",
+      "e15",
+      "e16",
+      "e17",
+      "e18",
+      "e19",
+      "e20",
+      "e21",
+      "e22",
+      "e23"
+    ],
+    "editableIds": [
+      "e6",
+      "e7"
+    ],
+    "selectIds": [],
+    "inputKeys": [],
+    "urlInputKeys": [],
+    "questionCount": 4,
+    "candidateCount": 23
+  },
+  "estimatedInputTokens": 2852,
+  "estimatedCostUsd": 0.000119784
+}

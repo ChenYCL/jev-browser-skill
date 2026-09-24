@@ -1,0 +1,28 @@
+{
+  "runId": "2026-09-24T02-47-58-916Z-uvooil",
+  "status": "success",
+  "goal": "sign in with the provided email and password",
+  "backend": "chrome",
+  "steps": 4,
+  "startedAt": "2026-09-24T02:47:58.922Z",
+  "journalDir": "/tmp/kev-threshold/journal/p4/2026-09-24T02-47-58-916Z-uvooil",
+  "goalDoneProbability": 0.9896,
+  "finalUrl": "http://127.0.0.1:3111/dashboard",
+  "finalTitle": "Dashboard · Widgetry",
+  "finalTextExcerpt": "HomeProductsPricingDocsContactSigned in as user@example.com Sign out Search Go Welcome, user@example.com This is your dashboard. © Widgetry Inc.",
+  "usage": {
+    "requests": 4,
+    "cacheHits": 0,
+    "inputTokens": 7569,
+    "outputTokens": 2486,
+    "costUsd": 0,
+    "ms": 19126
+  },
+  "elapsedMs": 24962,
+  "finishedAt": "2026-09-24T02:48:23.884Z",
+  "resume": {
+    "backend": "chrome",
+    "cdpUrl": "http://127.0.0.1:56183",
+    "targetId": "5D5742BAE6B12613EFEF8F5FCAE9DCD4"
+  }
+}

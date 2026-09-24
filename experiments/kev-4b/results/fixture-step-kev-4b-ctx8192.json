@@ -1,0 +1,191 @@
+{
+  "label": "kev-4b-ctx8192",
+  "state": {
+    "bytes": 16355,
+    "page_url": "https://html.duckduckgo.com/html/?q=apple+stock+price",
+    "elements": 55,
+    "visible_text_chars": 3000
+  },
+  "questions": [
+    "goal_done",
+    "blocker",
+    "action",
+    "click_target",
+    "select_target"
+  ],
+  "packed": false,
+  "error": "HTTP_422: TypeSafe request failed (422): branch too long: 4700 tokens with a 6407-token state (row limit 8192)",
+  "per_question_fallback": {
+    "goal_done": {
+      "answered": true,
+      "ms": 31111,
+      "server_latency_ms": 31102,
+      "answer": {
+        "type": "noul",
+        "noul": 0.0613
+      },
+      "analysis": {
+        "type": "noul",
+        "noul": 0.0613,
+        "probabilities": {
+          "true": 0.0613,
+          "false": 0.9387
+        },
+        "p_sum": 1,
+        "p_sum_dev": 0,
+        "sums_conventionally": true,
+        "missing_keys": [],
+        "extra_keys": [],
+        "n_options": 2,
+        "top": "false",
+        "top_p": 0.9387,
+        "margin": 0.8774,
+        "entropy_bits": 0.33258396313800187,
+        "entropy_norm": 0.33258396313800187,
+        "dev_from_half": 0.4387,
+        "near_half": false,
+        "pinned_high": false,
+        "confidence": null
+      }
+    },
+    "blocker": {
+      "answered": true,
+      "ms": 590,
+      "server_latency_ms": 579.8,
+      "answer": {
+        "type": "choice",
+        "choice": "none",
+        "confidence": 0.3748,
+        "probabilities": {
+          "none": 0.479,
+          "login_required": 0.0764,
+          "verification_challenge": 0.0772,
+          "consent_or_permission_dialog": 0.1219,
+          "error_page": 0.0931,
+          "missing_information": 0.1524
+        }
+      },
+      "analysis": {
+        "type": "choice",
+        "probabilities": {
+          "none": 0.479,
+          "login_required": 0.0764,
+          "verification_challenge": 0.0772,
+          "consent_or_permission_dialog": 0.1219,
+          "error_page": 0.0931,
+          "missing_information": 0.1524
+        },
+        "p_sum": 1,
+        "p_sum_dev": 0,
+        "sums_conventionally": true,
+        "missing_keys": [],
+        "extra_keys": [],
+        "n_options": 6,
+        "choice": "none",
+        "reported_choice": "none",
+        "choice_is_argmax": true,
+        "top": "none",
+        "top_p": 0.479,
+        "second_p": 0.1524,
+        "margin": 0.3266,
+        "entropy_bits": 2.180005097034436,
+        "entropy_norm": 0.8433410915733809,
+        "near_uniform": false,
+        "coinflip_margin": false,
+        "confidence": 0.3748
+      }
+    },
+    "action": {
+      "answered": true,
+      "ms": 1942,
+      "server_latency_ms": 1934,
+      "answer": {
+        "type": "choice",
+        "choice": "click",
+        "confidence": 0.6813,
+        "probabilities": {
+          "click": 0.745,
+          "select": 0.0388,
+          "scroll_down": 0.0996,
+          "wait": 0.0275,
+          "stop": 0.089
+        }
+      },
+      "analysis": {
+        "type": "choice",
+        "probabilities": {
+          "click": 0.745,
+          "select": 0.0388,
+          "scroll_down": 0.0996,
+          "wait": 0.0275,
+          "stop": 0.089
+        },
+        "p_sum": 0.9999,
+        "p_sum_dev": 0.00009999999999998899,
+        "sums_conventionally": true,
+        "missing_keys": [],
+        "extra_keys": [],
+        "n_options": 5,
+        "choice": "click",
+        "reported_choice": "click",
+        "choice_is_argmax": true,
+        "top": "click",
+        "top_p": 0.745,
+        "second_p": 0.0996,
+        "margin": 0.6454,
+        "entropy_bits": 1.2829050979418575,
+        "entropy_norm": 0.5525171519164084,
+        "near_uniform": false,
+        "coinflip_margin": false,
+        "confidence": 0.6813
+      }
+    },
+    "click_target": {
+      "answered": false,
+      "error": "HTTP_422: TypeSafe request failed (422): branch too long: 4700 tokens with a 6407-token state (row limit 8192)"
+    },
+    "select_target": {
+      "answered": true,
+      "ms": 218,
+      "server_latency_ms": 211,
+      "answer": {
+        "type": "choice",
+        "choice": "none",
+        "confidence": 0.5533,
+        "probabilities": {
+          "e5": 0.0814,
+          "e6": 0.2164,
+          "none": 0.7022
+        }
+      },
+      "analysis": {
+        "type": "choice",
+        "probabilities": {
+          "e5": 0.0814,
+          "e6": 0.2164,
+          "none": 0.7022
+        },
+        "p_sum": 1,
+        "p_sum_dev": 0,
+        "sums_conventionally": true,
+        "missing_keys": [],
+        "extra_keys": [],
+        "n_options": 3,
+        "choice": "none",
+        "reported_choice": "none",
+        "choice_is_argmax": true,
+        "top": "none",
+        "top_p": 0.7022,
+        "second_p": 0.2164,
+        "margin": 0.4858,
+        "entropy_bits": 1.130587372175588,
+        "entropy_norm": 0.7133212121177454,
+        "near_uniform": false,
+        "coinflip_margin": false,
+        "confidence": 0.5533
+      }
+    }
+  },
+  "goal_done_noul": 0.0613,
+  "click_target_pick": null
+}

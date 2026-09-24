@@ -1,0 +1,69 @@
+{
+  "id": "bq-everest",
+  "kind": "noul",
+  "question": "answer",
+  "type": "noul",
+  "expected": "true",
+  "predicted": "true",
+  "correct": true,
+  "got": "P(yes)=0.9918",
+  "ms": 130,
+  "server_latency_ms": 127.1,
+  "usage": {
+    "input_tokens": 105,
+    "output_tokens": 22
+  },
+  "model_echo": "kev-latest",
+  "analysis": {
+    "type": "noul",
+    "noul": 0.9918,
+    "probabilities": {
+      "true": 0.9918,
+      "false": 0.008199999999999985
+    },
+    "p_sum": 1,
+    "p_sum_dev": 0,
+    "sums_conventionally": true,
+    "missing_keys": [],
+    "extra_keys": [],
+    "n_options": 2,
+    "top": "true",
+    "top_p": 0.9918,
+    "margin": 0.9836,
+    "entropy_bits": 0.06860877788022149,
+    "entropy_norm": 0.06860877788022149,
+    "dev_from_half": 0.4918,
+    "near_half": false,
+    "pinned_high": true,
+    "confidence": null
+  },
+  "request": {
+    "state": {
+      "bytes": 197,
+      "page_url": null,
+      "elements": null,
+      "visible_text_chars": null
+    },
+    "questions": {
+      "answer": {
+        "type": "noul",
+        "instructions": {
+          "question": "Is Mount Everest taller than 8,000 metres?",
+          "rules": [
+            "Answer only from the passage in the state."
+          ]
+        },
+        "criteria": {
+          "true": "The passage states this.",
+          "false": "The passage does not state this."
+        }
+      }
+    }
+  },
+  "response_answers": {
+    "answer": {
+      "type": "noul",
+      "noul": 0.9918
+    }
+  }
+}

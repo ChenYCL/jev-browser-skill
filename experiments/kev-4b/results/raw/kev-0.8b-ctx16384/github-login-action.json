@@ -1,0 +1,97 @@
+{
+  "id": "github-login-action",
+  "kind": "browser",
+  "question": "action",
+  "type": "choice",
+  "expected": "type",
+  "predicted": "click",
+  "correct": false,
+  "got": "choice=click P(correct)=0.1626",
+  "ms": 91,
+  "server_latency_ms": 87.3,
+  "usage": {
+    "input_tokens": 830,
+    "output_tokens": 73
+  },
+  "model_echo": "kev-latest",
+  "analysis": {
+    "type": "choice",
+    "probabilities": {
+      "click": 0.582,
+      "type": 0.1626,
+      "wait": 0.0218,
+      "stop": 0.2336
+    },
+    "p_sum": 1,
+    "p_sum_dev": 0,
+    "sums_conventionally": true,
+    "missing_keys": [],
+    "extra_keys": [],
+    "n_options": 4,
+    "choice": "click",
+    "reported_choice": "click",
+    "choice_is_argmax": true,
+    "top": "click",
+    "top_p": 0.582,
+    "second_p": 0.2336,
+    "margin": 0.34839999999999993,
+    "entropy_bits": 1.490991006776475,
+    "entropy_norm": 0.7454955033882374,
+    "near_uniform": false,
+    "coinflip_margin": false,
+    "confidence": 0.4426
+  },
+  "request": {
+    "state": {
+      "bytes": 1754,
+      "page_url": "https://github.com/login",
+      "elements": 11,
+      "visible_text_chars": 212
+    },
+    "questions": {
+      "action": {
+        "type": "choice",
+        "instructions": {
+          "question": "Which single browser action should be performed next to make progress toward `goal` from the current `page`?",
+          "rules": [
+            "Every element in `page.elements` can be clicked, filled or selected right now, even when its in_viewport is false (the browser scrolls to it). Scroll only when the needed element or text is not listed at all.",
+            "Use `type` only when a value in `inputs` belongs in a listed text field.",
+            "Use `stop` when `goal` is already accomplished or nothing listed can help.",
+            "Consider `last_action` and `history`: do not repeat an action that produced no change."
+          ]
+        },
+        "criteria": {
+          "click": {
+            "what": "Click one element listed in `page.elements` (a link, button, checkbox, radio, tab, menu item, or similar).",
+            "use_when": "The next step toward `goal` is to open, choose, submit, toggle, or confirm something that is listed."
+          },
+          "type": {
+            "what": "Type one of the provided `inputs` values into a text field listed in `page.elements`.",
+            "use_when": "A form field or search box must be filled before progress is possible, and a suitable value exists in `inputs`."
+          },
+          "wait": {
+            "what": "Do nothing for a moment because the page is still loading or a result is still pending.",
+            "use_when": "The visible text or a dialog indicates loading, processing, or a countdown."
+          },
+          "stop": {
+            "what": "Stop: no listed action can make progress toward `goal`.",
+            "use_when": "`goal` is already accomplished as shown by `page`, or it is impossible from here with the listed actions."
+          }
+        }
+      }
+    }
+  },
+  "response_answers": {
+    "action": {
+      "type": "choice",
+      "choice": "click",
+      "confidence": 0.4426,
+      "probabilities": {
+        "click": 0.582,
+        "type": 0.1626,
+        "wait": 0.0218,
+        "stop": 0.2336
+      }
+    }
+  }
+}

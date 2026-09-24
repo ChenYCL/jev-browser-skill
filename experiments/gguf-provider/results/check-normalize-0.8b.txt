@@ -1,0 +1,249 @@
+question set validated: goal_done[noul], blocker[choice], click_target[choice], progress[score]
+
+--- raw provider response (answers only) ---
+{
+  "goal_done": {
+    "type": "noul",
+    "noul": 0.6237457860798868
+  },
+  "blocker": {
+    "type": "choice",
+    "probabilities": {
+      "none": 0.8816563710194848,
+      "login_required": 0.05491183218323372,
+      "verification_challenge": 0.01665665889805419,
+      "consent_or_permission_dialog": 0.0164745706626764,
+      "error_page": 0.011373574746924115,
+      "missing_information": 0.01892699248962659
+    },
+    "choice": "none",
+    "confidence": 0.7029432012403304
+  },
+  "click_target": {
+    "type": "choice",
+    "probabilities": {
+      "e1": 0.11347768886155359,
+      "e2": 0.06709149660539447,
+      "e4": 0.7779057875465236,
+      "e5": 0.024132193530047148,
+      "e6": 0.006466377172864306,
+      "e7": 0.0005354078236734408,
+      "e8": 0.0003734292938369102,
+      "e9": 0.000693105801426579,
+      "e10": 0.0004951080152471736,
+      "e11": 0.0006608050662406192,
+      "e12": 0.0003073039204754589,
+      "e13": 0.00005644801303170344,
+      "e14": 0.0000885964175688581,
+      "e15": 0.006507653360602381,
+      "e16": 0.000720955227668827,
+      "e17": 0.00003110554742466205,
+      "e18": 0.000039693153263223064,
+      "e19": 0.000019677533366304354,
+      "e20": 0.00007737900158767157,
+      "e21": 0.00005650898491607726,
+      "e22": 0.00001467188059812875,
+      "e23": 0.000012313756551969523,
+      "e24": 0.00008891298234426137,
+      "e25": 0.00004179657728833125,
+      "e26": 0.000006906818324120979,
+      "e27": 0.00009476162834107368,
+      "e28": 5.087091397315186e-7,
+      "e29": 0.000001109821369272303,
+      "e30": 1.9583047890877515e-7,
+      "e31": 2.793603711054936e-7,
+      "e32": 4.344371969963069e-8,
+      "e33": 0,
+      "e34": 0,
+      "e35": 2.3824180972345867e-8,
+      "e36": 8.86021969693913e-8,
+      "e37": 2.731335981809285e-8,
+      "e38": 0,
+      "e39": 0,
+      "e40": 1.1090542176646254e-8,
+      "e41": 1.6325277491834234e-7,
+      "e42": 4.1353440245209706e-8,
+      "e43": 1.6423837021225262e-8,
+      "e44": 0,
+      "e45": 0,
+      "e46": 1.0582836138797398e-7,
+      "e47": 1.3073935373154943e-8,
+      "e48": 0,
+      "e49": 0,
+      "e50": 0,
+      "e51": 0,
+      "e52": 0,
+      "e53": 0,
+      "e54": 2.3487827233610863e-7,
+      "e55": 3.413476608014299e-8,
+      "none": 0.0000010185390931262182
+    },
+    "choice": "e4",
+    "confidence": 0.7970433704228662
+  },
+  "progress": {
+    "type": "score",
+    "probabilities": {
+      "0": 0.36878382301860313,
+      "1": 0.2524162294105386,
+      "2": 0.14559522344679124,
+      "3": 0.23320472412406693
+    },
+    "score": 1.2432208486763219,
+    "legend": [
+      "`page` moved away from `goal`: a wrong page, an error, or lost progress compared with `previous_page`.",
+      "No meaningful change toward `goal` compared with `previous_page`.",
+      "`page` is closer to `goal` than `previous_page` was.",
+      "`page` now shows `goal` accomplished."
+    ],
+    "confidence": 0.03668860304599453
+  }
+}
+
+--- normalizeAnswers(...) output ---
+{
+  "goal_done": {
+    "type": "noul",
+    "noul": 0.6237457860798868,
+    "probabilities": {
+      "true": 0.6237457860798868,
+      "false": 0.37625421392011316
+    },
+    "top": "true"
+  },
+  "blocker": {
+    "type": "choice",
+    "probabilities": {
+      "none": 0.8816563710194848,
+      "login_required": 0.05491183218323372,
+      "verification_challenge": 0.01665665889805419,
+      "consent_or_permission_dialog": 0.0164745706626764,
+      "error_page": 0.011373574746924115,
+      "missing_information": 0.01892699248962659
+    },
+    "ranked": [
+      [
+        "none",
+        0.8816563710194848
+      ],
+      [
+        "login_required",
+        0.05491183218323372
+      ],
+      [
+        "missing_information",
+        0.01892699248962659
+      ],
+      [
+        "verification_challenge",
+        0.01665665889805419
+      ],
+      [
+        "consent_or_permission_dialog",
+        0.0164745706626764
+      ],
+      [
+        "error_page",
+        0.011373574746924115
+      ]
+    ],
+    "top": "none",
+    "confidence": 0.7029432012403304,
+    "choice": "none"
+  },
+  "click_target": {
+    "type": "choice",
+    "probabilities": {
+      "e1": 0.11347768886155359,
+      "e2": 0.06709149660539447,
+      "e4": 0.7779057875465236,
+      "e5": 0.024132193530047148,
+      "e6": 0.006466377172864306,
+      "e7": 0.0005354078236734408,
+      "e8": 0.0003734292938369102,
+      "e9": 0.000693105801426579,
+      "e10": 0.0004951080152471736,
+      "e11": 0.0006608050662406192,
+      "e12": 0.0003073039204754589,
+      "e13": 0.00005644801303170344,
+      "e14": 0.0000885964175688581,
+      "e15": 0.006507653360602381,
+      "e16": 0.000720955227668827,
+      "e17": 0.00003110554742466205,
+      "e18": 0.000039693153263223064,
+      "e19": 0.000019677533366304354,
+      "e20": 0.00007737900158767157,
+      "e21": 0.00005650898491607726,
+      "e22": 0.00001467188059812875,
+      "e23": 0.000012313756551969523,
+      "e24": 0.00008891298234426137,
+      "e25": 0.00004179657728833125,
+      "e26": 0.000006906818324120979,
+      "e27": 0.00009476162834107368,
+      "e28": 5.087091397315186e-7,
+      "e29": 0.000001109821369272303,
+      "e30": 1.9583047890877515e-7,
+      "e31": 2.793603711054936e-7,
+      "e32": 4.344371969963069e-8,
+      "e33": 0,
+      "e34": 0,
+      "e35": 2.3824180972345867e-8,
+      "e36": 8.86021969693913e-8,
+      "e37": 2.731335981809285e-8,
+      "e38": 0,
+      "e39": 0,
+      "e40": 1.1090542176646254e-8,
+      "e41": 1.6325277491834234e-7,
+      "e42": 4.1353440245209706e-8,
+      "e43": 1.6423837021225262e-8,
+      "e44": 0,
+      "e45": 0,
+      "e46": 1.0582836138797398e-7,
+      "e47": 1.3073935373154943e-8,
+      "e48": 0,
+      "e49": 0,
+      "e50": 0,
+      "e51": 0,
+      "e52": 0,
+      "e53": 0,
+      "e54": 2.3487827233610863e-7,
+      "e55": 3.413476608014299e-8,
+      "none": 0.0000010185390931262182
+    },
+    "ranked": [
+      [
+        "e4",
+        0.7779057875465236
+      ],
+      [
+        "e1",
+        0.1134
+PASS  goal_done: present
+PASS  goal_done: type === noul
+PASS  goal_done: 0<=noul<=1
+PASS  goal_done: top is true|false
+PASS  goal_done: probabilities sum 1
+PASS  blocker: present
+PASS  blocker: type === choice
+PASS  blocker: has every expected key
+PASS  blocker: probabilities sum ~1 (1.000000)
+PASS  blocker: ranked non-empty + sorted
+PASS  blocker: top === ranked[0][0]
+PASS  blocker: choice is an option key
+PASS  click_target: present
+PASS  click_target: type === choice
+PASS  click_target: has every expected key
+PASS  click_target: probabilities sum ~1 (1.000000)
+PASS  click_target: ranked non-empty + sorted
+PASS  click_target: top === ranked[0][0]
+PASS  click_target: choice is an option key
+PASS  progress: present
+PASS  progress: type === score
+PASS  progress: has every expected key
+PASS  progress: probabilities sum ~1 (1.000000)
+PASS  progress: ranked non-empty + sorted
+PASS  progress: top === ranked[0][0]
+PASS  progress: score in [0, 3]
+PASS  progress: legend equals criteria
+
+ALL PASS (27 checks)

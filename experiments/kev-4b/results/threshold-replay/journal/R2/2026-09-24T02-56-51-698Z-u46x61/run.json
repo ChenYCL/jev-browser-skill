@@ -1,0 +1,28 @@
+{
+  "runId": "2026-09-24T02-56-51-698Z-u46x61",
+  "status": "success",
+  "goal": "add the Red Gadget to the cart",
+  "backend": "chrome",
+  "steps": 3,
+  "startedAt": "2026-09-24T02:56:51.700Z",
+  "journalDir": "/tmp/kev-threshold/journal/R2/2026-09-24T02-56-51-698Z-u46x61",
+  "goalDoneProbability": 0.9942,
+  "finalUrl": "http://127.0.0.1:3111/cart/add",
+  "finalTitle": "Cart · Widgetry",
+  "finalTextExcerpt": "HomeProductsPricingDocsContactSign in Search Go Cart Added 1 × Red Gadget to your cart. Continue shopping © Widgetry Inc.",
+  "usage": {
+    "requests": 3,
+    "cacheHits": 0,
+    "inputTokens": 4826,
+    "outputTokens": 1458,
+    "costUsd": 0,
+    "ms": 9460
+  },
+  "elapsedMs": 12867,
+  "finishedAt": "2026-09-24T02:57:04.566Z",
+  "resume": {
+    "backend": "chrome",
+    "cdpUrl": "http://127.0.0.1:58942",
+    "targetId": "B6DE81FCD21459D19ED1CAC22359F54A"
+  }
+}
