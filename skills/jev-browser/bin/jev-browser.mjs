@@ -125,7 +125,14 @@ function summarize(result) {
   const cost = result.usage ? `$${result.usage.costUsd.toFixed(4)} (${result.usage.requests} requests, ${result.usage.inputTokens} tokens)` : "n/a";
   const lines = [`status: ${result.status}${result.reason ? ` — ${result.reason}` : ""}`, `steps: ${result.steps}   cost: ${cost}   elapsed: ${Math.round((result.elapsedMs ?? 0) / 1000)}s`];
   if (result.finalUrl) lines.push(`final: ${result.finalTitle ?? ""} <${result.finalUrl}>`);
-  if (result.status === "needs_user") lines.push(`blocker: ${result.blocker} — the browser was handed to you; resume with --space-id ${result.resume?.spaceId ?? "<id>"} once done`);
+  if (result.status === "needs_user") {
+    const spaceId = result.resume?.spaceId;
+    lines.push(
+      spaceId
+        ? `blocker: ${result.blocker} — the browser was handed to you; resume with --space-id ${spaceId} once done`
+        : `blocker: ${result.blocker} — the browser was closed, not handed over; re-run when you can act in it (--keep leaves the page open)`,
+    );
+  }
   if (result.journalDir) lines.push(`journal: ${result.journalDir}`);
   if (result.screenshot) lines.push(`screenshot: ${result.screenshot}`);
   return lines.join("\n");
@@ -202,8 +209,10 @@ async function main(argv) {
       return 0;
     }
     case "doctor": {
-      const { config, sources } = await loadConfig({ flags: flagsFromValues(values) });
-      const report = await doctor({ config, sources, skillDir: SKILL_DIR, live: !values.offline });
+      // `doctor --home <dir>` has to load that home's config, the same way config show/set do:
+      // the whole point of the flag is to diagnose a config file that is not the default one.
+      const { config, sources } = await loadConfig({ flags: flagsFromValues(values), ...(values.home ? { home: values.home } : {}) });
+      const report = await doctor({ config, sources, skillDir: SKILL_DIR, home: values.home, live: !values.offline });
       if (values.json) print(report, { json: true });
       else process.stdout.write(`${formatDoctor(report)}\n`);
       return report.ok ? 0 : 1;

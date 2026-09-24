@@ -52,6 +52,19 @@ export function validateQuestions(questions) {
 export const estimateCostUsd = (inputTokens, pricePerMtok = 0.042) =>
   (Number(inputTokens) || 0) * (pricePerMtok / 1e6);
 
+/** True when the contract is served from this machine (a local llama.cpp backend costs nothing). */
+export function isLoopbackBaseUrl(baseUrl) {
+  try {
+    const host = new URL(String(baseUrl)).hostname.toLowerCase().replace(/^\[|\]$/g, "");
+    return host === "localhost" || host === "127.0.0.1" || host === "::1";
+  } catch {
+    return false;
+  }
+}
+
+/** USD per million input tokens actually charged for `baseUrl`: loopback tokens are free, so 0. */
+export const pricePerMtokFor = (baseUrl, pricePerMtok = 0.042) => (isLoopbackBaseUrl(baseUrl) ? 0 : pricePerMtok);
+
 /**
  * Normalize answers so every question exposes `probabilities`, `top`, and `ranked`.
  * Nouls become {true, false}; choice/score keep the native map.
@@ -93,7 +106,7 @@ export class TypeSafeClient {
    * @param {string} [options.model]
    * @param {number} [options.timeoutMs]
    * @param {number} [options.maxRetries]
-   * @param {number} [options.pricePerMtok]
+   * @param {number} [options.pricePerMtok] USD per million input tokens; ignored (0) for a loopback baseUrl
    * @param {Function} [options.fetchImpl]
    * @param {(row: object) => any} [options.onRequest] journal hook
    * @param {boolean} [options.cache] reuse answers for identical (model,state,questions)
@@ -107,7 +120,7 @@ export class TypeSafeClient {
     this.model = model;
     this.timeoutMs = timeoutMs;
     this.maxRetries = maxRetries;
-    this.pricePerMtok = pricePerMtok;
+    this.pricePerMtok = pricePerMtokFor(this.baseUrl, pricePerMtok);
     this.fetch = fetchImpl ?? globalThis.fetch;
     this.onRequest = onRequest;
     this.cacheEnabled = cache;
