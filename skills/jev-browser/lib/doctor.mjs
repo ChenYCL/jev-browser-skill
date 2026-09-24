@@ -6,9 +6,9 @@ import path from "node:path";
 import { promisify } from "node:util";
 import { findChromeExecutable } from "./backends/chrome.mjs";
 import { SAFARI_ENABLE_HINT } from "./backends/safari.mjs";
-import { classifyModelsCard, describeConfig, thresholdProfile, userConfigPath } from "./config.mjs";
-import { localStatus } from "./local.mjs";
-import { TypeSafeClient, isLoopbackBaseUrl } from "./typesafe.mjs";
+import { describeConfig, userConfigPath } from "./config.mjs";
+import { describeTier, loopbackPort, probeEndpoint } from "./tiers.mjs";
+import { TypeSafeClient } from "./typesafe.mjs";
 import { installTargets } from "./install.mjs";
 
 const run = promisify(execFile);
@@ -28,35 +28,6 @@ async function version(cmd, args = ["--version"]) {
     return (stdout || stderr).trim().split("\n")[0];
   } catch (error) {
     return null;
-  }
-}
-
-/** The port a loopback baseUrl points at, or null. */
-function loopbackPort(baseUrl) {
-  if (!isLoopbackBaseUrl(baseUrl)) return null;
-  try {
-    const url = new URL(String(baseUrl));
-    return url.port ? Number(url.port) : url.protocol === "https:" ? 443 : 80;
-  } catch {
-    return null;
-  }
-}
-
-/**
- * Which local backend answers on `config.baseUrl`. Reuses the models call doctor already made for
- * the `typesafe api` line; when there was none (no api key, or offline) and the endpoint is
- * loopback it asks /v1/models directly, because the `goal_done` bar depends on the answer.
- */
-async function classifyEndpoint({ config, live, models }) {
-  if (models) return classifyModelsCard(models);
-  if (!live || config.thresholds.profile !== "auto" || !isLoopbackBaseUrl(config.baseUrl)) return null;
-  const url = `${String(config.baseUrl).replace(/\/+$/, "")}/v1/models`;
-  try {
-    const response = await fetch(url, { signal: AbortSignal.timeout(2500) });
-    if (!response.ok) return { profile: null, kind: "http-error", reason: `${url} answered HTTP ${response.status}`, names: [] };
-    return classifyModelsCard(await response.json());
-  } catch (error) {
-    return { profile: null, kind: "unreachable", reason: `${url} unreachable (${error.message})`, names: [] };
   }
 }
 
@@ -82,7 +53,7 @@ export async function doctor({ config, sources, home = os.homedir(), skillDir, l
   // The fully local backend is optional: report it, never fail on it, never throw. The registry
   // is imported dynamically so a half-edited lib/local-models.json shows up as a line here
   // instead of breaking doctor.
-  const endpoint = await classifyEndpoint({ config, live, models });
+  const endpoint = await probeEndpoint({ config, live, models });
   try {
     const { localStatus } = await import("./local.mjs");
     // Probe the port the *run* uses, so a Kev endpoint on 8008 is reported rather than the GGUF
@@ -115,20 +86,17 @@ export async function doctor({ config, sources, home = os.homedir(), skillDir, l
     add("local model", null, `registry problem: ${error.message}`, "fix skills/jev-browser/lib/local-models.json, or run --list-models with a working file");
   }
 
-  // The bar depends on which backend answers. Print the pair a RUN would use: a value some layer
-  // configured, else the resolved profile's — and name which keys were pinned, so "differs from the
-  // profile" is never confused with "you configured it".
-  const bar = thresholdProfile(config, { classification: endpoint });
-  const pinnedKeys = config.thresholds.configured ?? [];
-  const effective = Object.fromEntries(
-    ["goalDone", "goalDoneFinal"].map((key) => [key, pinnedKeys.includes(key) ? config.thresholds[key] : bar.defaults[key]]),
-  );
+  // The bar and the tier come from one resolution (lib/tiers.mjs), so the name on this line and the
+  // values beside it can never disagree: an unclassified loopback endpoint says so and still shows
+  // the highest bar.
+  const status = describeTier({ config, classification: endpoint });
+  const { effective, profile, pinnedKeys } = status;
   add(
     "goal_done bar",
     true,
-    `${effective.goalDone} per step / ${effective.goalDoneFinal} final — ${bar.profile} profile for ${config.baseUrl}` +
+    `${effective.goalDone} per step / ${effective.goalDoneFinal} final — ${status.tier} tier, ${profile.name} profile for ${config.baseUrl}` +
       `${pinnedKeys.length ? ` (${pinnedKeys.map((key) => `thresholds.${key}`).join(", ")} pinned)` : ""}`,
-    `${bar.reason} · bar measured in ${bar.measured}${bar.pinned !== "auto" ? `; unset the pin with: config unset thresholds.profile` : ""}`,
+    `${profile.reason} · bar measured in ${profile.measured}${profile.pinned !== "auto" ? `; unset the pin with: config unset thresholds.profile` : ""}`,
   );
 
   const ego = await version("ego-browser");
