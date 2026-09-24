@@ -23,7 +23,7 @@ export const STATUS = Object.freeze({
  *   handOff?() -> object|void       finish({success, keep}) -> void
  *   historyLength?() -> number      describe() -> {backend, ...ids for resume}
  */
-export async function runGoal({ driver, client, config, goal, startUrl, inputs = {}, secrets = {}, log = () => {}, onStep, screenshotPath, stepScreenshotsDir, runId = makeRunId() }) {
+export async function runGoal({ driver, client, config, goal, startUrl, inputs = {}, secrets = {}, log = () => {}, onStep, screenshotPath, stepScreenshotsDir, runId = makeRunId(), thresholds = null }) {
   const startedAt = Date.now();
   const thr = config.thresholds;
   const allInputs = { ...inputs, ...secrets };
@@ -41,7 +41,10 @@ export async function runGoal({ driver, client, config, goal, startUrl, inputs =
   // blocked: (state, action) pairs that produced no change or an error.
   // tried:   (state, action) pairs already executed once; untried edges are preferred (edge memory).
   const memory = { blocked: new Set(), tried: new Set(), visits: new Map(), hashes: new Map(), history: [], noChangeStreak: 0 };
-  const result = { runId, status: STATUS.error, goal, backend: driver.name, steps: 0, startedAt: nowIso(), journalDir };
+  const result = { runId, status: STATUS.error, goal, backend: driver.name, steps: 0, startedAt: nowIso(), journalDir, ...(thresholds ? { thresholds } : {}) };
+  // The bar this run is using is decided from the endpoint, so write it down before the first step:
+  // a run that dies later must still say which profile it ran under.
+  if (journalDir) await writeJson(path.join(journalDir, "run.json"), redact({ ...result, status: "running" }, secretValues));
   let obs = null;
   let previous = null;
   let lastAction = null;
