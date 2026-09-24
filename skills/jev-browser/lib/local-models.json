@@ -1,0 +1,18 @@
+{
+  "_comment": "Model registry for the fully local backend (skills/jev-browser/bin/jev-local.mjs). Swapping models is a data edit: point \"default\" at another id, or pick one per run with --model-name <id>. Every entry needs file (bare .gguf filename, downloaded into ~/.jev-browser/models), url (https resolve URL), bytes (exact size), label (shown by --list-models and doctor).",
+  "default": "qwen3.5-4b-q4-k-m",
+  "models": {
+    "qwen3.5-0.8b-q8": {
+      "file": "Qwen3.5-0.8B-Q8_0.gguf",
+      "url": "https://huggingface.co/unsloth/Qwen3.5-0.8B-GGUF/resolve/main/Qwen3.5-0.8B-Q8_0.gguf",
+      "bytes": 811843840,
+      "label": "Qwen3.5-0.8B Q8_0"
+    },
+    "qwen3.5-4b-q4-k-m": {
+      "file": "Qwen3.5-4B-Q4_K_M.gguf",
+      "url": "https://huggingface.co/unsloth/Qwen3.5-4B-GGUF/resolve/main/Qwen3.5-4B-Q4_K_M.gguf",
+      "bytes": 2740937888,
+      "label": "Qwen3.5-4B Q4_K_M"
+    }
+  }
+}
