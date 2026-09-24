@@ -252,7 +252,9 @@ export function formatTierStatus(status) {
 
 /**
  * `tier use` — the export line, the way both launchers print it. Nothing is written to disk here;
- * only `--persist` (or `config set baseUrl`) stores anything, and the text says so either way.
+ * only `--persist` (or `config set baseUrl`) stores anything: a local tier's baseUrl and its
+ * placeholder apiKey, because a key the client can see is what a local run still needs; hosted
+ * stores its baseUrl alone. The text says which either way.
  */
 export function formatTierUse(tier, { skillDir = null, persisted = null, configPath = userConfigPath() } = {}) {
   const out = [];
@@ -284,6 +286,10 @@ export function formatTierUse(tier, { skillDir = null, persisted = null, configP
     );
   }
   out.push("");
-  out.push(persisted ? `Stored baseUrl=${tier.baseUrl} in ${persisted} — runs use it without the export.` : `Nothing was written: add --persist to store baseUrl in ${configPath} instead of exporting it.`);
+  out.push(
+    persisted
+      ? `Stored ${tier.apiKey ? `apiKey=${tier.apiKey} and baseUrl=${tier.baseUrl}` : `baseUrl=${tier.baseUrl}`} in ${persisted} — runs use it without the export.`
+      : `Nothing was written: add --persist to store ${tier.apiKey ? "that tier's baseUrl and apiKey" : "baseUrl"} in ${configPath} instead of exporting it.`,
+  );
   return out.join("\n");
 }

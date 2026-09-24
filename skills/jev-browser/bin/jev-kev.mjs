@@ -24,6 +24,8 @@ import { createHash } from "node:crypto";
 import { spawn } from "node:child_process";
 import { Readable } from "node:stream";
 import { pipeline } from "node:stream/promises";
+import { fileURLToPath } from "node:url";
+import { KEV_DEFAULT_CLONE, KEV_UV_HINT, kevSetupCommands, probeKevRuntime } from "../lib/kev.mjs";
 
 // ---------------------------------------------------------------------------- assets
 
@@ -81,7 +83,7 @@ const KEV_ASSETS = {
 // different .gitattributes, so its small files are expected to fail and fall through to HF).
 const SOURCES = ["modelscope", "hf", "hf-mirror"];
 
-const DEFAULT_CLONE = path.join(os.homedir(), ".local", "share", "jev-browser", "kev");
+const DEFAULT_CLONE = KEV_DEFAULT_CLONE;
 const CACHE = path.join(os.homedir(), ".cache", "huggingface", "hub");
 const RUN_ID = KEV_ASSETS.run.repo;
 const BASE_ID = KEV_ASSETS.base.repo;
@@ -98,6 +100,7 @@ Usage:
   jev-kev --list-files                  print the pinned manifest and exit
   jev-kev --patch-row-limit             apply the optional row-limit patch to the local clone
   jev-kev --unpatch-row-limit           revert it
+  jev-kev --detach                      run in the background; print the env line once serving
 
 What it does, in order:
   1. fetches ${RUN_ID} (16 files, 152 MiB) and its base ${BASE_ID}
@@ -124,6 +127,9 @@ Tuning:
       --run <id>         checkpoint to serve                 (default ${RUN_ID})
       --clone <dir>      Kev checkout to use                 (default ${DEFAULT_CLONE.replace(os.homedir(), "~")})
       --timeout <secs>   wait for the server to become ready (default ${READY_MS / 1000})
+      --detach           background: logs to ~/.jev-browser/run/jev-kev-8008.log, writes the pid
+                         file, prints the env line once the server answers and returns (the server
+                         keeps running; opt in, never the default)
   -h, --help             this text
 
 Env (passed through to the server): KEV_TEMPERATURE, KEV_BACKEND, KEV_DTYPE, KEV_PREFIX_CACHE, ...
@@ -388,45 +394,19 @@ const patchApplied = async (clone) => (await fsp.readFile(path.join(clone, "kev"
 
 /** The venv python, with the exact command that creates it when it is missing. */
 async function findPython(clone) {
-  const python = path.join(clone, ".venv", "bin", "python");
-  if (!fs.existsSync(clone)) {
+  const status = await probeKevRuntime({ clone });
+  if (status.ok) return status.python;
+  const setup = kevSetupCommands(clone);
+  if (status.kind === "missing-clone") {
+    throw configError(`Kev checkout not found at ${clone}\n\nClone it with:\n\n  ${setup[0]}\n  ${setup[1]}\n\n(${KEV_UV_HINT})`);
+  }
+  if (status.kind === "missing-venv") {
     throw configError(
-      `Kev checkout not found at ${clone}\n\nClone it with:\n\n  git clone --depth 1 https://github.com/jaredpalmer/kev.git ${clone}\n  uv sync --extra serve --project ${clone}\n`,
+      `no Python venv at ${path.join(clone, ".venv")}\n\nCreate it with:\n\n  ${setup[1]}\n\n` +
+        `(${KEV_UV_HINT}; uv follows the repo's .python-version, 3.13 — not 3.14, which has no torch wheel)`,
     );
   }
-  if (!fs.existsSync(python)) {
-    throw configError(
-      `no Python venv at ${path.join(clone, ".venv")}\n\nCreate it with:\n\n  uv sync --extra serve --project ${clone}\n\n` +
-        `(uv follows the repo's .python-version, 3.13 — not 3.14, which has no torch wheel)`,
-    );
-  }
-  const probe = await run(python, ["-c", "import torch, mlx_lm; print('ok')"], { cwd: clone, quiet: true }).catch((error) => error);
-  if (probe instanceof Error || probe.code !== 0) {
-    const detail = (probe instanceof Error ? probe.message : `${probe.stdout}${probe.stderr}`).trim().split("\n").slice(-3).join("\n");
-    throw configError(
-      `the venv at ${python} cannot import torch and mlx_lm, so the MLX backend is unavailable\n  ${detail}\n\n` +
-        `Install the serving extras with:\n\n  uv sync --extra serve --project ${clone}\n`,
-    );
-  }
-  return python;
-}
-
-function run(application, args, { cwd, env, quiet } = {}) {
-  return new Promise((resolve, reject) => {
-    const child = spawn(application, args, { cwd, env: env ?? process.env, stdio: ["ignore", "pipe", "pipe"] });
-    let stdout = "";
-    let stderr = "";
-    child.stdout.on("data", (chunk) => {
-      stdout += chunk;
-      if (!quiet) process.stderr.write(chunk);
-    });
-    child.stderr.on("data", (chunk) => {
-      stderr += chunk;
-      if (!quiet) process.stderr.write(chunk);
-    });
-    child.once("error", reject);
-    child.once("close", (code) => resolve({ code, stdout, stderr }));
-  });
+  throw configError(`${status.detail}\n\nInstall the serving extras with:\n\n  ${setup[1]}\n\n(${KEV_UV_HINT})`);
 }
 
 async function getJson(url, timeoutMs = 1500) {
@@ -514,6 +494,30 @@ async function main() {
 
   const verifyOnly = flag("--verify-only");
   const downloadOnly = flag("--download-only");
+
+  // --detach: run this launcher again in the background (args minus the flag), wait for the card it
+  // serves, and print the one line callers read. Opt-in; the foreground path below is untouched.
+  if (flag("--detach")) {
+    if (verifyOnly || downloadOnly) throw configError(`--detach cannot be combined with ${verifyOnly ? "--verify-only" : "--download-only"}: one backgrounds a server, the other only inspects or fetches and exits`);
+    const { spawnSelfDetached, waitUntilReady } = await import("../lib/detach.mjs");
+    const runDir = path.join(os.homedir(), ".jev-browser", "run");
+    const logFile = path.join(runDir, `jev-kev-${port}.log`);
+    const detachedUrl = `http://127.0.0.1:${port}`;
+    const child = spawnSelfDetached({ script: fileURLToPath(import.meta.url), args: argv.filter((argument) => argument !== "--detach"), logFile });
+    const ready = await waitUntilReady(async () => Boolean((await getJson(`${detachedUrl}/v1/models`, 1500))?.models?.length), { timeoutMs: READY_MS });
+    if (!ready) {
+      log(`[kev] --detach: nothing answered ${detachedUrl}/v1/models within ${READY_MS / 1000}s; see ${logFile} (pid ${child.pid})`);
+      return 1;
+    }
+    const pidFile = path.join(runDir, `jev-kev-${port}.pid`);
+    if (child.exitCode === null && !fs.existsSync(pidFile)) {
+      await fsp.mkdir(runDir, { recursive: true });
+      await fsp.writeFile(pidFile, `${child.pid}\n`);
+    }
+    process.stdout.write(`TYPESAFE_BASE_URL=${detachedUrl} TYPESAFE_API_KEY=local\n`);
+    return 0;
+  }
+
   // Check the runtime before the (expensive) cache verification: a missing venv should fail in a
   // second, not after re-hashing 9.5 GB. --verify-only and --download-only never need it.
   const python = verifyOnly || downloadOnly ? null : await findPython(clone);
@@ -595,6 +599,8 @@ async function main() {
     spawned.kill("SIGTERM");
     throw new Error(`the server came up serving "${card.run}", not "${run}" — refusing to hand out a URL for it`);
   }
+  const runDir = path.join(os.homedir(), ".jev-browser", "run");
+  const pidFile = path.join(runDir, `jev-kev-${port}.pid`);
   const shutdown = (signal) => {
     log(`[kev] ${signal} — stopping the Kev server${spawned ? ` (pid ${spawned.pid})` : ""}`);
     try {
@@ -602,6 +608,7 @@ async function main() {
     } catch {
       // already gone
     }
+    fs.rmSync(pidFile, { force: true });
     process.exit(0);
   };
   process.on("SIGINT", () => shutdown("SIGINT"));
@@ -609,6 +616,11 @@ async function main() {
   spawned.on("exit", (code) => {
     log(`[kev] server exited (code ${code})`);
   });
+
+  // This launcher's own pid: `setup stop` signals this process, and the handler above stops the
+  // server it started together with it.
+  await fsp.mkdir(runDir, { recursive: true });
+  await fsp.writeFile(pidFile, `${process.pid}\n`);
 
   log(`[kev] serving /v1/systemone on ${serviceUrl} (${card.run} · ${card.base} · ${card.device}/${card.backend} · ${card.dtype} · T=${Number(card.temperature).toFixed(4)})`);
   log(`[kev] limits: needs a Python venv + MLX, ~18 GB idle and 36 GB GPU footprint under load at the raised limit;`);
