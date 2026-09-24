@@ -69,3 +69,24 @@ test("client surfaces 401 without retrying and never leaks the key", async () =>
 test("client requires an API key", () => {
   assert.throws(() => new TypeSafeClient({}), /Missing TypeSafe API key/);
 });
+
+test("a loopback client accrues no cost; a hosted one does", async () => {
+  const answerWith = (inputTokens) => async () => ({
+    ok: true,
+    status: 200,
+    headers: new Headers(),
+    text: async () => JSON.stringify({ model: "m", answers: { q: { type: "noul", noul: 0.6 } }, usage: { input_tokens: inputTokens, output_tokens: 0 } }),
+  });
+  const questions = { q: { type: "noul", instructions: "Is it urgent?" } };
+  for (const baseUrl of ["http://127.0.0.1:8092", "http://localhost:8092", "http://[::1]:8092"]) {
+    const client = new TypeSafeClient({ apiKey: "k", baseUrl, fetchImpl: answerWith(1_000_000), cache: false });
+    const result = await client.systemOne({ state: "x", questions });
+    assert.equal(result.costUsd, 0, `${baseUrl} is free`);
+    assert.equal(client.totals.costUsd, 0, `${baseUrl} totals are free too`);
+    assert.equal(client.totals.inputTokens, 1_000_000, "tokens are still counted");
+  }
+  const hosted = new TypeSafeClient({ apiKey: "k", baseUrl: "https://api.typesafe.ai", fetchImpl: answerWith(1_000_000), cache: false });
+  const result = await hosted.systemOne({ state: "x", questions });
+  assert.equal(result.costUsd, 0.042);
+  assert.equal(hosted.totals.costUsd, 0.042);
+});

@@ -34,10 +34,22 @@ export const ENUMERATOR_SOURCE = String.raw`
     if (rect.bottom < -vh * 2 || rect.top > vh * 4) return false; // far outside; still counted as scrollable content
     return true;
   }
+  // ARIA 1.2 comboboxes are text inputs: role="combobox" may sit on the input itself
+  // (DuckDuckGo) or on a wrapper element (Wikipedia). Either way the field stays typeable.
+  function isComboboxField(el, role) {
+    var tag = el.tagName.toLowerCase();
+    if (tag !== "input" && tag !== "textarea" && !el.isContentEditable) return false;
+    if (role === "combobox") return true;
+    var wrapper = el.closest("[role=combobox]");
+    return !!wrapper && wrapper !== el;
+  }
   function roleOf(el) {
     var tag = el.tagName.toLowerCase();
     var role = el.getAttribute("role");
-    if (role) return role.toLowerCase();
+    if (role) {
+      var named = role.toLowerCase();
+      return isComboboxField(el, named) ? "textbox" : named;
+    }
     if (tag === "a") return el.hasAttribute("href") ? "link" : "text";
     if (tag === "button") return "button";
     if (tag === "select") return "select";
