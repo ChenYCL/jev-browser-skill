@@ -48,7 +48,10 @@ test("CLI: run / observe / judge / pick / doctor / config round-trip (chrome hea
   if (!LIVE) {
     // With the endpoint reachable, the same call classifies it: the mock's card is name-only, i.e.
     // the GGUF readout, so the bar drops to the measured readout value.
-    const online = JSON.parse((await run(process.execPath, [BIN, "doctor", "--json"], { env })).stdout);
+    // doctor's exit code covers *every* check, not this line — a CI runner has no ego-browser — so
+    // take the non-zero exit the way the --offline call above does and read stdout. The report is
+    // printed either way; JSON.parse still fails if the command produced no usable report.
+    const online = JSON.parse((await run(process.execPath, [BIN, "doctor", "--json"], { env }).catch((e) => e)).stdout);
     const onlineBar = online.checks.find((c) => c.name === "goal_done bar");
     assert.ok(onlineBar.detail.includes("local-readout profile"), onlineBar.detail);
     assert.ok(onlineBar.detail.includes(String(LOCAL_GOAL_DONE)), onlineBar.detail);
