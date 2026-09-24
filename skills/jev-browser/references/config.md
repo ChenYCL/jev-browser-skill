@@ -50,6 +50,11 @@ masked and the list of sources that contributed.
 
 ## Termination thresholds on a local backend
 
+The tiers themselves — what each backend is, what it needs, how to start it, its port, its 20-item
+score and the bar it gets — are listed once, in [`SKILL.md`](../SKILL.md#judging-tiers), and
+`jev-browser tier list | status | use` prints the same thing from the CLI. This section is only
+about the thresholds.
+
 `goal_done` is the question that ends a run, but its *value* depends on the backend — and the two
 local backends this skill ships read it on scales that do not overlap. So the value is a **profile**:
 

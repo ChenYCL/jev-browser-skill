@@ -213,25 +213,23 @@ whether the page changed, cost), `requests.jsonl` and `run.json`, with secrets r
 | `chrome` | unattended runs, CI, no window | own profile dir, `--headless`, or `--cdp-url http://127.0.0.1:9222` to attach |
 | `safari` | WebKit | enable Develop → Allow Remote Automation once |
 
-**Fully local (experimental).** `node skills/jev-browser/bin/jev-local.mjs` downloads the registry
-default (a 2.6 GiB Qwen3.5-4B GGUF), starts `llama.cpp` with a 16k context (Apple Silicon), and
-serves the same `/v1/systemone` contract on `127.0.0.1:8092` — first-token readout, no API key, no
-Python runtime, $0, p50 ≈4.3 s per step (its one long option list is ~2/3 of it). Models are
-data: `skills/jev-browser/lib/local-models.json` holds each entry with its URL, size and label;
-pick one with `--model-name <id>` or edit its `"default"` (`--list-models` prints the registry,
-`--ctx` the context size). It is a short-state classifier, not a Jev replacement (no few-shot, no
-images; 0.80 vs hosted Jev's 0.95 on 20 graded items, and the smaller 0.8B entry only 0.50): see
-[results](experiments/gguf-provider/RESULTS.md).
+### Judging tiers
 
-**A second local tier trades disk and memory for accuracy.** `node skills/jev-browser/bin/jev-kev.mjs`
-fetches the Kev 4B checkpoint and its 9.34 GB base (verifying every file against published hashes),
-starts it, and serves the same contract on `127.0.0.1:8008`: **19/20 = 0.95** on the 20 graded items
-with its optional row-limit patch applied — 18/20 at the published row limit, where the 55-option
-`click_target` questions are refused with HTTP 422 — i.e. it ties hosted Jev on this set. The costs
-are real: a Python venv + MLX, the 9.34 GB base, ~18 GB idle and ~36 GB of GPU memory under load at
-the raised limit (heavy swap on a 48 GB machine), and mean 2.2 s per item (12.2 s worst). The
-`goal_done` bar is resolved per backend, so a Kev run does not inherit the readout's. Tier table and
-detail: [SKILL.md](skills/jev-browser/SKILL.md#fully-local-experimental).
+Three judging backends serve the same `/v1/systemone` contract, and all three are first-class
+options — but **hosted Jev is the default**: with no config file and no environment, a run uses
+`https://api.typesafe.ai` (and a loopback `baseUrl` — a local model — is priced at $0).
+
+```bash
+jev-browser tier list      # the three tiers: what each is, what it needs, how to start it, its port, its score, its bar
+jev-browser tier status    # what a run would use right now: baseUrl, tier, resolved goal_done bar, endpoint
+jev-browser tier use kev   # one tier's export line and start command (nothing is written unless you add --persist)
+```
+
+The GGUF readout (`node skills/jev-browser/bin/jev-local.mjs`, port 8092) needs no Python and
+serves an Apple Silicon `llama.cpp` server; Kev (`node skills/jev-browser/bin/jev-kev.mjs`, port
+8008) trades a Python venv, a 9.34 GB base and tens of GB of GPU memory for the accuracy tier. The
+tier table with every measured number — scores, latency, disk, memory, each backend's `goal_done`
+bar and the known holes — lives in [SKILL.md](skills/jev-browser/SKILL.md#judging-tiers).
 
 ## MCP server
 

@@ -197,6 +197,19 @@ jev-browser pick --question "Which link opens the plans page?" --candidate prici
 | `chrome` | 无人值守、CI、不要窗口 | 独立 profile；`--headless`；或 `--cdp-url http://127.0.0.1:9222` 附着到已开启调试端口的 Chrome |
 | `safari` | WebKit | 需在开发菜单打开一次"允许远程自动化" |
 
+### 判定后端（tier）
+
+三种判定后端共用同一个 `/v1/systemone` 契约，都是平级选项 —— 但**默认仍然是托管版 Jev**：不写配置、不设环境变量，运行走 `https://api.typesafe.ai`（loopback `baseUrl` 即本地模型，按 $0 计价）。
+
+```bash
+jev-browser tier list      # 三个 tier：是什么、需要什么、怎么启动、端口、得分、goal_done 阈值
+jev-browser tier status    # 当前一次运行会用哪个：baseUrl、tier、解析出的阈值、端点状态
+jev-browser tier use kev   # 打印某个 tier 的 export 行和启动命令（除非加 --persist，否则不写配置）
+```
+
+表格与全部实测数字（得分、延迟、磁盘、内存、各后端 `goal_done` 阈值、已知短板）见
+[`SKILL.md`](skills/jev-browser/SKILL.md#judging-tiers)；`references/config.md` 只保留阈值 profile 细节。
+
 ## MCP server
 
 `jev-browser mcp` 通过 stdio 提供 MCP，零依赖。工具：`jev_browse`、`jev_observe`、`jev_judge`、`jev_pick`、`jev_doctor`、`jev_config`。结果同时以 JSON 文本和 `structuredContent` 返回。见 [`references/mcp.md`](skills/jev-browser/references/mcp.md)。
