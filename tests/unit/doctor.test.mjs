@@ -26,6 +26,22 @@ async function runDoctor({ home, baseUrl }) {
 
 const check = (report, name) => report.checks.find((c) => c.name === name);
 
+/**
+ * Run `body` with JEV_LLAMA_SERVER pinned, then restore it. Whether llama.cpp is installed is an
+ * input to doctor (it resolves JEV_LLAMA_SERVER, then PATH, then /opt/homebrew/bin), and a test
+ * that inherits it asserts the machine it happens to run on.
+ */
+async function withLlamaServer(value, body) {
+  const previous = process.env.JEV_LLAMA_SERVER;
+  process.env.JEV_LLAMA_SERVER = value;
+  try {
+    return await body();
+  } finally {
+    if (previous === undefined) delete process.env.JEV_LLAMA_SERVER;
+    else process.env.JEV_LLAMA_SERVER = previous;
+  }
+}
+
 test("a loopback baseUrl without a key is a warning that names the placeholder, not a failure", async () => {
   const home = await scratchHome();
   try {
@@ -53,12 +69,26 @@ test("a truncated model file is reported as truncated, not accepted as ready", a
     await fs.mkdir(path.dirname(file), { recursive: true });
     await fs.writeFile(file, Buffer.alloc(1024));
 
-    const report = await runDoctor({ home, baseUrl: "http://127.0.0.1:8092" });
-    const local = check(report, "local model");
+    // With llama.cpp present, the next action is to replace the file — while the truncation is
+    // still the thing the check refuses to call ready.
+    const stub = path.join(home, "llama-server-stub");
+    await fs.writeFile(stub, "#!/bin/sh\n", { mode: 0o755 });
+    const withLlama = await withLlamaServer(stub, () => runDoctor({ home, baseUrl: "http://127.0.0.1:8092" }));
+    const local = check(withLlama, "local model");
     assert.equal(local.status, "warn");
     assert.match(local.detail, new RegExp(`truncated \\(1024 of ${entry.bytes} bytes\\)`));
-    assert.match(local.hint, /download it again/);
     assert.match(local.detail, /127\.0\.0\.1:8092 not running/);
+    assert.match(local.hint, /download it again/);
+
+    // Without llama.cpp (a bare CI runner) the same file is still described as truncated and is
+    // still not ready; the hint names the prerequisite that is missing first. The two states are
+    // asserted separately because the machine decides which one a run meets.
+    const withoutLlama = await withLlamaServer(path.join(home, "no-llama-server-here"), () => runDoctor({ home, baseUrl: "http://127.0.0.1:8092" }));
+    const bare = check(withoutLlama, "local model");
+    assert.equal(bare.status, "warn");
+    assert.match(bare.detail, new RegExp(`truncated \\(1024 of ${entry.bytes} bytes\\)`));
+    assert.match(bare.detail, /llama-server not found/);
+    assert.match(bare.hint, /brew install llama\.cpp/);
   } finally {
     await fs.rm(home, { recursive: true, force: true });
   }
