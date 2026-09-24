@@ -1,0 +1,30 @@
+{
+  "qwen3-4b-instruct-2507-q4_k_m": {
+    "bytes": 157286400,
+    "window_s": 179.804,
+    "mb_s_overall": 0.875,
+    "mb_s_steady": 0.933,
+    "mb_s_p50": 0.969,
+    "mb_s_min": 0.469,
+    "mb_s_max": 1.48,
+    "file_bytes": 2497281120,
+    "eta_min": {
+      "@ 0.933 MB/s": 44.6,
+      "@ 0.875 MB/s": 47.6
+    }
+  },
+  "gemma-3-4b-it-q4_k_m": {
+    "bytes": 157286400,
+    "window_s": 191.761,
+    "mb_s_overall": 0.82,
+    "mb_s_steady": 0.87,
+    "mb_s_p50": 0.82,
+    "mb_s_min": 0.468,
+    "mb_s_max": 1.606,
+    "file_bytes": 2489894016,
+    "eta_min": {
+      "@ 0.87 MB/s": 47.7,
+      "@ 0.82 MB/s": 50.6
+    }
+  }
+}

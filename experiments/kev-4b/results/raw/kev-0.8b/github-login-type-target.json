@@ -1,0 +1,80 @@
+{
+  "id": "github-login-type-target",
+  "kind": "browser",
+  "question": "type_target",
+  "type": "choice",
+  "expected": "e3",
+  "predicted": "e5",
+  "correct": false,
+  "got": "choice=e5 P(correct)=0.0653",
+  "ms": 181,
+  "server_latency_ms": 177.5,
+  "usage": {
+    "input_tokens": 605,
+    "output_tokens": 67
+  },
+  "model_echo": "kev-latest",
+  "analysis": {
+    "type": "choice",
+    "probabilities": {
+      "e3": 0.0653,
+      "e5": 0.7282,
+      "none": 0.2065
+    },
+    "p_sum": 1,
+    "p_sum_dev": 0,
+    "sums_conventionally": true,
+    "missing_keys": [],
+    "extra_keys": [],
+    "n_options": 3,
+    "choice": "e5",
+    "reported_choice": "e5",
+    "choice_is_argmax": true,
+    "top": "e5",
+    "top_p": 0.7282,
+    "second_p": 0.2065,
+    "margin": 0.5216999999999999,
+    "entropy_bits": 1.0602406439734158,
+    "entropy_norm": 0.6689373682285906,
+    "near_uniform": false,
+    "coinflip_margin": false,
+    "confidence": 0.5923
+  },
+  "request": {
+    "state": {
+      "bytes": 1754,
+      "page_url": "https://github.com/login",
+      "elements": 11,
+      "visible_text_chars": 212
+    },
+    "questions": {
+      "type_target": {
+        "type": "choice",
+        "instructions": {
+          "question": "If the next action is typing, which text field in `page.elements` should receive a value from `inputs` to make progress toward `goal`?",
+          "rules": [
+            "Prefer empty fields over fields that already contain the right value.",
+            "Choose `none` if no listed field should be filled now."
+          ]
+        },
+        "criteria": {
+          "e3": "text field 'Username or email address' (empty, required)",
+          "e5": "text field 'Password' (type password, empty, required)",
+          "none": "No listed text field should be filled now."
+        }
+      }
+    }
+  },
+  "response_answers": {
+    "type_target": {
+      "type": "choice",
+      "choice": "e5",
+      "confidence": 0.5923,
+      "probabilities": {
+        "e3": 0.0653,
+        "e5": 0.7282,
+        "none": 0.2065
+      }
+    }
+  }
+}

@@ -1,0 +1,460 @@
+{
+  "model": "qwen35-4b",
+  "ending": "answer",
+  "items": 20,
+  "overall": {
+    "n": 20,
+    "correct": 16,
+    "accuracy": 0.8
+  },
+  "by_question": {
+    "click_target": {
+      "n": 2,
+      "correct": 1,
+      "accuracy": 0.5
+    },
+    "action": {
+      "n": 3,
+      "correct": 1,
+      "accuracy": 0.333
+    },
+    "blocker": {
+      "n": 2,
+      "correct": 2,
+      "accuracy": 1
+    },
+    "goal_done": {
+      "n": 1,
+      "correct": 1,
+      "accuracy": 1
+    },
+    "type_target": {
+      "n": 3,
+      "correct": 3,
+      "accuracy": 1
+    },
+    "submit_after_type": {
+      "n": 2,
+      "correct": 2,
+      "accuracy": 1
+    },
+    "type_value": {
+      "n": 1,
+      "correct": 1,
+      "accuracy": 1
+    },
+    "progress": {
+      "n": 1,
+      "correct": 1,
+      "accuracy": 1
+    },
+    "answer": {
+      "n": 5,
+      "correct": 4,
+      "accuracy": 0.8
+    }
+  },
+  "by_kind": {
+    "browser": {
+      "n": 15,
+      "correct": 12,
+      "accuracy": 0.8
+    },
+    "noul": {
+      "n": 5,
+      "correct": 4,
+      "accuracy": 0.8
+    }
+  },
+  "latency_ms": {
+    "total": 61444,
+    "mean": 3072,
+    "median": 727,
+    "max": 13895
+  },
+  "rows": [
+    {
+      "id": "ddg-click-target-aapl",
+      "kind": "browser",
+      "question": "click_target",
+      "type": "choice",
+      "expected": "e1",
+      "predicted": "e15",
+      "got": "choice=e15 P(correct)=0.2234",
+      "correct": false,
+      "ms": 13895,
+      "label_mass": 0.9942416223501861,
+      "multi_token_labels": [],
+      "missing_labels": [],
+      "confidence": 0.5983153418154805
+    },
+    {
+      "id": "ddg-action-aapl",
+      "kind": "browser",
+      "question": "action",
+      "type": "choice",
+      "expected": "click",
+      "predicted": "click",
+      "got": "choice=click P(correct)=0.3176",
+      "correct": true,
+      "ms": 8494,
+      "label_mass": 0.9930100049352326,
+      "multi_token_labels": [],
+      "missing_labels": [],
+      "confidence": 0.03687207423806582
+    },
+    {
+      "id": "ddg-blocker-aapl",
+      "kind": "browser",
+      "question": "blocker",
+      "type": "choice",
+      "expected": "none",
+      "predicted": "none",
+      "got": "choice=none P(correct)=0.8735",
+      "correct": true,
+      "ms": 790,
+      "label_mass": 0.9970363253900683,
+      "multi_token_labels": [],
+      "missing_labels": [],
+      "confidence": 0.7225273482158092
+    },
+    {
+      "id": "ddg-goal-done-aapl",
+      "kind": "browser",
+      "question": "goal_done",
+      "type": "noul",
+      "expected": "false",
+      "predicted": "false",
+      "got": "P(yes)=0.0060",
+      "correct": true,
+      "ms": 627,
+      "label_mass": 0.9759872065102332,
+      "multi_token_labels": [],
+      "missing_labels": [],
+      "confidence": null
+    },
+    {
+      "id": "ddg-typed-action",
+      "kind": "browser",
+      "question": "action",
+      "type": "choice",
+      "expected": "type",
+      "predicted": "click",
+      "got": "choice=click P(correct)=0.1139",
+      "correct": false,
+      "ms": 8508,
+      "label_mass": 0.993782950148219,
+      "multi_token_labels": [],
+      "missing_labels": [],
+      "confidence": 0.022115326899705745
+    },
+    {
+      "id": "ddg-typed-type-target",
+      "kind": "browser",
+      "question": "type_target",
+      "type": "choice",
+      "expected": "e3",
+      "predicted": "e3",
+      "got": "choice=e3 P(correct)=0.6505",
+      "correct": true,
+      "ms": 603,
+      "label_mass": 0.97274497369413,
+      "multi_token_labels": [],
+      "missing_labels": [],
+      "confidence": 0.0663755915484513
+    },
+    {
+      "id": "ddg-typed-submit",
+      "kind": "browser",
+      "question": "submit_after_type",
+      "type": "noul",
+      "expected": "true",
+      "predicted": "true",
+      "got": "P(yes)=0.9599",
+      "correct": true,
+      "ms": 674,
+      "label_mass": 0.9903231510847224,
+      "multi_token_labels": [],
+      "missing_labels": [],
+      "confidence": null
+    },
+    {
+      "id": "wiki-login-click-target",
+      "kind": "browser",
+      "question": "click_target",
+      "type": "choice",
+      "expected": "e9",
+      "predicted": "e9",
+      "got": "choice=e9 P(correct)=0.9869",
+      "correct": true,
+      "ms": 11317,
+      "label_mass": 0.9965940330439397,
+      "multi_token_labels": [],
+      "missing_labels": [
+        "AK",
+        "AM",
+        "AO",
+        "AU",
+        "AW",
+        "AZ",
+        "BA",
+        "BB",
+        "BC",
+        "BD",
+        "BF",
+        "BG",
+        "BI",
+        "BJ",
+        "BK",
+        "BL",
+        "BM",
+        "BN",
+        "BO",
+        "BR",
+        "BS",
+        "BT",
+        "BU",
+        "BV",
+        "BW",
+        "BX",
+        "BY",
+        "CB",
+        "CC",
+        "CO",
+        "CU",
+        "CW"
+      ],
+      "confidence": 0.9787832727033573
+    },
+    {
+      "id": "wiki-typed-type-target",
+      "kind": "browser",
+      "question": "type_target",
+      "type": "choice",
+      "expected": "e1",
+      "predicted": "e1",
+      "got": "choice=e1 P(correct)=0.9279",
+      "correct": true,
+      "ms": 8444,
+      "label_mass": 0.9705827442553207,
+      "multi_token_labels": [],
+      "missing_labels": [],
+      "confidence": 0.6262876936234341
+    },
+    {
+      "id": "github-login-type-target",
+      "kind": "browser",
+      "question": "type_target",
+      "type": "choice",
+      "expected": "e3",
+      "predicted": "e3",
+      "got": "choice=e3 P(correct)=0.9078",
+      "correct": true,
+      "ms": 1328,
+      "label_mass": 0.9729172014018796,
+      "multi_token_labels": [],
+      "missing_labels": [],
+      "confidence": 0.6624170205419474
+    },
+    {
+      "id": "github-login-type-value",
+      "kind": "browser",
+      "question": "type_value",
+      "type": "choice",
+      "expected": "username",
+      "predicted": "username",
+      "got": "choice=username P(correct)=0.9760",
+      "correct": true,
+      "ms": 699,
+      "label_mass": 0.9678720828108932,
+      "multi_token_labels": [],
+      "missing_labels": [],
+      "confidence": 0.8817757065484676
+    },
+    {
+      "id": "github-login-submit",
+      "kind": "browser",
+      "question": "submit_after_type",
+      "type": "noul",
+      "expected": "false",
+      "predicted": "false",
+      "got": "P(yes)=0.0818",
+      "correct": true,
+      "ms": 754,
+      "label_mass": 0.9669964767188609,
+      "multi_token_labels": [],
+      "missing_labels": [],
+      "confidence": null
+    },
+    {
+      "id": "github-login-action",
+      "kind": "browser",
+      "question": "action",
+      "type": "choice",
+      "expected": "type",
+      "predicted": "wait",
+      "got": "choice=wait P(correct)=0.0756",
+      "correct": false,
+      "ms": 697,
+      "label_mass": 0.8924592256198022,
+      "multi_token_labels": [],
+      "missing_labels": [],
+      "confidence": 0.07832900634624262
+    },
+    {
+      "id": "github-login-blocker",
+      "kind": "browser",
+      "question": "blocker",
+      "type": "choice",
+      "expected": "none",
+      "predicted": "none",
+      "got": "choice=none P(correct)=0.9787",
+      "correct": true,
+      "ms": 727,
+      "label_mass": 0.9859947369442477,
+      "multi_token_labels": [],
+      "missing_labels": [],
+      "confidence": 0.9294489836077503
+    },
+    {
+      "id": "wiki-progress-after-login-click",
+      "kind": "browser",
+      "question": "progress",
+      "type": "score",
+      "expected": "2",
+      "predicted": "2.0349084623568126",
+      "got": "score=2.035 p=[0.03,0.02,0.84,0.11]",
+      "correct": true,
+      "ms": 2419,
+      "label_mass": 0.9858100705813879,
+      "multi_token_labels": [],
+      "missing_labels": [],
+      "confidence": 0.5903510327285357
+    },
+    {
+      "id": "bq-paris",
+      "kind": "noul",
+      "question": "answer",
+      "type": "noul",
+      "expected": "true",
+      "predicted": "true",
+      "got": "P(yes)=0.9916",
+      "correct": true,
+      "ms": 329,
+      "label_mass": 0.851850128618309,
+      "multi_token_labels": [],
+      "missing_labels": [],
+      "confidence": null
+    },
+    {
+      "id": "bq-penguins",
+      "kind": "noul",
+      "question": "answer",
+      "type": "noul",
+      "expected": "false",
+      "predicted": "true",
+      "got": "P(yes)=0.6178",
+      "correct": false,
+      "ms": 271,
+      "label_mass": 0.8383698184848574,
+      "multi_token_labels": [],
+      "missing_labels": [],
+      "confidence": null
+    },
+    {
+      "id": "bq-python",
+      "kind": "noul",
+      "question": "answer",
+      "type": "noul",
+      "expected": "false",
+      "predicted": "false",
+      "got": "P(yes)=0.3427",
+      "correct": true,
+      "ms": 292,
+      "label_mass": 0.79575298028259,
+      "multi_token_labels": [],
+      "missing_labels": [],
+      "confidence": null
+    },
+    {
+      "id": "bq-everest",
+      "kind": "noul",
+      "question": "answer",
+      "type": "noul",
+      "expected": "true",
+      "predicted": "true",
+      "got": "P(yes)=0.9602",
+      "correct": true,
+      "ms": 330,
+      "label_mass": 0.8283472801727746,
+      "multi_token_labels": [],
+      "missing_labels": [],
+      "confidence": null
+    },
+    {
+      "id": "bq-trap-failed",
+      "kind": "noul",
+      "question": "answer",
+      "type": "noul",
+      "expected": "false",
+      "predicted": "false",
+      "got": "P(yes)=0.4416",
+      "correct": true,
+      "ms": 246,
+      "label_mass": 0.8439823189544251,
+      "multi_token_labels": [],
+      "missing_labels": [],
+      "confidence": null
+    }
+  ],
+  "rotations": [
+    {
+      "id": "ddg-click-target-aapl",
+      "rotation": 0,
+      "expected": "e1",
+      "got": "e1",
+      "correct": true,
+      "p_correct": 0.41700051812340505
+    },
+    {
+      "id": "ddg-click-target-aapl",
+      "rotation": 3,
+      "expected": "e52",
+      "got": "e11",
+      "correct": false,
+      "p_correct": 0.00018336912013555766
+    },
+    {
+      "id": "ddg-click-target-aapl",
+      "rotation": 7,
+      "expected": "e48",
+      "got": "e7",
+      "correct": false,
+      "p_correct": 0.00001530812607873129
+    },
+    {
+      "id": "wiki-login-click-target",
+      "rotation": 0,
+      "expected": "e8",
+      "got": "e8",
+      "correct": true,
+      "p_correct": 0.9880739895594995
+    },
+    {
+      "id": "wiki-login-click-target",
+      "rotation": 3,
+      "expected": "e5",
+      "got": "e5",
+      "correct": true,
+      "p_correct": 0.9911142650692966
+    },
+    {
+      "id": "wiki-login-click-target",
+      "rotation": 7,
+      "expected": "e1",
+      "got": "e1",
+      "correct": true,
+      "p_correct": 0.9968061208496644
+    }
+  ]
+}

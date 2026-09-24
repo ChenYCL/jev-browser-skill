@@ -1,0 +1,191 @@
+{
+  "label": "kev-0.8b",
+  "state": {
+    "bytes": 16355,
+    "page_url": "https://html.duckduckgo.com/html/?q=apple+stock+price",
+    "elements": 55,
+    "visible_text_chars": 3000
+  },
+  "questions": [
+    "goal_done",
+    "blocker",
+    "action",
+    "click_target",
+    "select_target"
+  ],
+  "packed": false,
+  "error": "HTTP_422: TypeSafe request failed (422): branch too long: 4700 tokens with a 6407-token state (row limit 8192)",
+  "per_question_fallback": {
+    "goal_done": {
+      "answered": true,
+      "ms": 1086,
+      "server_latency_ms": 1079.7,
+      "answer": {
+        "type": "noul",
+        "noul": 0.6952
+      },
+      "analysis": {
+        "type": "noul",
+        "noul": 0.6952,
+        "probabilities": {
+          "true": 0.6952,
+          "false": 0.30479999999999996
+        },
+        "p_sum": 1,
+        "p_sum_dev": 0,
+        "sums_conventionally": true,
+        "missing_keys": [],
+        "extra_keys": [],
+        "n_options": 2,
+        "top": "true",
+        "top_p": 0.6952,
+        "margin": 0.3904000000000001,
+        "entropy_bits": 0.8870794793921137,
+        "entropy_norm": 0.8870794793921137,
+        "dev_from_half": 0.19520000000000004,
+        "near_half": false,
+        "pinned_high": false,
+        "confidence": null
+      }
+    },
+    "blocker": {
+      "answered": true,
+      "ms": 55,
+      "server_latency_ms": 47.5,
+      "answer": {
+        "type": "choice",
+        "choice": "none",
+        "confidence": 0.3506,
+        "probabilities": {
+          "none": 0.4589,
+          "login_required": 0.0359,
+          "verification_challenge": 0.028,
+          "consent_or_permission_dialog": 0.0606,
+          "error_page": 0.1767,
+          "missing_information": 0.24
+        }
+      },
+      "analysis": {
+        "type": "choice",
+        "probabilities": {
+          "none": 0.4589,
+          "login_required": 0.0359,
+          "verification_challenge": 0.028,
+          "consent_or_permission_dialog": 0.0606,
+          "error_page": 0.1767,
+          "missing_information": 0.24
+        },
+        "p_sum": 1.0000999999999998,
+        "p_sum_dev": 0.00009999999999976694,
+        "sums_conventionally": true,
+        "missing_keys": [],
+        "extra_keys": [],
+        "n_options": 6,
+        "choice": "none",
+        "reported_choice": "none",
+        "choice_is_argmax": true,
+        "top": "none",
+        "top_p": 0.4589,
+        "second_p": 0.24,
+        "margin": 0.21889999999999998,
+        "entropy_bits": 2.013533664883863,
+        "entropy_norm": 0.7789411507215771,
+        "near_uniform": false,
+        "coinflip_margin": false,
+        "confidence": 0.3506
+      }
+    },
+    "action": {
+      "answered": true,
+      "ms": 82,
+      "server_latency_ms": 73.8,
+      "answer": {
+        "type": "choice",
+        "choice": "click",
+        "confidence": 0.373,
+        "probabilities": {
+          "click": 0.4984,
+          "select": 0.0862,
+          "scroll_down": 0.2385,
+          "wait": 0.0144,
+          "stop": 0.1625
+        }
+      },
+      "analysis": {
+        "type": "choice",
+        "probabilities": {
+          "click": 0.4984,
+          "select": 0.0862,
+          "scroll_down": 0.2385,
+          "wait": 0.0144,
+          "stop": 0.1625
+        },
+        "p_sum": 0.9999999999999999,
+        "p_sum_dev": 1.1102230246251565e-16,
+        "sums_conventionally": true,
+        "missing_keys": [],
+        "extra_keys": [],
+        "n_options": 5,
+        "choice": "click",
+        "reported_choice": "click",
+        "choice_is_argmax": true,
+        "top": "click",
+        "top_p": 0.4984,
+        "second_p": 0.2385,
+        "margin": 0.2599,
+        "entropy_bits": 1.8128137341445703,
+        "entropy_norm": 0.7807363794495585,
+        "near_uniform": false,
+        "coinflip_margin": false,
+        "confidence": 0.373
+      }
+    },
+    "click_target": {
+      "answered": false,
+      "error": "HTTP_422: TypeSafe request failed (422): branch too long: 4700 tokens with a 6407-token state (row limit 8192)"
+    },
+    "select_target": {
+      "answered": true,
+      "ms": 86,
+      "server_latency_ms": 77.5,
+      "answer": {
+        "type": "choice",
+        "choice": "none",
+        "confidence": 0.5659,
+        "probabilities": {
+          "e5": 0.1435,
+          "e6": 0.1459,
+          "none": 0.7106
+        }
+      },
+      "analysis": {
+        "type": "choice",
+        "probabilities": {
+          "e5": 0.1435,
+          "e6": 0.1459,
+          "none": 0.7106
+        },
+        "p_sum": 1,
+        "p_sum_dev": 0,
+        "sums_conventionally": true,
+        "missing_keys": [],
+        "extra_keys": [],
+        "n_options": 3,
+        "choice": "none",
+        "reported_choice": "none",
+        "choice_is_argmax": true,
+        "top": "none",
+        "top_p": 0.7106,
+        "second_p": 0.1459,
+        "margin": 0.5647,
+        "entropy_bits": 1.157330567606765,
+        "entropy_norm": 0.7301942898208512,
+        "near_uniform": false,
+        "coinflip_margin": false,
+        "confidence": 0.5659
+      }
+    }
+  },
+  "goal_done_noul": 0.6952,
+  "click_target_pick": null
+}

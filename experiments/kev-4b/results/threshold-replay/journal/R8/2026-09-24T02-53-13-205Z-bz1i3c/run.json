@@ -1,0 +1,29 @@
+{
+  "runId": "2026-09-24T02-53-13-205Z-bz1i3c",
+  "status": "max_steps",
+  "goal": "search Wikipedia for the article about the Eiffel Tower and open it",
+  "backend": "chrome",
+  "steps": 8,
+  "startedAt": "2026-09-24T02:53:13.207Z",
+  "journalDir": "/tmp/kev-threshold/journal/R8/2026-09-24T02-53-13-205Z-bz1i3c",
+  "goalDoneProbability": 0.0328,
+  "reason": "reached maxSteps=8",
+  "finalUrl": "https://en.wikipedia.org/w/index.php?search=&title=Special%3ASearch&profile=advanced&fulltext=1&ns0=1",
+  "finalTitle": "Search - Wikipedia",
+  "finalTextExcerpt": "Jump to content Main menu Search Donate Create account Log in Search Help Tools Appearance hide Text Small Standard Large This page always uses small font size Width Standard Wide Color Automatic Light Dark Search Advanced search: Search in: (Article) Privacy policy About Wikipedia Disclaimers Cont…",
+  "usage": {
+    "requests": 9,
+    "cacheHits": 0,
+    "inputTokens": 40979,
+    "outputTokens": 8321,
+    "costUsd": 0,
+    "ms": 112137
+  },
+  "elapsedMs": 163187,
+  "finishedAt": "2026-09-24T02:55:56.394Z",
+  "resume": {
+    "backend": "chrome",
+    "cdpUrl": "http://127.0.0.1:57567",
+    "targetId": "A048E3497277E338575AF6336A29AC77"
+  }
+}

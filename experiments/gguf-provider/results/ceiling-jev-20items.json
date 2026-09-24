@@ -1,0 +1,418 @@
+{
+  "model": "jev-latest",
+  "provider": "hosted (api.typesafe.ai)",
+  "items": 20,
+  "overall": {
+    "n": 20,
+    "correct": 19,
+    "accuracy": 0.95
+  },
+  "by_kind": {
+    "browser": {
+      "n": 15,
+      "correct": 14,
+      "accuracy": 0.933
+    },
+    "noul": {
+      "n": 5,
+      "correct": 5,
+      "accuracy": 1
+    }
+  },
+  "by_question": {
+    "click_target": {
+      "n": 2,
+      "correct": 1,
+      "accuracy": 0.5
+    },
+    "action": {
+      "n": 3,
+      "correct": 3,
+      "accuracy": 1
+    },
+    "blocker": {
+      "n": 2,
+      "correct": 2,
+      "accuracy": 1
+    },
+    "goal_done": {
+      "n": 1,
+      "correct": 1,
+      "accuracy": 1
+    },
+    "type_target": {
+      "n": 3,
+      "correct": 3,
+      "accuracy": 1
+    },
+    "submit_after_type": {
+      "n": 2,
+      "correct": 2,
+      "accuracy": 1
+    },
+    "type_value": {
+      "n": 1,
+      "correct": 1,
+      "accuracy": 1
+    },
+    "progress": {
+      "n": 1,
+      "correct": 1,
+      "accuracy": 1
+    },
+    "answer": {
+      "n": 5,
+      "correct": 5,
+      "accuracy": 1
+    }
+  },
+  "latency_ms": {
+    "total": 12429,
+    "mean": 621,
+    "median": 547,
+    "max": 1270
+  },
+  "cost_usd_total": 0.0035049420000000005,
+  "rows": [
+    {
+      "id": "ddg-click-target-aapl",
+      "kind": "browser",
+      "question": "click_target",
+      "type": "choice",
+      "expected": "e1",
+      "predicted": "e15",
+      "correct": false,
+      "got": "choice=e15 P(correct)=0.0200",
+      "ms": 1104,
+      "confidence": 0.72,
+      "usage": {
+        "input_tokens": 12536,
+        "output_tokens": 505
+      },
+      "costUsd": 0.000526512
+    },
+    {
+      "id": "ddg-action-aapl",
+      "kind": "browser",
+      "question": "action",
+      "type": "choice",
+      "expected": "click",
+      "predicted": "click",
+      "correct": true,
+      "got": "choice=click P(correct)=0.9900",
+      "ms": 1012,
+      "confidence": 0.99,
+      "usage": {
+        "input_tokens": 7824,
+        "output_tokens": 53
+      },
+      "costUsd": 0.00032860800000000004
+    },
+    {
+      "id": "ddg-blocker-aapl",
+      "kind": "browser",
+      "question": "blocker",
+      "type": "choice",
+      "expected": "none",
+      "predicted": "none",
+      "correct": true,
+      "got": "choice=none P(correct)=0.9200",
+      "ms": 615,
+      "confidence": 0.9,
+      "usage": {
+        "input_tokens": 7635,
+        "output_tokens": 70
+      },
+      "costUsd": 0.00032067000000000006
+    },
+    {
+      "id": "ddg-goal-done-aapl",
+      "kind": "browser",
+      "question": "goal_done",
+      "type": "noul",
+      "expected": "false",
+      "predicted": "false",
+      "correct": true,
+      "got": "P(yes)=0.0300",
+      "ms": 472,
+      "confidence": null,
+      "usage": {
+        "input_tokens": 7523,
+        "output_tokens": 21
+      },
+      "costUsd": 0.00031596600000000004
+    },
+    {
+      "id": "ddg-typed-action",
+      "kind": "browser",
+      "question": "action",
+      "type": "choice",
+      "expected": "type",
+      "predicted": "type",
+      "correct": true,
+      "got": "choice=type P(correct)=0.9900",
+      "ms": 608,
+      "confidence": 0.99,
+      "usage": {
+        "input_tokens": 7566,
+        "output_tokens": 60
+      },
+      "costUsd": 0.000317772
+    },
+    {
+      "id": "ddg-typed-type-target",
+      "kind": "browser",
+      "question": "type_target",
+      "type": "choice",
+      "expected": "e3",
+      "predicted": "e3",
+      "correct": true,
+      "got": "choice=e3 P(correct)=1.0000",
+      "ms": 509,
+      "confidence": 0.99,
+      "usage": {
+        "input_tokens": 7138,
+        "output_tokens": 34
+      },
+      "costUsd": 0.000299796
+    },
+    {
+      "id": "ddg-typed-submit",
+      "kind": "browser",
+      "question": "submit_after_type",
+      "type": "noul",
+      "expected": "true",
+      "predicted": "true",
+      "correct": true,
+      "got": "P(yes)=0.8500",
+      "ms": 384,
+      "confidence": null,
+      "usage": {
+        "input_tokens": 7144,
+        "output_tokens": 22
+      },
+      "costUsd": 0.000300048
+    },
+    {
+      "id": "wiki-login-click-target",
+      "kind": "browser",
+      "question": "click_target",
+      "type": "choice",
+      "expected": "e9",
+      "predicted": "e9",
+      "correct": true,
+      "got": "choice=e9 P(correct)=1.0000",
+      "ms": 544,
+      "confidence": 1,
+      "usage": {
+        "input_tokens": 9839,
+        "output_tokens": 910
+      },
+      "costUsd": 0.00041323800000000007
+    },
+    {
+      "id": "wiki-typed-type-target",
+      "kind": "browser",
+      "question": "type_target",
+      "type": "choice",
+      "expected": "e1",
+      "predicted": "e1",
+      "correct": true,
+      "got": "choice=e1 P(correct)=0.9900",
+      "ms": 547,
+      "confidence": 0.97,
+      "usage": {
+        "input_tokens": 6377,
+        "output_tokens": 34
+      },
+      "costUsd": 0.00026783400000000005
+    },
+    {
+      "id": "github-login-type-target",
+      "kind": "browser",
+      "question": "type_target",
+      "type": "choice",
+      "expected": "e3",
+      "predicted": "e3",
+      "correct": true,
+      "got": "choice=e3 P(correct)=1.0000",
+      "ms": 376,
+      "confidence": 1,
+      "usage": {
+        "input_tokens": 1068,
+        "output_tokens": 42
+      },
+      "costUsd": 0.000044856000000000006
+    },
+    {
+      "id": "github-login-type-value",
+      "kind": "browser",
+      "question": "type_value",
+      "type": "choice",
+      "expected": "username",
+      "predicted": "username",
+      "correct": true,
+      "got": "choice=username P(correct)=1.0000",
+      "ms": 378,
+      "confidence": 0.99,
+      "usage": {
+        "input_tokens": 1052,
+        "output_tokens": 39
+      },
+      "costUsd": 0.000044184
+    },
+    {
+      "id": "github-login-submit",
+      "kind": "browser",
+      "question": "submit_after_type",
+      "type": "noul",
+      "expected": "false",
+      "predicted": "false",
+      "correct": true,
+      "got": "P(yes)=0.1200",
+      "ms": 423,
+      "confidence": null,
+      "usage": {
+        "input_tokens": 1049,
+        "output_tokens": 22
+      },
+      "costUsd": 0.000044058000000000004
+    },
+    {
+      "id": "github-login-action",
+      "kind": "browser",
+      "question": "action",
+      "type": "choice",
+      "expected": "type",
+      "predicted": "type",
+      "correct": true,
+      "got": "choice=type P(correct)=1.0000",
+      "ms": 858,
+      "confidence": 1,
+      "usage": {
+        "input_tokens": 1335,
+        "output_tokens": 45
+      },
+      "costUsd": 0.00005607000000000001
+    },
+    {
+      "id": "github-login-blocker",
+      "kind": "browser",
+      "question": "blocker",
+      "type": "choice",
+      "expected": "none",
+      "predicted": "none",
+      "correct": true,
+      "got": "choice=none P(correct)=1.0000",
+      "ms": 333,
+      "confidence": 0.99,
+      "usage": {
+        "input_tokens": 1215,
+        "output_tokens": 70
+      },
+      "costUsd": 0.000051030000000000004
+    },
+    {
+      "id": "wiki-progress-after-login-click",
+      "kind": "browser",
+      "question": "progress",
+      "type": "score",
+      "expected": "2",
+      "predicted": "1.99",
+      "correct": true,
+      "got": "score=1.990",
+      "ms": 288,
+      "confidence": 0.98,
+      "usage": {
+        "input_tokens": 2271,
+        "output_tokens": 17
+      },
+      "costUsd": 0.00009538200000000002
+    },
+    {
+      "id": "bq-paris",
+      "kind": "noul",
+      "question": "answer",
+      "type": "noul",
+      "expected": "true",
+      "predicted": "true",
+      "correct": true,
+      "got": "P(yes)=0.9900",
+      "ms": 708,
+      "confidence": null,
+      "usage": {
+        "input_tokens": 389,
+        "output_tokens": 20
+      },
+      "costUsd": 0.000016338000000000002
+    },
+    {
+      "id": "bq-penguins",
+      "kind": "noul",
+      "question": "answer",
+      "type": "noul",
+      "expected": "false",
+      "predicted": "false",
+      "correct": true,
+      "got": "P(yes)=0.0300",
+      "ms": 719,
+      "confidence": null,
+      "usage": {
+        "input_tokens": 364,
+        "output_tokens": 20
+      },
+      "costUsd": 0.000015288000000000003
+    },
+    {
+      "id": "bq-python",
+      "kind": "noul",
+      "question": "answer",
+      "type": "noul",
+      "expected": "false",
+      "predicted": "false",
+      "correct": true,
+      "got": "P(yes)=0.0200",
+      "ms": 1270,
+      "confidence": null,
+      "usage": {
+        "input_tokens": 377,
+        "output_tokens": 20
+      },
+      "costUsd": 0.000015834
+    },
+    {
+      "id": "bq-everest",
+      "kind": "noul",
+      "question": "answer",
+      "type": "noul",
+      "expected": "true",
+      "predicted": "true",
+      "correct": true,
+      "got": "P(yes)=0.9700",
+      "ms": 383,
+      "confidence": null,
+      "usage": {
+        "input_tokens": 392,
+        "output_tokens": 20
+      },
+      "costUsd": 0.000016464000000000004
+    },
+    {
+      "id": "bq-trap-failed",
+      "kind": "noul",
+      "question": "answer",
+      "type": "noul",
+      "expected": "false",
+      "predicted": "false",
+      "correct": true,
+      "got": "P(yes)=0.0200",
+      "ms": 898,
+      "confidence": null,
+      "usage": {
+        "input_tokens": 357,
+        "output_tokens": 20
+      },
+      "costUsd": 0.000014994000000000002
+    }
+  ]
+}

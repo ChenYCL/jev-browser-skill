@@ -1,0 +1,168 @@
+{
+  "note": "trivial positional baseline: always answer the option listed first in the rendered prompt (labels are positional: e1 = first listed)",
+  "hits": 11,
+  "n": 20,
+  "accuracy": 0.55,
+  "rows": [
+    {
+      "id": "ddg-click-target-aapl",
+      "question": "click_target",
+      "nOptions": 55,
+      "firstKey": "e1",
+      "expect": "e1",
+      "firstOptionIsCorrect": true
+    },
+    {
+      "id": "ddg-action-aapl",
+      "question": "action",
+      "nOptions": 5,
+      "firstKey": "click",
+      "expect": "click",
+      "firstOptionIsCorrect": true
+    },
+    {
+      "id": "ddg-blocker-aapl",
+      "question": "blocker",
+      "nOptions": 6,
+      "firstKey": "none",
+      "expect": "none",
+      "firstOptionIsCorrect": true
+    },
+    {
+      "id": "ddg-goal-done-aapl",
+      "question": "goal_done",
+      "nOptions": 2,
+      "firstKey": "true",
+      "expect": "false",
+      "firstOptionIsCorrect": false
+    },
+    {
+      "id": "ddg-typed-action",
+      "question": "action",
+      "nOptions": 6,
+      "firstKey": "click",
+      "expect": "type",
+      "firstOptionIsCorrect": false
+    },
+    {
+      "id": "ddg-typed-type-target",
+      "question": "type_target",
+      "nOptions": 2,
+      "firstKey": "e3",
+      "expect": "e3",
+      "firstOptionIsCorrect": true
+    },
+    {
+      "id": "ddg-typed-submit",
+      "question": "submit_after_type",
+      "nOptions": 2,
+      "firstKey": "true",
+      "expect": "true",
+      "firstOptionIsCorrect": true
+    },
+    {
+      "id": "wiki-login-click-target",
+      "question": "click_target",
+      "nOptions": 100,
+      "firstKey": "e1",
+      "expect": "e9",
+      "firstOptionIsCorrect": false
+    },
+    {
+      "id": "wiki-typed-type-target",
+      "question": "type_target",
+      "nOptions": 2,
+      "firstKey": "e1",
+      "expect": "e1",
+      "firstOptionIsCorrect": true
+    },
+    {
+      "id": "github-login-type-target",
+      "question": "type_target",
+      "nOptions": 3,
+      "firstKey": "e3",
+      "expect": "e3",
+      "firstOptionIsCorrect": true
+    },
+    {
+      "id": "github-login-type-value",
+      "question": "type_value",
+      "nOptions": 3,
+      "firstKey": "username",
+      "expect": "username",
+      "firstOptionIsCorrect": true
+    },
+    {
+      "id": "github-login-submit",
+      "question": "submit_after_type",
+      "nOptions": 2,
+      "firstKey": "true",
+      "expect": "false",
+      "firstOptionIsCorrect": false
+    },
+    {
+      "id": "github-login-action",
+      "question": "action",
+      "nOptions": 4,
+      "firstKey": "click",
+      "expect": "type",
+      "firstOptionIsCorrect": false
+    },
+    {
+      "id": "github-login-blocker",
+      "question": "blocker",
+      "nOptions": 6,
+      "firstKey": "none",
+      "expect": "none",
+      "firstOptionIsCorrect": true
+    },
+    {
+      "id": "wiki-progress-after-login-click",
+      "question": "progress",
+      "nOptions": 4,
+      "firstKey": "0",
+      "expect": "2",
+      "firstOptionIsCorrect": false
+    },
+    {
+      "id": "bq-paris",
+      "question": "answer",
+      "nOptions": 2,
+      "firstKey": "true",
+      "expect": "true",
+      "firstOptionIsCorrect": true
+    },
+    {
+      "id": "bq-penguins",
+      "question": "answer",
+      "nOptions": 2,
+      "firstKey": "true",
+      "expect": "false",
+      "firstOptionIsCorrect": false
+    },
+    {
+      "id": "bq-python",
+      "question": "answer",
+      "nOptions": 2,
+      "firstKey": "true",
+      "expect": "false",
+      "firstOptionIsCorrect": false
+    },
+    {
+      "id": "bq-everest",
+      "question": "answer",
+      "nOptions": 2,
+      "firstKey": "true",
+      "expect": "true",
+      "firstOptionIsCorrect": true
+    },
+    {
+      "id": "bq-trap-failed",
+      "question": "answer",
+      "nOptions": 2,
+      "firstKey": "true",
+      "expect": "false",
+      "firstOptionIsCorrect": false
+    }
+  ]
+}

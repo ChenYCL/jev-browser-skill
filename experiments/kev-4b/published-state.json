@@ -1,0 +1,64 @@
+{
+  "probe_date": "2026-09-24",
+  "machine": "Apple M3 Max / 48 GB / macOS 25.6.0 arm64",
+  "verdict": "FULLY UPLOADED - the HF main revision of jaredpalmer/kev-4b is complete and byte-verifiable; the same checkpoint also ships as a GitHub release tarball with a published SHA256SUMS",
+  "huggingface": {
+    "repo": "jaredpalmer/kev-4b",
+    "commit_main": "485ace8703592fcf405488b262449990824cfed1",
+    "last_modified": "2026-09-21T14:15:40.000Z",
+    "gated": false,
+    "private": false,
+    "downloads": 4307,
+    "likes": 38,
+    "files": 16,
+    "total_bytes": 159710189,
+    "used_storage_bytes": 581871494,
+    "resolve_chain": "302 -> https://us.aws.cdn.hf.co/xet-bridge-us/<repo-id>/<xet-hash>?<signed query> -> 200",
+    "accept_ranges": true,
+    "lfs_blobs": {
+      "adapter_model.safetensors": {"bytes": 129924032, "sha256": "9797de69a42188e411b17b7b4fcb66a23374dcebc21d71a7a66f836b5d34df2b", "xet_hash": "2f7ac91680abfdb9473dee798d415f768779067a2c7caf78c5aa7e7795714008"},
+      "head.pt": {"bytes": 5248767, "sha256": "d8f796da36ff7bd7c0fb9496b452139bb7851af4fc82b07b500b682d3f721d6a", "xet_hash": "8caafdfbe35e76188bffe18336fc5feb5c60db90d1521715143c8baaeecde9ef"},
+      "tokenizer.json": {"bytes": 19989325, "sha256": "06b9509352d2af50381ab2247e083b80d32d5c0aba91c272ca9ff729b6a0e523"}
+    },
+    "small_files": {"count": 13, "examples": {"adapter_config.json": 1271, "merges.txt": 1671853, "vocab.json": 2776833, "result.json": 73953, "README.md": 11699}},
+    "head_meta": {"base": "Qwen/Qwen3.5-4B-Base", "base_revision": "1001bb4d826a52d1f399e183466143f4da7b741b", "lora": 16, "head_dim": 256, "temperature": 2.1435469250725863, "weights_dtype": "fp32"},
+    "tags": {"qwen3": "c113c66d2ca8ae40d2d52d918015f77a7a8a7dc0", "v7-base": "c1b3758b14b30d9e0e7f2e90aa12a1823ff2df46"},
+    "branches": {"main": "485ace8703592fcf405488b262449990824cfed1", "night2-du": "dfec9565bb3b407f4274a32a9f41172e5d31d3dd"},
+    "upload_commits": [
+      {"date": "2026-09-21T14:15:40Z", "title": "card wording"},
+      {"date": "2026-09-21T14:15:20Z", "title": "calibration built in: head.pt carries the fitted temperature"},
+      {"date": "2026-09-21T11:13:43Z", "title": "Kev-4B: dates+unknowable delta on the v7 checkpoint (locked test 0.871 / 0.837); previous weights at tag v7-base"},
+      {"date": "2026-09-20T22:46:04Z", "title": "Kev-4B: Qwen3.5-4B-Base, decision-v7 recipe (locked test 0.870 / 0.832); previous Qwen3 weights at tag qwen3"}
+    ]
+  },
+  "github_release": {
+    "repo": "jaredpalmer/kev",
+    "tag": "kev-family",
+    "name": "Kev-0.8B, Kev-4B, Kev-9B",
+    "published": "2026-09-20T17:18:57Z",
+    "assets_4b": {
+      "kev-4b.tar.gz": {"bytes": 129125088, "downloads": 67, "sha256": "bd8581d41b121f36a7c9e823603dd68051d8375c4ffa0fc6bf54ed50810ae151"},
+      "kev-4b-v7-base.tar.gz": {"bytes": 129132360, "downloads": 39, "sha256": "81ebaf816fc1646e4597526c9171cca9e97b18063be6872dc6316234d0159ec2"},
+      "kev-4b-qwen3.tar.gz": {"bytes": 131245471, "downloads": 42, "sha256": "01d3dc8eeccb4518e7053d94ce890d8ba7edbfa7d1c1687681c520dd1cde7769"}
+    },
+    "sha256sums_txt": {"bytes": 768, "covers": "all nine tarballs"},
+    "other_tags": ["v0.1.0 (kev-0.5b)"],
+    "note": "tarball sizes are compressed containers and are not directly comparable to the HF repo file sizes; integrity is via SHA256SUMS.txt"
+  },
+  "mirrors": {
+    "hf-mirror.com": {"status": "308 -> https://huggingface.co/... -> same us.aws.cdn.hf.co CDN", "independent": false, "measured_MBps": 1.623},
+    "modelscope.cn": {
+      "jaredpalmer/kev-4b": {"status": "absent", "evidence": "GET /api/v1/models/jaredpalmer/kev-4b -> 404 {\"Code\":...,\"Message\":\"...\"}; the web URL /models/jaredpalmer/kev-4b returns a generic 200 SPA shell, which is not a hosting signal"},
+      "Qwen/Qwen3.5-4B-Base": {"status": "present (official Qwen org, apache-2.0, revision master)", "shard1_bytes": 5329398712, "shard2_bytes": 3990429344, "shard_sha256_match_hf": true, "measured_MBps": 5.538}
+    }
+  },
+  "throughput_MBps_64MiB_windows": {
+    "hf_adapter_head": 1.556, "hf_adapter_tail": 1.909,
+    "hf_base_s1_head": 1.593, "hf_base_s1_deep_3GiB": 1.867, "hf_base_s2_head": 2.268,
+    "hf_mirror_adapter_head": 1.623,
+    "github_asset_kev4b_targz_head": 2.040,
+    "modelscope_base_s1_head": 5.538, "modelscope_base_s1_deep_3GiB": 5.703, "modelscope_base_s2_head": 5.546,
+    "hf_two_streams_parallel": {"per_stream": [1.767, 1.765], "aggregate": 3.728},
+    "modelscope_two_streams_parallel": {"per_stream": [5.436, 5.466], "aggregate": 10.9}
+  }
+}

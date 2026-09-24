@@ -1,0 +1,49 @@
+MISS ddg-typed-select-target (select_target) choice=e4 P(correct)=0.0056 188ms
+{
+  "model": "gguf-local",
+  "ending": "answer",
+  "items": 1,
+  "overall": {
+    "n": 1,
+    "correct": 0,
+    "accuracy": 0
+  },
+  "by_question": {
+    "select_target": {
+      "n": 1,
+      "correct": 0,
+      "accuracy": 0
+    }
+  },
+  "by_kind": {
+    "speculative": {
+      "n": 1,
+      "correct": 0,
+      "accuracy": 0
+    }
+  },
+  "latency_ms": {
+    "total": 188,
+    "mean": 188,
+    "median": 188,
+    "max": 188
+  },
+  "rows": [
+    {
+      "id": "ddg-typed-select-target",
+      "kind": "speculative",
+      "question": "select_target",
+      "type": "choice",
+      "expected": "none",
+      "predicted": "e4",
+      "got": "choice=e4 P(correct)=0.0056",
+      "correct": false,
+      "ms": 188,
+      "label_mass": 0.9998711556212964,
+      "multi_token_labels": [],
+      "missing_labels": [],
+      "confidence": 0.9468381213221896
+    }
+  ],
+  "rotations": null
+}

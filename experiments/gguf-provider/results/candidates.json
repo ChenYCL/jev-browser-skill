@@ -1,0 +1,38 @@
+{
+  "qwen35-4b": {
+    "filename": "Qwen3.5-4B-Q4_K_M.gguf",
+    "bytes": 2740937888,
+    "quant": "Q4_K_M",
+    "sha256": "00fe7986ff5f6b463e62455821146049db6f9313603938a70800d1fb69ef11a4",
+    "label": "Qwen3.5-4B Q4_K_M",
+    "resolve_url": "https://huggingface.co/unsloth/Qwen3.5-4B-GGUF/resolve/main/Qwen3.5-4B-Q4_K_M.gguf",
+    "repo": "unsloth/Qwen3.5-4B-GGUF"
+  },
+  "qwen35-08b-c16384": {
+    "filename": "Qwen3.5-0.8B-Q8_0.gguf",
+    "bytes": 811843840,
+    "quant": "Q8_0",
+    "sha256": "0ad885ffd4bb022fc4f0d33a3308fa108ef8613159d3b3a67e23abca056b7a6c",
+    "label": "Qwen3.5-0.8B Q8_0（现存默认档，参考行）",
+    "resolve_url": "https://huggingface.co/unsloth/Qwen3.5-0.8B-GGUF/resolve/main/Qwen3.5-0.8B-Q8_0.gguf",
+    "repo": "unsloth/Qwen3.5-0.8B-GGUF"
+  },
+  "gemma-3-4b-it": {
+    "filename": "gemma-3-4b-it-Q4_K_M.gguf",
+    "bytes": 2489894016,
+    "quant": "Q4_K_M",
+    "sha256": "04a43a22e8d2003deda5acc262f68ec1005fa76c735a9962a8c77042a74a7d19",
+    "label": "gemma-3-4b-it Q4_K_M",
+    "resolve_url": "https://huggingface.co/unsloth/gemma-3-4b-it-GGUF/resolve/main/gemma-3-4b-it-Q4_K_M.gguf",
+    "repo": "unsloth/gemma-3-4b-it-GGUF"
+  },
+  "qwen3-4b-instruct-2507": {
+    "filename": "Qwen3-4B-Instruct-2507-Q4_K_M.gguf",
+    "bytes": 2497281120,
+    "quant": "Q4_K_M",
+    "sha256": "3605803b982cb64aead44f6c1b2ae36e3acdb41d8e46c8a94c6533bc4c67e597",
+    "label": "Qwen3-4B-Instruct-2507 Q4_K_M",
+    "resolve_url": "https://huggingface.co/unsloth/Qwen3-4B-Instruct-2507-GGUF/resolve/main/Qwen3-4B-Instruct-2507-Q4_K_M.gguf",
+    "repo": "unsloth/Qwen3-4B-Instruct-2507-GGUF"
+  }
+}

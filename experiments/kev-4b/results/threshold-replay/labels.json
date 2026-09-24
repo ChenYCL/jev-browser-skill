@@ -1,0 +1,18 @@
+{
+  "_rule": "met = the page in that journal row (the page seen BEFORE that step's action) already satisfied the goal. Fixture-site truth comes from tests/fixtures/server.mjs: /docs shows 'The secret code is 4711.' only after the 'Show the secret code' button is clicked; /consent is only satisfied once the dialog is gone (Accept all removes it client-side, the URL never changes); the cart goal is satisfied by the POSTed 'Cart' page ('Added 1 × Red Gadget to your cart.'); the dashboard page (after the login POST redirects) is the signed-in state; the contact goal is the POSTed 'Thanks, NAME!' page. A page that merely OFFERS a way to the goal is not met — that is §9.1's rule, and it is why a DuckDuckGo results page counts as not-met.",
+  "R1": { "1": "met" },
+  "R2": { "1": "not", "2": "not", "3": "met", "4": "met", "5": "met" },
+  "R3": { "1": "not", "2": "not", "3": "not", "4": "not", "5": "not" },
+  "R4": { "1": "not", "2": "not", "3": "met", "4": "met", "5": "met", "6": "met" },
+  "R5": { "1": "not", "2": "met", "3": "met" },
+  "R6": { "1": "not", "2": "not", "3": "not", "4": "not", "5": "not" },
+  "R7": { "1": "not", "2": "not", "3": "not", "4": "not", "5": "not", "6": "not", "7": "not" },
+  "R8": { "1": "not", "2": "not", "3": "not", "4": "not", "5": "not", "6": "not", "7": "not", "8": "not", "9": "not" },
+  "g1": { "1": "not", "2": "met", "3": "met" },
+  "g3": { "1": "not", "2": "met", "3": "met" },
+  "g4": { "1": "not", "2": "not", "3": "not", "4": "not", "5": "not", "6": "not", "7": "not", "8": "not" },
+  "p1": { "1": "met" },
+  "p2": { "1": "met" },
+  "p3": { "1": "not", "2": "not", "3": "not", "4": "not", "5": "not", "6": "not" },
+  "p4": { "1": "not", "2": "not", "3": "not", "4": "met", "5": "met", "6": "met" }
+}

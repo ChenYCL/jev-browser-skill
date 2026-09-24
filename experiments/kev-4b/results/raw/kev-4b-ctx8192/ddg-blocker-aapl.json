@@ -1,0 +1,89 @@
+{
+  "id": "ddg-blocker-aapl",
+  "kind": "browser",
+  "question": "blocker",
+  "type": "choice",
+  "expected": "none",
+  "predicted": "none",
+  "correct": true,
+  "got": "choice=none P(correct)=0.4790",
+  "ms": 582,
+  "server_latency_ms": 570.2,
+  "usage": {
+    "input_tokens": 6648,
+    "output_tokens": 104
+  },
+  "model_echo": "kev-latest",
+  "analysis": {
+    "type": "choice",
+    "probabilities": {
+      "none": 0.479,
+      "login_required": 0.0764,
+      "verification_challenge": 0.0772,
+      "consent_or_permission_dialog": 0.1219,
+      "error_page": 0.0931,
+      "missing_information": 0.1524
+    },
+    "p_sum": 1,
+    "p_sum_dev": 0,
+    "sums_conventionally": true,
+    "missing_keys": [],
+    "extra_keys": [],
+    "n_options": 6,
+    "choice": "none",
+    "reported_choice": "none",
+    "choice_is_argmax": true,
+    "top": "none",
+    "top_p": 0.479,
+    "second_p": 0.1524,
+    "margin": 0.3266,
+    "entropy_bits": 2.180005097034436,
+    "entropy_norm": 0.8433410915733809,
+    "near_uniform": false,
+    "coinflip_margin": false,
+    "confidence": 0.3748
+  },
+  "request": {
+    "state": {
+      "bytes": 16355,
+      "page_url": "https://html.duckduckgo.com/html/?q=apple+stock+price",
+      "elements": 55,
+      "visible_text_chars": 3000
+    },
+    "questions": {
+      "blocker": {
+        "type": "choice",
+        "instructions": {
+          "question": "Does `page` present an obstacle that an automated browser agent cannot resolve with the listed elements and `inputs`, stopping progress toward `goal`?",
+          "rules": [
+            "Pick `none` unless the obstacle is clearly visible in `page`.",
+            "Cookie banners or dialogs that have a listed button to dismiss them are not obstacles."
+          ]
+        },
+        "criteria": {
+          "none": "No obstacle: the page can be operated normally (a login form that can be filled with provided `inputs` is not an obstacle).",
+          "login_required": "The page requires signing in and `inputs` does not provide the credentials needed to sign in.",
+          "verification_challenge": "A CAPTCHA, one-time code, two-factor prompt, or similar human verification is shown.",
+          "consent_or_permission_dialog": "A modal dialog demanding consent, permissions, or a choice from the user blocks the content and nothing listed dismisses it.",
+          "error_page": "The page shows an error (not found, access denied, server error, network failure) instead of the expected content.",
+          "missing_information": "Progress requires information (an account, payment details, a value) that is neither on the page nor in `inputs`."
+        }
+      }
+    }
+  },
+  "response_answers": {
+    "blocker": {
+      "type": "choice",
+      "choice": "none",
+      "confidence": 0.3748,
+      "probabilities": {
+        "none": 0.479,
+        "login_required": 0.0764,
+        "verification_challenge": 0.0772,
+        "consent_or_permission_dialog": 0.1219,
+        "error_page": 0.0931,
+        "missing_information": 0.1524
+      }
+    }
+  }
+}

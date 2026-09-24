@@ -1,0 +1,78 @@
+
+=== v1-baseline: 3/7 correct, picked label A 7/7 times ===
+   ok   bq-paris           [passage] expect=true   picked=A(STATES) P(A)=0.9999 41ms
+   MISS bq-penguins        [passage] expect=false  picked=A(STATES) P(A)=0.7491 35ms
+   MISS bq-python          [passage] expect=false  picked=A(STATES) P(A)=0.7916 32ms
+   ok   bq-everest         [passage] expect=true   picked=A(STATES) P(A)=0.998 35ms
+   MISS bq-trap-failed     [passage] expect=false  picked=A(STATES) P(A)=0.9881 32ms
+   MISS ddg-shows-price?   [browser] expect=false  picked=A(STATES) P(A)=0.9925 94ms
+   ok   ddg-has-textbox?   [browser] expect=true   picked=A(STATES) P(A)=0.8931 68ms
+
+=== v2-Atext-swapped: 3/7 correct, picked label A 2/7 times ===
+   ok   bq-paris           [passage] expect=true   picked=B(STATES) P(A)=0.0031 81ms
+   ok   bq-penguins        [passage] expect=false  picked=A(NOT-STATE) P(A)=0.9637 41ms
+   MISS bq-python          [passage] expect=false  picked=B(STATES) P(A)=0.0387 23ms
+   ok   bq-everest         [passage] expect=true   picked=B(STATES) P(A)=0.0308 23ms
+   MISS bq-trap-failed     [passage] expect=false  picked=B(STATES) P(A)=0.3874 28ms
+   MISS ddg-shows-price?   [browser] expect=false  picked=B(STATES) P(A)=0.1576 85ms
+   MISS ddg-has-textbox?   [browser] expect=true   picked=A(NOT-STATE) P(A)=0.7088 66ms
+
+=== v3-strict-system: 3/7 correct, picked label A 7/7 times ===
+   ok   bq-paris           [passage] expect=true   picked=A(STATES) P(A)=0.9986 98ms
+   MISS bq-penguins        [passage] expect=false  picked=A(STATES) P(A)=0.9325 42ms
+   MISS bq-python          [passage] expect=false  picked=A(STATES) P(A)=0.9279 44ms
+   ok   bq-everest         [passage] expect=true   picked=A(STATES) P(A)=0.9944 44ms
+   MISS bq-trap-failed     [passage] expect=false  picked=A(STATES) P(A)=0.9665 33ms
+   MISS ddg-shows-price?   [browser] expect=false  picked=A(STATES) P(A)=0.9881 2748ms
+   ok   ddg-has-textbox?   [browser] expect=true   picked=A(STATES) P(A)=0.9086 121ms
+
+=== v4-strict+fewshot: 4/7 correct, picked label A 0/7 times ===
+   MISS bq-paris           [passage] expect=true   picked=B(NOT-STATE) P(A)=0.0028 400ms
+   ok   bq-penguins        [passage] expect=false  picked=B(NOT-STATE) P(A)=0.0168 47ms
+   ok   bq-python          [passage] expect=false  picked=B(NOT-STATE) P(A)=0.0101 40ms
+   MISS bq-everest         [passage] expect=true   picked=B(NOT-STATE) P(A)=0.0132 40ms
+   ok   bq-trap-failed     [passage] expect=false  picked=B(NOT-STATE) P(A)=0.0009 43ms
+   ok   ddg-shows-price?   [browser] expect=false  picked=B(NOT-STATE) P(A)=0.0091 142ms
+   MISS ddg-has-textbox?   [browser] expect=true   picked=B(NOT-STATE) P(A)=0.0116 124ms
+
+=== v5-fewshot-only: 4/7 correct, picked label A 0/7 times ===
+   MISS bq-paris           [passage] expect=true   picked=B(NOT-STATE) P(A)=0.0001 99ms
+   ok   bq-penguins        [passage] expect=false  picked=B(NOT-STATE) P(A)=0.0019 55ms
+   ok   bq-python          [passage] expect=false  picked=B(NOT-STATE) P(A)=0.0002 53ms
+   MISS bq-everest         [passage] expect=true   picked=B(NOT-STATE) P(A)=0.0006 40ms
+   ok   bq-trap-failed     [passage] expect=false  picked=B(NOT-STATE) P(A)=0 43ms
+   ok   ddg-shows-price?   [browser] expect=false  picked=B(NOT-STATE) P(A)=0.0022 117ms
+   MISS ddg-has-textbox?   [browser] expect=true   picked=B(NOT-STATE) P(A)=0.0011 105ms
+
+summary: [
+ {
+  "variant": "v1-baseline",
+  "correct": 3,
+  "n": 7,
+  "labelA_picks": 7
+ },
+ {
+  "variant": "v2-Atext-swapped",
+  "correct": 3,
+  "n": 7,
+  "labelA_picks": 2
+ },
+ {
+  "variant": "v3-strict-system",
+  "correct": 3,
+  "n": 7,
+  "labelA_picks": 7
+ },
+ {
+  "variant": "v4-strict+fewshot",
+  "correct": 4,
+  "n": 7,
+  "labelA_picks": 0
+ },
+ {
+  "variant": "v5-fewshot-only",
+  "correct": 4,
+  "n": 7,
+  "labelA_picks": 0
+ }
+]

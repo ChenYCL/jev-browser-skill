@@ -1,0 +1,109 @@
+{
+  "id": "ddg-typed-action",
+  "kind": "browser",
+  "question": "action",
+  "type": "choice",
+  "expected": "type",
+  "predicted": "type",
+  "correct": true,
+  "got": "choice=type P(correct)=0.6165",
+  "ms": 8995,
+  "server_latency_ms": 8966.3,
+  "usage": {
+    "input_tokens": 6570,
+    "output_tokens": 97
+  },
+  "model_echo": "kev-latest",
+  "analysis": {
+    "type": "choice",
+    "probabilities": {
+      "click": 0.2084,
+      "type": 0.6165,
+      "select": 0.0452,
+      "scroll_down": 0.0447,
+      "wait": 0.0137,
+      "stop": 0.0716
+    },
+    "p_sum": 1.0001000000000002,
+    "p_sum_dev": 0.00010000000000021103,
+    "sums_conventionally": true,
+    "missing_keys": [],
+    "extra_keys": [],
+    "n_options": 6,
+    "choice": "type",
+    "reported_choice": "type",
+    "choice_is_argmax": true,
+    "top": "type",
+    "top_p": 0.6165,
+    "second_p": 0.2084,
+    "margin": 0.4081,
+    "entropy_bits": 1.6612368580394135,
+    "entropy_norm": 0.6426541420140368,
+    "near_uniform": false,
+    "coinflip_margin": false,
+    "confidence": 0.5398
+  },
+  "request": {
+    "state": {
+      "bytes": 15566,
+      "page_url": "https://html.duckduckgo.com/html/?q=apple+stock+price",
+      "elements": 51,
+      "visible_text_chars": 3000
+    },
+    "questions": {
+      "action": {
+        "type": "choice",
+        "instructions": {
+          "question": "Which single browser action should be performed next to make progress toward `goal` from the current `page`?",
+          "rules": [
+            "Every element in `page.elements` can be clicked, filled or selected right now, even when its in_viewport is false (the browser scrolls to it). Scroll only when the needed element or text is not listed at all.",
+            "Use `type` only when a value in `inputs` belongs in a listed text field.",
+            "Use `stop` when `goal` is already accomplished or nothing listed can help.",
+            "Consider `last_action` and `history`: do not repeat an action that produced no change."
+          ]
+        },
+        "criteria": {
+          "click": {
+            "what": "Click one element listed in `page.elements` (a link, button, checkbox, radio, tab, menu item, or similar).",
+            "use_when": "The next step toward `goal` is to open, choose, submit, toggle, or confirm something that is listed."
+          },
+          "type": {
+            "what": "Type one of the provided `inputs` values into a text field listed in `page.elements`.",
+            "use_when": "A form field or search box must be filled before progress is possible, and a suitable value exists in `inputs`."
+          },
+          "select": {
+            "what": "Choose an option in a dropdown listed in `page.elements`.",
+            "use_when": "A dropdown must be set to a value implied by `goal` or `inputs`."
+          },
+          "scroll_down": {
+            "what": "Scroll down to reveal content that is not listed in `page.elements` and not in `page.visible_text`.",
+            "use_when": "Nothing listed can serve `goal` and more content probably exists further down. Never needed to reach an element that is already listed: clicking scrolls to it automatically."
+          },
+          "wait": {
+            "what": "Do nothing for a moment because the page is still loading or a result is still pending.",
+            "use_when": "The visible text or a dialog indicates loading, processing, or a countdown."
+          },
+          "stop": {
+            "what": "Stop: no listed action can make progress toward `goal`.",
+            "use_when": "`goal` is already accomplished as shown by `page`, or it is impossible from here with the listed actions."
+          }
+        }
+      }
+    }
+  },
+  "response_answers": {
+    "action": {
+      "type": "choice",
+      "choice": "type",
+      "confidence": 0.5398,
+      "probabilities": {
+        "click": 0.2084,
+        "type": 0.6165,
+        "select": 0.0452,
+        "scroll_down": 0.0447,
+        "wait": 0.0137,
+        "stop": 0.0716
+      }
+    }
+  }
+}

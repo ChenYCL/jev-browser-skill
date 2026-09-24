@@ -1,0 +1,69 @@
+{
+  "id": "ddg-typed-submit",
+  "kind": "browser",
+  "question": "submit_after_type",
+  "type": "noul",
+  "expected": "true",
+  "predicted": "true",
+  "correct": true,
+  "got": "P(yes)=0.9511",
+  "ms": 809,
+  "server_latency_ms": 703.5,
+  "usage": {
+    "input_tokens": 6246,
+    "output_tokens": 24
+  },
+  "model_echo": "kev-latest",
+  "analysis": {
+    "type": "noul",
+    "noul": 0.9511,
+    "probabilities": {
+      "true": 0.9511,
+      "false": 0.048900000000000055
+    },
+    "p_sum": 1,
+    "p_sum_dev": 0,
+    "sums_conventionally": true,
+    "missing_keys": [],
+    "extra_keys": [],
+    "n_options": 2,
+    "top": "true",
+    "top_p": 0.9511,
+    "margin": 0.9021999999999999,
+    "entropy_bits": 0.28170573238446267,
+    "entropy_norm": 0.28170573238446267,
+    "dev_from_half": 0.45109999999999995,
+    "near_half": false,
+    "pinned_high": true,
+    "confidence": null
+  },
+  "request": {
+    "state": {
+      "bytes": 15566,
+      "page_url": "https://html.duckduckgo.com/html/?q=apple+stock+price",
+      "elements": 51,
+      "visible_text_chars": 3000
+    },
+    "questions": {
+      "submit_after_type": {
+        "type": "noul",
+        "instructions": {
+          "question": "After typing the value into the chosen text field, should the Enter key be pressed immediately to submit (as with a search box or a single-field form)?",
+          "rules": [
+            "Answer no when other fields still need values or when a separate submit button must be clicked after all fields are filled."
+          ]
+        },
+        "criteria": {
+          "true": "Pressing Enter right after typing is the natural way to submit this field (search boxes, single-field forms, the last field of a form).",
+          "false": "More fields must be filled first, or a separate button should be clicked, or Enter would do nothing useful."
+        }
+      }
+    }
+  },
+  "response_answers": {
+    "submit_after_type": {
+      "type": "noul",
+      "noul": 0.9511
+    }
+  }
+}

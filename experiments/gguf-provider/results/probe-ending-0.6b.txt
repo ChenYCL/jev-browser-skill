@@ -1,0 +1,51 @@
+
+=== ending: answer ===
+prompt tail: "swer with the letter of the single best option (A-B).\nAnswer:<|im_end|>\n<|im_start|>assistant\n<think>\n\n</think>\n\nAnswer:"
+prompt tokens: 260
+top tokens at readout position:
+   " A"             id=362     p=0.9988
+   " B"             id=425     p=0.0012
+   " **"            id=3070    p=0.0000
+   "  \n"           id=2303    p=0.0000
+   " А"             id=56755   p=0.0000
+   " D"             id=422     p=0.0000
+   " None"          id=2240    p=0.0000
+   " \n\n"          id=4710    p=0.0000
+   " "              id=220     p=0.0000
+   "  \n\n"         id=18611   p=0.0000
+   " C"             id=356     p=0.0000
+   " AB"            id=14137   p=0.0000
+
+=== ending: answer-space ===
+prompt tail: "wer with the letter of the single best option (A-B).\nAnswer:<|im_end|>\n<|im_start|>assistant\n<think>\n\n</think>\n\nAnswer: "
+prompt tokens: 1
+top tokens at readout position:
+   " A"             id=362     p=0.9493
+   "0"              id=15      p=0.0171
+   " **"            id=3070    p=0.0097
+   "1"              id=16      p=0.0079
+   " B"             id=425     p=0.0051
+   "2"              id=17      p=0.0046
+   "8"              id=23      p=0.0016
+   "9"              id=24      p=0.0011
+   ""               id=378     p=0.0006
+   "6"              id=21      p=0.0005
+   "4"              id=19      p=0.0005
+   "3"              id=18      p=0.0004
+
+=== ending: chat ===
+prompt tail: "ed.\n\nAnswer with the letter of the single best option (A-B).\nAnswer:<|im_end|>\n<|im_start|>assistant\n<think>\n\n</think>\n\n"
+prompt tokens: 1
+top tokens at readout position:
+   "A"              id=32      p=0.9947
+   "B"              id=33      p=0.0052
+   "Answer"         id=16141   p=0.0001
+   "None"           id=4064    p=0.0000
+   "Option"         id=5341    p=0.0000
+   "**"             id=334     p=0.0000
+   "###"            id=14374   p=0.0000
+   "The"            id=785     p=0.0000
+   "C"              id=34      p=0.0000
+   "D"              id=35      p=0.0000
+   "-"              id=12      p=0.0000
+   "Answers"        id=47232   p=0.0000

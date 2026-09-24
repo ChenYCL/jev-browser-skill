@@ -1,0 +1,29 @@
+{
+  "runId": "2026-09-24T02-48-29-336Z-h8qpia",
+  "status": "success",
+  "goal": "fill in the contact form and send it",
+  "backend": "chrome",
+  "steps": 5,
+  "startedAt": "2026-09-24T02:48:29.348Z",
+  "journalDir": "/tmp/kev-threshold/journal/g4/2026-09-24T02-48-29-336Z-h8qpia",
+  "goalDoneProbability": 0.1884,
+  "reason": "goal verified on the final check",
+  "finalUrl": "http://127.0.0.1:3111/contact",
+  "finalTitle": "Contact · Widgetry",
+  "finalTextExcerpt": "HomeProductsPricingDocsContactSign in Search Go Contact us Your name Email address Topic Choose… Sales question Billing problem Technical support Message Send message © Widgetry Inc.",
+  "usage": {
+    "requests": 8,
+    "cacheHits": 0,
+    "inputTokens": 12246,
+    "outputTokens": 3960,
+    "costUsd": 0,
+    "ms": 30208
+  },
+  "elapsedMs": 36167,
+  "finishedAt": "2026-09-24T02:49:05.513Z",
+  "resume": {
+    "backend": "chrome",
+    "cdpUrl": "http://127.0.0.1:56315",
+    "targetId": "5449A7C57242CCDF375B36854891E592"
+  }
+}

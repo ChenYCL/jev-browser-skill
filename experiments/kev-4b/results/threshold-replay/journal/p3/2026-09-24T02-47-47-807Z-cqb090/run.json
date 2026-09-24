@@ -1,0 +1,28 @@
+{
+  "runId": "2026-09-24T02-47-47-807Z-cqb090",
+  "status": "success",
+  "goal": "start a free trial of the Team plan",
+  "backend": "chrome",
+  "steps": 1,
+  "startedAt": "2026-09-24T02:47:47.811Z",
+  "journalDir": "/tmp/kev-threshold/journal/p3/2026-09-24T02-47-47-807Z-cqb090",
+  "goalDoneProbability": 0.2572,
+  "finalUrl": "http://127.0.0.1:3111/pricing",
+  "finalTitle": "Pricing · Widgetry",
+  "finalTextExcerpt": "HomeProductsPricingDocsContactSign in Search Go Pricing Starter $0 per month Start free trial Team $29 per month Start free trial Business $99 per month Start free trial © Widgetry Inc.",
+  "usage": {
+    "requests": 1,
+    "cacheHits": 0,
+    "inputTokens": 1346,
+    "outputTokens": 352,
+    "costUsd": 0,
+    "ms": 2179
+  },
+  "elapsedMs": 5183,
+  "finishedAt": "2026-09-24T02:47:52.994Z",
+  "resume": {
+    "backend": "chrome",
+    "cdpUrl": "http://127.0.0.1:56089",
+    "targetId": "E2B27EF4681F83CCC091C24EAD13A3DF"
+  }
+}

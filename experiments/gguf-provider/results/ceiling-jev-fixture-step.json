@@ -1,0 +1,121 @@
+{
+  "ms": 922,
+  "model": "jev-1.13.0",
+  "usage": {
+    "input_tokens": 13735,
+    "output_tokens": 677
+  },
+  "costUsd": 0.00057687,
+  "answers": {
+    "goal_done": {
+      "type": "noul",
+      "top": "false",
+      "noul": 0.03,
+      "probabilities": {
+        "true": 0.03,
+        "false": 0.97
+      }
+    },
+    "blocker": {
+      "type": "choice",
+      "choice": "none",
+      "top": "none",
+      "confidence": 0.89,
+      "probabilities": {
+        "verification_challenge": 0,
+        "none": 0.92,
+        "login_required": 0,
+        "missing_information": 0.08,
+        "consent_or_permission_dialog": 0,
+        "error_page": 0
+      }
+    },
+    "action": {
+      "type": "choice",
+      "choice": "click",
+      "top": "click",
+      "confidence": 0.99,
+      "probabilities": {
+        "stop": 0,
+        "select": 0,
+        "scroll_down": 0,
+        "click": 1,
+        "wait": 0
+      }
+    },
+    "click_target": {
+      "type": "choice",
+      "choice": "e15",
+      "top": "e15",
+      "confidence": 0.74,
+      "probabilities": {
+        "e47": 0,
+        "e35": 0.05,
+        "e32": 0,
+        "e25": 0,
+        "e11": 0,
+        "e2": 0,
+        "e53": 0,
+        "e10": 0,
+        "e4": 0,
+        "none": 0.01,
+        "e43": 0,
+        "e44": 0,
+        "e20": 0,
+        "e16": 0.01,
+        "e42": 0,
+        "e29": 0,
+        "e12": 0,
+        "e41": 0,
+        "e46": 0,
+        "e51": 0,
+        "e8": 0,
+        "e37": 0,
+        "e52": 0,
+        "e39": 0,
+        "e55": 0,
+        "e17": 0.03,
+        "e27": 0,
+        "e33": 0,
+        "e18": 0,
+        "e19": 0.09999999999999999,
+        "e1": 0.02,
+        "e5": 0,
+        "e21": 0.01,
+        "e15": 0.75,
+        "e22": 0,
+        "e50": 0,
+        "e31": 0,
+        "e26": 0,
+        "e28": 0,
+        "e24": 0,
+        "e48": 0,
+        "e30": 0,
+        "e23": 0.02,
+        "e7": 0,
+        "e40": 0,
+        "e6": 0,
+        "e9": 0,
+        "e49": 0,
+        "e36": 0,
+        "e38": 0,
+        "e45": 0,
+        "e34": 0,
+        "e13": 0,
+        "e14": 0,
+        "e54": 0
+      }
+    },
+    "select_target": {
+      "type": "choice",
+      "choice": "none",
+      "top": "none",
+      "confidence": 0.32,
+      "probabilities": {
+        "none": 0.54,
+        "e6": 0.42,
+        "e5": 0.04
+      }
+    }
+  }
+}

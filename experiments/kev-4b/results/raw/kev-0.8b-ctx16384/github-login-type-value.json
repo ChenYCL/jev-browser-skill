@@ -1,0 +1,80 @@
+{
+  "id": "github-login-type-value",
+  "kind": "browser",
+  "question": "type_value",
+  "type": "choice",
+  "expected": "username",
+  "predicted": "none",
+  "correct": false,
+  "got": "choice=none P(correct)=0.1696",
+  "ms": 33,
+  "server_latency_ms": 26.5,
+  "usage": {
+    "input_tokens": 590,
+    "output_tokens": 64
+  },
+  "model_echo": "kev-latest",
+  "analysis": {
+    "type": "choice",
+    "probabilities": {
+      "username": 0.1696,
+      "password": 0.4053,
+      "none": 0.4251
+    },
+    "p_sum": 1,
+    "p_sum_dev": 0,
+    "sums_conventionally": true,
+    "missing_keys": [],
+    "extra_keys": [],
+    "n_options": 3,
+    "choice": "none",
+    "reported_choice": "none",
+    "choice_is_argmax": true,
+    "top": "none",
+    "top_p": 0.4251,
+    "second_p": 0.4053,
+    "margin": 0.019799999999999984,
+    "entropy_bits": 1.4868483420975331,
+    "entropy_norm": 0.9380968580777267,
+    "near_uniform": false,
+    "coinflip_margin": true,
+    "confidence": 0.1376
+  },
+  "request": {
+    "state": {
+      "bytes": 1754,
+      "page_url": "https://github.com/login",
+      "elements": 11,
+      "visible_text_chars": 212
+    },
+    "questions": {
+      "type_value": {
+        "type": "choice",
+        "instructions": {
+          "question": "If the next action is typing, which entry of `inputs` belongs in the text field that should be filled next?",
+          "rules": [
+            "Match the field's label, placeholder and type to the meaning of the input key.",
+            "Choose `none` if no provided input belongs there."
+          ]
+        },
+        "criteria": {
+          "username": "inputs.username = \"octocat\"",
+          "password": "inputs.password (a secret value such as a password)",
+          "none": "No provided input belongs in the field."
+        }
+      }
+    }
+  },
+  "response_answers": {
+    "type_value": {
+      "type": "choice",
+      "choice": "none",
+      "confidence": 0.1376,
+      "probabilities": {
+        "username": 0.1696,
+        "password": 0.4053,
+        "none": 0.4251
+      }
+    }
+  }
+}

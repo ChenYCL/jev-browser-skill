@@ -1,0 +1,207 @@
+{
+  "url": "http://127.0.0.1:8090",
+  "labels_probed": 128,
+  "bare_single_token": 122,
+  "space_prefixed_single_token": 123,
+  "newline_prefixed_single_token": 0,
+  "not_single_token_space_prefixed": [
+    {
+      "label": "AY",
+      "tokens": [
+        362,
+        56
+      ]
+    },
+    {
+      "label": "BQ",
+      "tokens": [
+        425,
+        48
+      ]
+    },
+    {
+      "label": "BZ",
+      "tokens": [
+        425,
+        57
+      ]
+    },
+    {
+      "label": "CQ",
+      "tokens": [
+        356,
+        48
+      ]
+    },
+    {
+      "label": "DQ",
+      "tokens": [
+        422,
+        48
+      ]
+    }
+  ],
+  "not_single_token_bare": [
+    {
+      "label": "BQ",
+      "tokens": [
+        33,
+        48
+      ]
+    },
+    {
+      "label": "BZ",
+      "tokens": [
+        33,
+        57
+      ]
+    },
+    {
+      "label": "CJ",
+      "tokens": [
+        34,
+        41
+      ]
+    },
+    {
+      "label": "CQ",
+      "tokens": [
+        34,
+        48
+      ]
+    },
+    {
+      "label": "CZ",
+      "tokens": [
+        34,
+        57
+      ]
+    },
+    {
+      "label": "DQ",
+      "tokens": [
+        35,
+        48
+      ]
+    }
+  ],
+  "sample": [
+    {
+      "label": "A",
+      "bare": [
+        32
+      ],
+      "spaced": [
+        362
+      ],
+      "newline": [
+        198,
+        32
+      ]
+    },
+    {
+      "label": "B",
+      "bare": [
+        33
+      ],
+      "spaced": [
+        425
+      ],
+      "newline": [
+        198,
+        33
+      ]
+    },
+    {
+      "label": "C",
+      "bare": [
+        34
+      ],
+      "spaced": [
+        356
+      ],
+      "newline": [
+        198,
+        34
+      ]
+    },
+    {
+      "label": "Y",
+      "bare": [
+        56
+      ],
+      "spaced": [
+        809
+      ],
+      "newline": [
+        198,
+        56
+      ]
+    },
+    {
+      "label": "Z",
+      "bare": [
+        57
+      ],
+      "spaced": [
+        1863
+      ],
+      "newline": [
+        198,
+        57
+      ]
+    },
+    {
+      "label": "AA",
+      "bare": [
+        6029
+      ],
+      "spaced": [
+        28234
+      ],
+      "newline": [
+        198,
+        6029
+      ]
+    },
+    {
+      "label": "AB",
+      "bare": [
+        1867
+      ],
+      "spaced": [
+        14137
+      ],
+      "newline": [
+        198,
+        1867
+      ]
+    },
+    {
+      "label": "AC",
+      "bare": [
+        1706
+      ],
+      "spaced": [
+        10584
+      ],
+      "newline": [
+        198,
+        1706
+      ]
+    },
+    {
+      "label": "AD",
+      "bare": [
+        1808
+      ],
+      "spaced": [
+        9630
+      ],
+      "newline": [
+        198,
+        1808
+      ]
+    }
+  ]
+}

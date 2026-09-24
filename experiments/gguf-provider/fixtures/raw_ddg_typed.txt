@@ -1,0 +1,562 @@
+backend=ego model=jev-latest maxSteps=25 budget=$0.25
+ego task space 24, page p1
+{
+  "mode": "dry-run",
+  "backend": "ego",
+  "state": {
+    "goal": "search for the nvidia stock price",
+    "inputs": {
+      "query": "nvidia stock price"
+    },
+    "page": {
+      "url": "https://html.duckduckgo.com/html/?q=apple+stock+price",
+      "title": "apple stock price at DuckDuckGo",
+      "headings": [
+        "## Lightspeed Trading Platform - Online Stock Trading AD",
+        "## Apple Inc. (AAPL) Stock Price, News, Quote & History - Yahoo Finance",
+        "## Stock Price - Apple",
+        "## Apple Inc (AAPL) Stock Price & News - Google Finance",
+        "## Apple (AAPL) Stock Price & Overview",
+        "## AAPL Stock Price | Apple Inc. Stock Quote (U.S.: Nasdaq) | MarketWatch",
+        "## Apple Inc - AAPL - Stock Price & Analysis | Finbox",
+        "## Apple Stock Price Today | NASDAQ: AAPL Live - Investing.com",
+        "## AAPL: Apple Inc. - Stock Price, Quote and News - CNBC",
+        "## AAPL Stock Quote Price and Forecast | CNN",
+        "## AAPL Interactive Stock Chart | Apple Inc. Stock - Yahoo Finance"
+      ],
+      "dialog": null,
+      "scroll_position": "at the top; more content below",
+      "visible_text": "All Regions Argentina Australia Austria Belgium (fr) Belgium (nl) Brazil Bulgaria Canada (en) Canada (fr) Catalonia Chile China Colombia Croatia Czech Republic Denmark Estonia Finland France Germany Greece Hong Kong Hungary Iceland India (en) Indonesia (en) Ireland Israel (en) Italy Japan Korea Latvia Lithuania Malaysia (en) Mexico Netherlands New Zealand Norway Pakistan (en) Peru Philippines (en) Poland Portugal Romania Russia Saudi Arabia Singapore Slovakia Slovenia South Africa Spain (ca) Spain (es) Sweden Switzerland (de) Switzerland (fr) Taiwan Thailand (en) Turkey US (English) US (Spanish) Ukraine United Kingdom Vietnam (en) Any Time Past Day Past Week Past Month Past Year Lightspeed Trading Platform - Online Stock Trading AD lightspeed.com Open an Account Today with a Brokerage Firm Designed for Active Traders. Earn Unlimited Cash Back on a 50% Commission Rebate for Your First 3 Months. Apple Inc. (AAPL) Stock Price, News, Quote & History - Yahoo Finance finance.yahoo.com/quote/AAPL/ Find the latest Apple Inc. (AAPL) stock quote, history, news and other vital information to help you with your stock trading and investing. Stock Price - Apple investor.apple.com/stock-price/default.aspx 2026-09-22T20:00:00.0000000 The stock information provided is for informational purposes only and is not intended for trading purposes. The stock information and charts are provided by Tickertech, a third party service, and Apple does not provide information to this service. Apple Inc (AAPL) Stock Price & News - Google Finance www.google.com/finance/quote/AAPL:NASDAQ Get real-time stock quotes, news, financial details, and analytics for Apple Inc from Google Finance. Apple (AAPL) Stock Price & Overview stockanalysis.com/stocks/aapl/ 2026-09-22T20:00:00.0000000 A detailed overview of Apple Inc. (AAPL) stock, including real-time price, chart, key statistics, news, and more. AAPL Stock Price | Apple Inc. Stock Quote (U.S.: Nasdaq) | MarketWatch www.marketwatch.com/investing/stock/aapl 2026-09-23T00:00:00.0000000 AAPL | Complete Apple Inc. stock news by MarketWatch. View real-time stock prices and stock quotes for a full financial overview. Apple Inc - AAPL - Stock Price & Analysis | Finbox finbox.com/NASDAQGS:AAPL/?ai=kuy15sh&pi=mfnbx 2026-06-27T00:00:00.0000000 Get real-time Apple (AAPL) stock price quotes, analyst insights, forecasts, news, and information you need to help your stock trading and investing. Apple Stock Price Today | NASDAQ: AAPL Live - Investing.com www.investing.com/equities/apple-computer-inc View today's Apple Inc stock price and latest AAPL news and analysis. Create real-time notifications to follow any changes in the live stock price. AAPL: Apple Inc. - Stock Price, Quote and News - CNBC www.cnbc.com/quotes/AAPL Get Apple Inc. (AAPL:NASDAQ) real-time stock quotes, news, price and financial information from CNBC. AAPL Stock Quote Price and Forecast | CNN www.cnn.com/markets/stocks/AAPL View Apple Inc. AAPL stock quote prices, financial info…",
+      "elements": [
+        {
+          "id": "e1",
+          "description": "button 'Search'",
+          "in_viewport": true
+        },
+        {
+          "id": "e2",
+          "description": "link 'DuckDuckGo' → /html/",
+          "in_viewport": true
+        },
+        {
+          "id": "e3",
+          "description": "text field 'q' (current value \"apple stock price\")",
+          "in_viewport": true
+        },
+        {
+          "id": "e4",
+          "description": "dropdown 'All Regions Argentina Australia Austria Belgium (fr) Belgium (nl) Brazil Bulgar…' (nothing selected yet; options: All Regions | Argentina | Australia | Austria | Belgium (fr) | Belgium (nl) | Brazil | Bulgaria | Canada (en) | Canada (fr) | Catalonia | Chile | …)",
+          "in_viewport": true
+        },
+        {
+          "id": "e5",
+          "description": "dropdown 'Any Time Past Day Past Week Past Month Past Year' (nothing selected yet; options: Any Time | Past Day | Past Week | Past Month | Past Year)",
+          "in_viewport": true
+        },
+        {
+          "id": "e6",
+          "description": "link 'Lightspeed Trading Platform - Online Stock Trading' → //duckduckgo.com/l/?uddg=https%3A%2F%2Fduckduckgo.com%2Fy.js%3Fad_domain%3Dlightspeed.com%26ad_provider%3Dbingv7aa%26ad…",
+          "in_viewport": true
+        },
+        {
+          "id": "e7",
+          "description": "button 'AD'",
+          "in_viewport": true
+        },
+        {
+          "id": "e8",
+          "description": "link 'lightspeed.com' → //duckduckgo.com/l/?uddg=https%3A%2F%2Fduckduckgo.com%2Fy.js%3Fad_domain%3Dlightspeed.com%26ad_provider%3Dbingv7aa%26ad…",
+          "in_viewport": true
+        },
+        {
+          "id": "e9",
+          "description": "link 'Open an Account Today with a Brokerage Firm Designed for Active Traders. Earn U…' → //duckduckgo.com/l/?uddg=https%3A%2F%2Fduckduckgo.com%2Fy.js%3Fad_domain%3Dlightspeed.com%26ad_provider%3Dbingv7aa%26ad…",
+          "in_viewport": true
+        },
+        {
+          "id": "e10",
+          "description": "link 'Apple Inc. (AAPL) Stock Price, News, Quote & History - Yahoo Finance' → //duckduckgo.com/l/?uddg=https%3A%2F%2Ffinance.yahoo.com%2Fquote%2FAAPL%2F&rut=925d117f51b2d2c549bcef4bb77bffae9afc4460…",
+          "in_viewport": true
+        },
+        {
+          "id": "e11",
+          "description": "link '//duckduckgo.com/l/?uddg=https%3A%2F%2Ffinance.yahoo.com%2Fquote%2FAAPL%2F&rut=…' → //duckduckgo.com/l/?uddg=https%3A%2F%2Ffinance.yahoo.com%2Fquote%2FAAPL%2F&rut=925d117f51b2d2c549bcef4bb77bffae9afc4460…",
+          "in_viewport": true
+        },
+        {
+          "id": "e12",
+          "description": "link 'finance.yahoo.com/quote/AAPL/' → //duckduckgo.com/l/?uddg=https%3A%2F%2Ffinance.yahoo.com%2Fquote%2FAAPL%2F&rut=925d117f51b2d2c549bcef4bb77bffae9afc4460…",
+          "in_viewport": true
+        },
+        {
+          "id": "e13",
+          "description": "link 'Find the latest Apple Inc. (AAPL) stock quote, history, news and other vital in…' → //duckduckgo.com/l/?uddg=https%3A%2F%2Ffinance.yahoo.com%2Fquote%2FAAPL%2F&rut=925d117f51b2d2c549bcef4bb77bffae9afc4460…",
+          "in_viewport": true
+        },
+        {
+          "id": "e14",
+          "description": "link 'Stock Price - Apple' → //duckduckgo.com/l/?uddg=https%3A%2F%2Finvestor.apple.com%2Fstock%2Dprice%2Fdefault.aspx&rut=93af5b4e40dd2273d259cb9444…",
+          "in_viewport": true
+        },
+        {
+          "id": "e15",
+          "description": "link '//duckduckgo.com/l/?uddg=https%3A%2F%2Finvestor.apple.com%2Fstock%2Dprice%2Fdef…' → //duckduckgo.com/l/?uddg=https%3A%2F%2Finvestor.apple.com%2Fstock%2Dprice%2Fdefault.aspx&rut=93af5b4e40dd2273d259cb9444…",
+          "in_viewport": true
+        },
+        {
+          "id": "e16",
+          "description": "link 'investor.apple.com/stock-price/default.aspx' → //duckduckgo.com/l/?uddg=https%3A%2F%2Finvestor.apple.com%2Fstock%2Dprice%2Fdefault.aspx&rut=93af5b4e40dd2273d259cb9444…",
+          "in_viewport": true
+        },
+        {
+          "id": "e17",
+          "description": "link 'The stock information provided is for informational purposes only and is not in…' → //duckduckgo.com/l/?uddg=https%3A%2F%2Finvestor.apple.com%2Fstock%2Dprice%2Fdefault.aspx&rut=93af5b4e40dd2273d259cb9444…",
+          "in_viewport": true
+        },
+        {
+          "id": "e18",
+          "description": "link 'Apple Inc (AAPL) Stock Price & News - Google Finance' → //duckduckgo.com/l/?uddg=https%3A%2F%2Fwww.google.com%2Ffinance%2Fquote%2FAAPL%3ANASDAQ&rut=99ed6a80895b304658b97cbadae…",
+          "in_viewport": true
+        },
+        {
+          "id": "e19",
+          "description": "link '//duckduckgo.com/l/?uddg=https%3A%2F%2Fwww.google.com%2Ffinance%2Fquote%2FAAPL%…' → //duckduckgo.com/l/?uddg=https%3A%2F%2Fwww.google.com%2Ffinance%2Fquote%2FAAPL%3ANASDAQ&rut=99ed6a80895b304658b97cbadae…",
+          "in_viewport": true
+        },
+        {
+          "id": "e20",
+          "description": "link 'www.google.com/finance/quote/AAPL:NASDAQ' → //duckduckgo.com/l/?uddg=https%3A%2F%2Fwww.google.com%2Ffinance%2Fquote%2FAAPL%3ANASDAQ&rut=99ed6a80895b304658b97cbadae…",
+          "in_viewport": true
+        },
+        {
+          "id": "e21",
+          "description": "link 'Get real-time stock quotes, news, financial details, and analytics for Apple In…' → //duckduckgo.com/l/?uddg=https%3A%2F%2Fwww.google.com%2Ffinance%2Fquote%2FAAPL%3ANASDAQ&rut=99ed6a80895b304658b97cbadae…",
+          "in_viewport": true
+        },
+        {
+          "id": "e22",
+          "description": "link 'Apple (AAPL) Stock Price & Overview' → //duckduckgo.com/l/?uddg=https%3A%2F%2Fstockanalysis.com%2Fstocks%2Faapl%2F&rut=c49c036905cbe6eeb9e4eba2ce486e27df27b04…",
+          "in_viewport": true
+        },
+        {
+          "id": "e23",
+          "description": "link '//duckduckgo.com/l/?uddg=https%3A%2F%2Fstockanalysis.com%2Fstocks%2Faapl%2F&rut…' → //duckduckgo.com/l/?uddg=https%3A%2F%2Fstockanalysis.com%2Fstocks%2Faapl%2F&rut=c49c036905cbe6eeb9e4eba2ce486e27df27b04…",
+          "in_viewport": true
+        },
+        {
+          "id": "e24",
+          "description": "link 'stockanalysis.com/stocks/aapl/' → //duckduckgo.com/l/?uddg=https%3A%2F%2Fstockanalysis.com%2Fstocks%2Faapl%2F&rut=c49c036905cbe6eeb9e4eba2ce486e27df27b04…",
+          "in_viewport": true
+        },
+        {
+          "id": "e25",
+          "description": "link 'A detailed overview of Apple Inc. (AAPL) stock, including real-time price, char…' → //duckduckgo.com/l/?uddg=https%3A%2F%2Fstockanalysis.com%2Fstocks%2Faapl%2F&rut=c49c036905cbe6eeb9e4eba2ce486e27df27b04…",
+          "in_viewport": true
+        },
+        {
+          "id": "e26",
+          "description": "link 'AAPL Stock Price | Apple Inc. Stock Quote (U.S.: Nasdaq) | MarketWatch' → //duckduckgo.com/l/?uddg=https%3A%2F%2Fwww.marketwatch.com%2Finvesting%2Fstock%2Faapl&rut=a975440bcf4c749c2e44e0f226f07…",
+          "in_viewport": false
+        },
+        {
+          "id": "e27",
+          "description": "link '//duckduckgo.com/l/?uddg=https%3A%2F%2Fwww.marketwatch.com%2Finvesting%2Fstock%…' → //duckduckgo.com/l/?uddg=https%3A%2F%2Fwww.marketwatch.com%2Finvesting%2Fstock%2Faapl&rut=a975440bcf4c749c2e44e0f226f07…",
+          "in_viewport": false
+        },
+        {
+          "id": "e28",
+          "description": "link 'www.marketwatch.com/investing/stock/aapl' → //duckduckgo.com/l/?uddg=https%3A%2F%2Fwww.marketwatch.com%2Finvesting%2Fstock%2Faapl&rut=a975440bcf4c749c2e44e0f226f07…",
+          "in_viewport": false
+        },
+        {
+          "id": "e29",
+          "description": "link 'AAPL | Complete Apple Inc. stock news by MarketWatch. View real-time stock pric…' → //duckduckgo.com/l/?uddg=https%3A%2F%2Fwww.marketwatch.com%2Finvesting%2Fstock%2Faapl&rut=a975440bcf4c749c2e44e0f226f07…",
+          "in_viewport": false
+        },
+        {
+          "id": "e30",
+          "description": "link 'Apple Inc - AAPL - Stock Price & Analysis | Finbox' → //duckduckgo.com/l/?uddg=https%3A%2F%2Ffinbox.com%2FNASDAQGS%3AAAPL%2F%3Fai%3Dkuy15sh%26pi%3Dmfnbx&rut=83e76c56e0f88e1d…",
+          "in_viewport": false
+        },
+        {
+          "id": "e31",
+          "description": "link '//duckduckgo.com/l/?uddg=https%3A%2F%2Ffinbox.com%2FNASDAQGS%3AAAPL%2F%3Fai%3Dk…' → //duckduckgo.com/l/?uddg=https%3A%2F%2Ffinbox.com%2FNASDAQGS%3AAAPL%2F%3Fai%3Dkuy15sh%26pi%3Dmfnbx&rut=83e76c56e0f88e1d…",
+          "in_viewport": false
+        },
+        {
+          "id": "e32",
+          "description": "link 'finbox.com/NASDAQGS:AAPL/?ai=kuy15sh&pi=mfnbx' → //duckduckgo.com/l/?uddg=https%3A%2F%2Ffinbox.com%2FNASDAQGS%3AAAPL%2F%3Fai%3Dkuy15sh%26pi%3Dmfnbx&rut=83e76c56e0f88e1d…",
+          "in_viewport": false
+        },
+        {
+          "id": "e33",
+          "description": "link 'Get real-time Apple (AAPL) stock price quotes, analyst insights, forecasts, new…' → //duckduckgo.com/l/?uddg=https%3A%2F%2Ffinbox.com%2FNASDAQGS%3AAAPL%2F%3Fai%3Dkuy15sh%26pi%3Dmfnbx&rut=83e76c56e0f88e1d…",
+          "in_viewport": false
+        },
+        {
+          "id": "e34",
+          "description": "link 'Apple Stock Price Today | NASDAQ: AAPL Live - Investing.com' → //duckduckgo.com/l/?uddg=https%3A%2F%2Fwww.investing.com%2Fequities%2Fapple%2Dcomputer%2Dinc&rut=17856eb98fb1220a5fdc8f…",
+          "in_viewport": false
+        },
+        {
+          "id": "e35",
+          "description": "link '//duckduckgo.com/l/?uddg=https%3A%2F%2Fwww.investing.com%2Fequities%2Fapple%2Dc…' → //duckduckgo.com/l/?uddg=https%3A%2F%2Fwww.investing.com%2Fequities%2Fapple%2Dcomputer%2Dinc&rut=17856eb98fb1220a5fdc8f…",
+          "in_viewport": false
+        },
+        {
+          "id": "e36",
+          "description": "link 'www.investing.com/equities/apple-computer-inc' → //duckduckgo.com/l/?uddg=https%3A%2F%2Fwww.investing.com%2Fequities%2Fapple%2Dcomputer%2Dinc&rut=17856eb98fb1220a5fdc8f…",
+          "in_viewport": false
+        },
+        {
+          "id": "e37",
+          "description": "link 'View today's Apple Inc stock price and latest AAPL news and analysis. Create re…' → //duckduckgo.com/l/?uddg=https%3A%2F%2Fwww.investing.com%2Fequities%2Fapple%2Dcomputer%2Dinc&rut=17856eb98fb1220a5fdc8f…",
+          "in_viewport": false
+        },
+        {
+          "id": "e38",
+          "description": "link 'AAPL: Apple Inc. - Stock Price, Quote and News - CNBC' → //duckduckgo.com/l/?uddg=https%3A%2F%2Fwww.cnbc.com%2Fquotes%2FAAPL&rut=3b031a9b3e5a0b19c668563be2ef460a4704e1d15fd04a4…",
+          "in_viewport": false
+        },
+        {
+          "id": "e39",
+          "description": "link '//duckduckgo.com/l/?uddg=https%3A%2F%2Fwww.cnbc.com%2Fquotes%2FAAPL&rut=3b031a9…' → //duckduckgo.com/l/?uddg=https%3A%2F%2Fwww.cnbc.com%2Fquotes%2FAAPL&rut=3b031a9b3e5a0b19c668563be2ef460a4704e1d15fd04a4…",
+          "in_viewport": false
+        },
+        {
+          "id": "e40",
+          "description": "link 'www.cnbc.com/quotes/AAPL' → //duckduckgo.com/l/?uddg=https%3A%2F%2Fwww.cnbc.com%2Fquotes%2FAAPL&rut=3b031a9b3e5a0b19c668563be2ef460a4704e1d15fd04a4…",
+          "in_viewport": false
+        },
+        {
+          "id": "e41",
+          "description": "link 'Get Apple Inc. (AAPL:NASDAQ) real-time stock quotes, news, price and financial …' → //duckduckgo.com/l/?uddg=https%3A%2F%2Fwww.cnbc.com%2Fquotes%2FAAPL&rut=3b031a9b3e5a0b19c668563be2ef460a4704e1d15fd04a4…",
+          "in_viewport": false
+        },
+        {
+          "id": "e42",
+          "description": "link 'AAPL Stock Quote Price and Forecast | CNN' → //duckduckgo.com/l/?uddg=https%3A%2F%2Fwww.cnn.com%2Fmarkets%2Fstocks%2FAAPL&rut=d671cad119cac68b3c3dc1bd8450e6a92bfb6c…",
+          "in_viewport": false
+        },
+        {
+          "id": "e43",
+          "description": "link '//duckduckgo.com/l/?uddg=https%3A%2F%2Fwww.cnn.com%2Fmarkets%2Fstocks%2FAAPL&ru…' → //duckduckgo.com/l/?uddg=https%3A%2F%2Fwww.cnn.com%2Fmarkets%2Fstocks%2FAAPL&rut=d671cad119cac68b3c3dc1bd8450e6a92bfb6c…",
+          "in_viewport": false
+        },
+        {
+          "id": "e44",
+          "description": "link 'www.cnn.com/markets/stocks/AAPL' → //duckduckgo.com/l/?uddg=https%3A%2F%2Fwww.cnn.com%2Fmarkets%2Fstocks%2FAAPL&rut=d671cad119cac68b3c3dc1bd8450e6a92bfb6c…",
+          "in_viewport": false
+        },
+        {
+          "id": "e45",
+          "description": "link 'View Apple Inc. AAPL stock quote prices, financial information, real-time forec…' → //duckduckgo.com/l/?uddg=https%3A%2F%2Fwww.cnn.com%2Fmarkets%2Fstocks%2FAAPL&rut=d671cad119cac68b3c3dc1bd8450e6a92bfb6c…",
+          "in_viewport": false
+        },
+        {
+          "id": "e46",
+          "description": "link 'AAPL Interactive Stock Chart | Apple Inc. Stock - Yahoo Finance' → //duckduckgo.com/l/?uddg=https%3A%2F%2Ffinance.yahoo.com%2Fchart%2FAAPL&rut=214f360bebd2cb7a4ec2c7bce2ba334a22b97c43a86…",
+          "in_viewport": false
+        },
+        {
+          "id": "e47",
+          "description": "link '//duckduckgo.com/l/?uddg=https%3A%2F%2Ffinance.yahoo.com%2Fchart%2FAAPL&rut=214…' → //duckduckgo.com/l/?uddg=https%3A%2F%2Ffinance.yahoo.com%2Fchart%2FAAPL&rut=214f360bebd2cb7a4ec2c7bce2ba334a22b97c43a86…",
+          "in_viewport": false
+        },
+        {
+          "id": "e48",
+          "description": "link 'finance.yahoo.com/chart/AAPL' → //duckduckgo.com/l/?uddg=https%3A%2F%2Ffinance.yahoo.com%2Fchart%2FAAPL&rut=214f360bebd2cb7a4ec2c7bce2ba334a22b97c43a86…",
+          "in_viewport": false
+        },
+        {
+          "id": "e49",
+          "description": "link 'At Yahoo Finance, you get free stock quotes, up-to-date news, portfolio managem…' → //duckduckgo.com/l/?uddg=https%3A%2F%2Ffinance.yahoo.com%2Fchart%2FAAPL&rut=214f360bebd2cb7a4ec2c7bce2ba334a22b97c43a86…",
+          "in_viewport": false
+        },
+        {
+          "id": "e50",
+          "description": "button 'Next'",
+          "in_viewport": false
+        },
+        {
+          "id": "e51",
+          "description": "link 'Feedback' → //duckduckgo.com/feedback.html",
+          "in_viewport": false
+        }
+      ],
+      "omitted_elements": 0
+    },
+    "previous_page": null,
+    "last_action": null,
+    "history": {
+      "steps_taken": 0,
+      "recent_urls": []
+    }
+  },
+  "questions": {
+    "goal_done": {
+      "type": "noul",
+      "instructions": {
+        "question": "Is `goal` already fully accomplished according to what `page` shows right now?",
+        "rules": [
+          "Judge only from `page` (its url, title, headings, visible_text, dialog and elements).",
+          "A page that merely offers a way to accomplish `goal` does not count as accomplished.",
+          "If `goal` asks to open or view something, it is accomplished when that thing is what `page` shows.",
+          "If `goal` asks to perform an action (submit, add, sign in, start), it is accomplished only when `page` shows the result or confirmation of that action."
+        ]
+      },
+      "criteria": {
+        "true": "`page` shows the end result that `goal` asks for.",
+        "false": "At least one more action is needed, `page` shows something else, or it is unclear."
+      }
+    },
+    "blocker": {
+      "type": "choice",
+      "instructions": {
+        "question": "Does `page` present an obstacle that an automated browser agent cannot resolve with the listed elements and `inputs`, stopping progress toward `goal`?",
+        "rules": [
+          "Pick `none` unless the obstacle is clearly visible in `page`.",
+          "Cookie banners or dialogs that have a listed button to dismiss them are not obstacles."
+        ]
+      },
+      "criteria": {
+        "none": "No obstacle: the page can be operated normally (a login form that can be filled with provided `inputs` is not an obstacle).",
+        "login_required": "The page requires signing in and `inputs` does not provide the credentials needed to sign in.",
+        "verification_challenge": "A CAPTCHA, one-time code, two-factor prompt, or similar human verification is shown.",
+        "consent_or_permission_dialog": "A modal dialog demanding consent, permissions, or a choice from the user blocks the content and nothing listed dismisses it.",
+        "error_page": "The page shows an error (not found, access denied, server error, network failure) instead of the expected content.",
+        "missing_information": "Progress requires information (an account, payment details, a value) that is neither on the page nor in `inputs`."
+      }
+    },
+    "action": {
+      "type": "choice",
+      "instructions": {
+        "question": "Which single browser action should be performed next to make progress toward `goal` from the current `page`?",
+        "rules": [
+          "Every element in `page.elements` can be clicked, filled or selected right now, even when its in_viewport is false (the browser scrolls to it). Scroll only when the needed element or text is not listed at all.",
+          "Use `type` only when a value in `inputs` belongs in a listed text field.",
+          "Use `stop` when `goal` is already accomplished or nothing listed can help.",
+          "Consider `last_action` and `history`: do not repeat an action that produced no change."
+        ]
+      },
+      "criteria": {
+        "click": {
+          "what": "Click one element listed in `page.elements` (a link, button, checkbox, radio, tab, menu item, or similar).",
+          "use_when": "The next step toward `goal` is to open, choose, submit, toggle, or confirm something that is listed."
+        },
+        "type": {
+          "what": "Type one of the provided `inputs` values into a text field listed in `page.elements`.",
+          "use_when": "A form field or search box must be filled before progress is possible, and a suitable value exists in `inputs`."
+        },
+        "select": {
+          "what": "Choose an option in a dropdown listed in `page.elements`.",
+          "use_when": "A dropdown must be set to a value implied by `goal` or `inputs`."
+        },
+        "scroll_down": {
+          "what": "Scroll down to reveal content that is not listed in `page.elements` and not in `page.visible_text`.",
+          "use_when": "Nothing listed can serve `goal` and more content probably exists further down. Never needed to reach an element that is already listed: clicking scrolls to it automatically."
+        },
+        "wait": {
+          "what": "Do nothing for a moment because the page is still loading or a result is still pending.",
+          "use_when": "The visible text or a dialog indicates loading, processing, or a countdown."
+        },
+        "stop": {
+          "what": "Stop: no listed action can make progress toward `goal`.",
+          "use_when": "`goal` is already accomplished as shown by `page`, or it is impossible from here with the listed actions."
+        }
+      }
+    },
+    "click_target": {
+      "type": "choice",
+      "instructions": {
+        "question": "If the next action is a click, which element in `page.elements` should be clicked to make progress toward `goal`?",
+        "rules": [
+          "Choose `none` if no listed element helps.",
+          "Each option id refers to `page.elements[].id`."
+        ]
+      },
+      "criteria": {
+        "e1": "button 'Search'",
+        "e2": "link 'DuckDuckGo' → /html/",
+        "e4": "dropdown 'All Regions Argentina Australia Austria Belgium (fr) Belgium (nl) Brazil Bulgar…' (nothing selected yet; options: All Regions | Argentina | Australia | Austria | Belgium (fr) | Belgium (nl) | Brazil | Bulgaria | Canada (en) | Canada (fr) | Catalonia | Chile | …)",
+        "e5": "dropdown 'Any Time Past Day Past Week Past Month Past Year' (nothing selected yet; options: Any Time | Past Day | Past Week | Past Month | Past Year)",
+        "e6": "link 'Lightspeed Trading Platform - Online Stock Trading' → //duckduckgo.com/l/?uddg=https%3A%2F%2Fduckduckgo.com%2Fy.js%3Fad_domain%3Dlightspeed.com%26ad_provider%3Dbingv7aa%26ad…",
+        "e7": "button 'AD'",
+        "e8": "link 'lightspeed.com' → //duckduckgo.com/l/?uddg=https%3A%2F%2Fduckduckgo.com%2Fy.js%3Fad_domain%3Dlightspeed.com%26ad_provider%3Dbingv7aa%26ad…",
+        "e9": "link 'Open an Account Today with a Brokerage Firm Designed for Active Traders. Earn U…' → //duckduckgo.com/l/?uddg=https%3A%2F%2Fduckduckgo.com%2Fy.js%3Fad_domain%3Dlightspeed.com%26ad_provider%3Dbingv7aa%26ad…",
+        "e10": "link 'Apple Inc. (AAPL) Stock Price, News, Quote & History - Yahoo Finance' → //duckduckgo.com/l/?uddg=https%3A%2F%2Ffinance.yahoo.com%2Fquote%2FAAPL%2F&rut=925d117f51b2d2c549bcef4bb77bffae9afc4460…",
+        "e11": "link '//duckduckgo.com/l/?uddg=https%3A%2F%2Ffinance.yahoo.com%2Fquote%2FAAPL%2F&rut=…' → //duckduckgo.com/l/?uddg=https%3A%2F%2Ffinance.yahoo.com%2Fquote%2FAAPL%2F&rut=925d117f51b2d2c549bcef4bb77bffae9afc4460…",
+        "e12": "link 'finance.yahoo.com/quote/AAPL/' → //duckduckgo.com/l/?uddg=https%3A%2F%2Ffinance.yahoo.com%2Fquote%2FAAPL%2F&rut=925d117f51b2d2c549bcef4bb77bffae9afc4460…",
+        "e13": "link 'Find the latest Apple Inc. (AAPL) stock quote, history, news and other vital in…' → //duckduckgo.com/l/?uddg=https%3A%2F%2Ffinance.yahoo.com%2Fquote%2FAAPL%2F&rut=925d117f51b2d2c549bcef4bb77bffae9afc4460…",
+        "e14": "link 'Stock Price - Apple' → //duckduckgo.com/l/?uddg=https%3A%2F%2Finvestor.apple.com%2Fstock%2Dprice%2Fdefault.aspx&rut=93af5b4e40dd2273d259cb9444…",
+        "e15": "link '//duckduckgo.com/l/?uddg=https%3A%2F%2Finvestor.apple.com%2Fstock%2Dprice%2Fdef…' → //duckduckgo.com/l/?uddg=https%3A%2F%2Finvestor.apple.com%2Fstock%2Dprice%2Fdefault.aspx&rut=93af5b4e40dd2273d259cb9444…",
+        "e16": "link 'investor.apple.com/stock-price/default.aspx' → //duckduckgo.com/l/?uddg=https%3A%2F%2Finvestor.apple.com%2Fstock%2Dprice%2Fdefault.aspx&rut=93af5b4e40dd2273d259cb9444…",
+        "e17": "link 'The stock information provided is for informational purposes only and is not in…' → //duckduckgo.com/l/?uddg=https%3A%2F%2Finvestor.apple.com%2Fstock%2Dprice%2Fdefault.aspx&rut=93af5b4e40dd2273d259cb9444…",
+        "e18": "link 'Apple Inc (AAPL) Stock Price & News - Google Finance' → //duckduckgo.com/l/?uddg=https%3A%2F%2Fwww.google.com%2Ffinance%2Fquote%2FAAPL%3ANASDAQ&rut=99ed6a80895b304658b97cbadae…",
+        "e19": "link '//duckduckgo.com/l/?uddg=https%3A%2F%2Fwww.google.com%2Ffinance%2Fquote%2FAAPL%…' → //duckduckgo.com/l/?uddg=https%3A%2F%2Fwww.google.com%2Ffinance%2Fquote%2FAAPL%3ANASDAQ&rut=99ed6a80895b304658b97cbadae…",
+        "e20": "link 'www.google.com/finance/quote/AAPL:NASDAQ' → //duckduckgo.com/l/?uddg=https%3A%2F%2Fwww.google.com%2Ffinance%2Fquote%2FAAPL%3ANASDAQ&rut=99ed6a80895b304658b97cbadae…",
+        "e21": "link 'Get real-time stock quotes, news, financial details, and analytics for Apple In…' → //duckduckgo.com/l/?uddg=https%3A%2F%2Fwww.google.com%2Ffinance%2Fquote%2FAAPL%3ANASDAQ&rut=99ed6a80895b304658b97cbadae…",
+        "e22": "link 'Apple (AAPL) Stock Price & Overview' → //duckduckgo.com/l/?uddg=https%3A%2F%2Fstockanalysis.com%2Fstocks%2Faapl%2F&rut=c49c036905cbe6eeb9e4eba2ce486e27df27b04…",
+        "e23": "link '//duckduckgo.com/l/?uddg=https%3A%2F%2Fstockanalysis.com%2Fstocks%2Faapl%2F&rut…' → //duckduckgo.com/l/?uddg=https%3A%2F%2Fstockanalysis.com%2Fstocks%2Faapl%2F&rut=c49c036905cbe6eeb9e4eba2ce486e27df27b04…",
+        "e24": "link 'stockanalysis.com/stocks/aapl/' → //duckduckgo.com/l/?uddg=https%3A%2F%2Fstockanalysis.com%2Fstocks%2Faapl%2F&rut=c49c036905cbe6eeb9e4eba2ce486e27df27b04…",
+        "e25": "link 'A detailed overview of Apple Inc. (AAPL) stock, including real-time price, char…' → //duckduckgo.com/l/?uddg=https%3A%2F%2Fstockanalysis.com%2Fstocks%2Faapl%2F&rut=c49c036905cbe6eeb9e4eba2ce486e27df27b04…",
+        "e26": "link 'AAPL Stock Price | Apple Inc. Stock Quote (U.S.: Nasdaq) | MarketWatch' → //duckduckgo.com/l/?uddg=https%3A%2F%2Fwww.marketwatch.com%2Finvesting%2Fstock%2Faapl&rut=a975440bcf4c749c2e44e0f226f07…",
+        "e27": "link '//duckduckgo.com/l/?uddg=https%3A%2F%2Fwww.marketwatch.com%2Finvesting%2Fstock%…' → //duckduckgo.com/l/?uddg=https%3A%2F%2Fwww.marketwatch.com%2Finvesting%2Fstock%2Faapl&rut=a975440bcf4c749c2e44e0f226f07…",
+        "e28": "link 'www.marketwatch.com/investing/stock/aapl' → //duckduckgo.com/l/?uddg=https%3A%2F%2Fwww.marketwatch.com%2Finvesting%2Fstock%2Faapl&rut=a975440bcf4c749c2e44e0f226f07…",
+        "e29": "link 'AAPL | Complete Apple Inc. stock news by MarketWatch. View real-time stock pric…' → //duckduckgo.com/l/?uddg=https%3A%2F%2Fwww.marketwatch.com%2Finvesting%2Fstock%2Faapl&rut=a975440bcf4c749c2e44e0f226f07…",
+        "e30": "link 'Apple Inc - AAPL - Stock Price & Analysis | Finbox' → //duckduckgo.com/l/?uddg=https%3A%2F%2Ffinbox.com%2FNASDAQGS%3AAAPL%2F%3Fai%3Dkuy15sh%26pi%3Dmfnbx&rut=83e76c56e0f88e1d…",
+        "e31": "link '//duckduckgo.com/l/?uddg=https%3A%2F%2Ffinbox.com%2FNASDAQGS%3AAAPL%2F%3Fai%3Dk…' → //duckduckgo.com/l/?uddg=https%3A%2F%2Ffinbox.com%2FNASDAQGS%3AAAPL%2F%3Fai%3Dkuy15sh%26pi%3Dmfnbx&rut=83e76c56e0f88e1d…",
+        "e32": "link 'finbox.com/NASDAQGS:AAPL/?ai=kuy15sh&pi=mfnbx' → //duckduckgo.com/l/?uddg=https%3A%2F%2Ffinbox.com%2FNASDAQGS%3AAAPL%2F%3Fai%3Dkuy15sh%26pi%3Dmfnbx&rut=83e76c56e0f88e1d…",
+        "e33": "link 'Get real-time Apple (AAPL) stock price quotes, analyst insights, forecasts, new…' → //duckduckgo.com/l/?uddg=https%3A%2F%2Ffinbox.com%2FNASDAQGS%3AAAPL%2F%3Fai%3Dkuy15sh%26pi%3Dmfnbx&rut=83e76c56e0f88e1d…",
+        "e34": "link 'Apple Stock Price Today | NASDAQ: AAPL Live - Investing.com' → //duckduckgo.com/l/?uddg=https%3A%2F%2Fwww.investing.com%2Fequities%2Fapple%2Dcomputer%2Dinc&rut=17856eb98fb1220a5fdc8f…",
+        "e35": "link '//duckduckgo.com/l/?uddg=https%3A%2F%2Fwww.investing.com%2Fequities%2Fapple%2Dc…' → //duckduckgo.com/l/?uddg=https%3A%2F%2Fwww.investing.com%2Fequities%2Fapple%2Dcomputer%2Dinc&rut=17856eb98fb1220a5fdc8f…",
+        "e36": "link 'www.investing.com/equities/apple-computer-inc' → //duckduckgo.com/l/?uddg=https%3A%2F%2Fwww.investing.com%2Fequities%2Fapple%2Dcomputer%2Dinc&rut=17856eb98fb1220a5fdc8f…",
+        "e37": "link 'View today's Apple Inc stock price and latest AAPL news and analysis. Create re…' → //duckduckgo.com/l/?uddg=https%3A%2F%2Fwww.investing.com%2Fequities%2Fapple%2Dcomputer%2Dinc&rut=17856eb98fb1220a5fdc8f…",
+        "e38": "link 'AAPL: Apple Inc. - Stock Price, Quote and News - CNBC' → //duckduckgo.com/l/?uddg=https%3A%2F%2Fwww.cnbc.com%2Fquotes%2FAAPL&rut=3b031a9b3e5a0b19c668563be2ef460a4704e1d15fd04a4…",
+        "e39": "link '//duckduckgo.com/l/?uddg=https%3A%2F%2Fwww.cnbc.com%2Fquotes%2FAAPL&rut=3b031a9…' → //duckduckgo.com/l/?uddg=https%3A%2F%2Fwww.cnbc.com%2Fquotes%2FAAPL&rut=3b031a9b3e5a0b19c668563be2ef460a4704e1d15fd04a4…",
+        "e40": "link 'www.cnbc.com/quotes/AAPL' → //duckduckgo.com/l/?uddg=https%3A%2F%2Fwww.cnbc.com%2Fquotes%2FAAPL&rut=3b031a9b3e5a0b19c668563be2ef460a4704e1d15fd04a4…",
+        "e41": "link 'Get Apple Inc. (AAPL:NASDAQ) real-time stock quotes, news, price and financial …' → //duckduckgo.com/l/?uddg=https%3A%2F%2Fwww.cnbc.com%2Fquotes%2FAAPL&rut=3b031a9b3e5a0b19c668563be2ef460a4704e1d15fd04a4…",
+        "e42": "link 'AAPL Stock Quote Price and Forecast | CNN' → //duckduckgo.com/l/?uddg=https%3A%2F%2Fwww.cnn.com%2Fmarkets%2Fstocks%2FAAPL&rut=d671cad119cac68b3c3dc1bd8450e6a92bfb6c…",
+        "e43": "link '//duckduckgo.com/l/?uddg=https%3A%2F%2Fwww.cnn.com%2Fmarkets%2Fstocks%2FAAPL&ru…' → //duckduckgo.com/l/?uddg=https%3A%2F%2Fwww.cnn.com%2Fmarkets%2Fstocks%2FAAPL&rut=d671cad119cac68b3c3dc1bd8450e6a92bfb6c…",
+        "e44": "link 'www.cnn.com/markets/stocks/AAPL' → //duckduckgo.com/l/?uddg=https%3A%2F%2Fwww.cnn.com%2Fmarkets%2Fstocks%2FAAPL&rut=d671cad119cac68b3c3dc1bd8450e6a92bfb6c…",
+        "e45": "link 'View Apple Inc. AAPL stock quote prices, financial information, real-time forec…' → //duckduckgo.com/l/?uddg=https%3A%2F%2Fwww.cnn.com%2Fmarkets%2Fstocks%2FAAPL&rut=d671cad119cac68b3c3dc1bd8450e6a92bfb6c…",
+        "e46": "link 'AAPL Interactive Stock Chart | Apple Inc. Stock - Yahoo Finance' → //duckduckgo.com/l/?uddg=https%3A%2F%2Ffinance.yahoo.com%2Fchart%2FAAPL&rut=214f360bebd2cb7a4ec2c7bce2ba334a22b97c43a86…",
+        "e47": "link '//duckduckgo.com/l/?uddg=https%3A%2F%2Ffinance.yahoo.com%2Fchart%2FAAPL&rut=214…' → //duckduckgo.com/l/?uddg=https%3A%2F%2Ffinance.yahoo.com%2Fchart%2FAAPL&rut=214f360bebd2cb7a4ec2c7bce2ba334a22b97c43a86…",
+        "e48": "link 'finance.yahoo.com/chart/AAPL' → //duckduckgo.com/l/?uddg=https%3A%2F%2Ffinance.yahoo.com%2Fchart%2FAAPL&rut=214f360bebd2cb7a4ec2c7bce2ba334a22b97c43a86…",
+        "e49": "link 'At Yahoo Finance, you get free stock quotes, up-to-date news, portfolio managem…' → //duckduckgo.com/l/?uddg=https%3A%2F%2Ffinance.yahoo.com%2Fchart%2FAAPL&rut=214f360bebd2cb7a4ec2c7bce2ba334a22b97c43a86…",
+        "e50": "button 'Next'",
+        "e51": "link 'Feedback' → //duckduckgo.com/feedback.html",
+        "none": "No listed element should be clicked."
+      }
+    },
+    "type_target": {
+      "type": "choice",
+      "instructions": {
+        "question": "If the next action is typing, which text field in `page.elements` should receive a value from `inputs` to make progress toward `goal`?",
+        "rules": [
+          "Prefer empty fields over fields that already contain the right value.",
+          "Choose `none` if no listed field should be filled now."
+        ]
+      },
+      "criteria": {
+        "e3": "text field 'q' (current value \"apple stock price\")",
+        "none": "No listed text field should be filled now."
+      }
+    },
+    "type_value": {
+      "type": "choice",
+      "instructions": {
+        "question": "If the next action is typing, which entry of `inputs` belongs in the text field that should be filled next?",
+        "rules": [
+          "Match the field's label, placeholder and type to the meaning of the input key.",
+          "Choose `none` if no provided input belongs there."
+        ]
+      },
+      "criteria": {
+        "query": "inputs.query = \"nvidia stock price\"",
+        "none": "No provided input belongs in the field."
+      }
+    },
+    "submit_after_type": {
+      "type": "noul",
+      "instructions": {
+        "question": "After typing the value into the chosen text field, should the Enter key be pressed immediately to submit (as with a search box or a single-field form)?",
+        "rules": [
+          "Answer no when other fields still need values or when a separate submit button must be clicked after all fields are filled."
+        ]
+      },
+      "criteria": {
+        "true": "Pressing Enter right after typing is the natural way to submit this field (search boxes, single-field forms, the last field of a form).",
+        "false": "More fields must be filled first, or a separate button should be clicked, or Enter would do nothing useful."
+      }
+    },
+    "select_target": {
+      "type": "choice",
+      "instructions": {
+        "question": "If the next action is choosing a dropdown option, which dropdown in `page.elements` should be changed to make progress toward `goal`?"
+      },
+      "criteria": {
+        "e4": "dropdown 'All Regions Argentina Australia Austria Belgium (fr) Belgium (nl) Brazil Bulgar…' (nothing selected yet; options: All Regions | Argentina | Australia | Austria | Belgium (fr) | Belgium (nl) | Brazil | Bulgaria | Canada (en) | Canada (fr) | Catalonia | Chile | …)",
+        "e5": "dropdown 'Any Time Past Day Past Week Past Month Past Year' (nothing selected yet; options: Any Time | Past Day | Past Week | Past Month | Past Year)",
+        "none": "No listed dropdown needs changing."
+      }
+    }
+  },
+  "meta": {
+    "allowedActions": [
+      "click",
+      "type",
+      "select",
+      "scroll_down",
+      "wait",
+      "stop"
+    ],
+    "clickableIds": [
+      "e1",
+      "e2",
+      "e4",
+      "e5",
+      "e6",
+      "e7",
+      "e8",
+      "e9",
+      "e10",
+      "e11",
+      "e12",
+      "e13",
+      "e14",
+      "e15",
+      "e16",
+      "e17",
+      "e18",
+      "e19",
+      "e20",
+      "e21",
+      "e22",
+      "e23",
+      "e24",
+      "e25",
+      "e26",
+      "e27",
+      "e28",
+      "e29",
+      "e30",
+      "e31",
+      "e32",
+      "e33",
+      "e34",
+      "e35",
+      "e36",
+      "e37",
+      "e38",
+      "e39",
+      "e40",
+      "e41",
+      "e42",
+      "e43",
+      "e44",
+      "e45",
+      "e46",
+      "e47",
+      "e48",
+      "e49",
+      "e50",
+      "e51"
+    ],
+    "editableIds": [
+      "e3"
+    ],
+    "selectIds": [
+      "e4",
+      "e5"
+    ],
+    "inputKeys": [
+      "query"
+    ],
+    "urlInputKeys": [],
+    "questionCount": 8,
+    "candidateCount": 53
+  },
+  "estimatedInputTokens": 8601,
+  "estimatedCostUsd": 0.000361242
+}

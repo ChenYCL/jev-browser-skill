@@ -1,0 +1,28 @@
+{
+  "runId": "2026-09-24T02-47-01-646Z-kwow2m",
+  "status": "success",
+  "goal": "open the Docs page and click the button that shows the password",
+  "backend": "chrome",
+  "steps": 3,
+  "startedAt": "2026-09-24T02:47:01.664Z",
+  "journalDir": "/tmp/kev-threshold/journal/R4/2026-09-24T02-47-01-646Z-kwow2m",
+  "goalDoneProbability": 0.6829,
+  "finalUrl": "http://127.0.0.1:3111/docs",
+  "finalTitle": "Docs · Widgetry",
+  "finalTextExcerpt": "HomeProductsPricingDocsContactSign in Search Go Documentation Read the guides below. Advanced settings Deep in the page. Show the secret code The secret code is 4711. © Widgetry Inc.",
+  "usage": {
+    "requests": 3,
+    "cacheHits": 0,
+    "inputTokens": 4544,
+    "outputTokens": 1374,
+    "costUsd": 0,
+    "ms": 9399
+  },
+  "elapsedMs": 13958,
+  "finishedAt": "2026-09-24T02:47:15.622Z",
+  "resume": {
+    "backend": "chrome",
+    "cdpUrl": "http://127.0.0.1:55778",
+    "targetId": "4D440D473A19B08DF7313EE0A6666EFE"
+  }
+}

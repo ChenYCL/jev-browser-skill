@@ -1,0 +1,2579 @@
+{
+  "label": "kev-4b-ctx16384",
+  "model": "kev-latest",
+  "provider": "kev (http://127.0.0.1:8008)",
+  "served": {
+    "run": "jaredpalmer/kev-4b",
+    "base": "Qwen/Qwen3.5-4B-Base",
+    "device": "mps",
+    "backend": "mlx",
+    "dtype": "bfloat16",
+    "temperature": 2.1435469250725863
+  },
+  "items": {
+    "all": {
+      "n": 20,
+      "correct": 19,
+      "accuracy": 0.95
+    },
+    "graded": {
+      "n": 20,
+      "correct": 19,
+      "accuracy": 0.95
+    },
+    "browser": {
+      "n": 15,
+      "correct": 14,
+      "accuracy": 0.933
+    },
+    "noul": {
+      "n": 5,
+      "correct": 5,
+      "accuracy": 1
+    },
+    "action_click": {
+      "n": 5,
+      "correct": 5,
+      "accuracy": 1
+    }
+  },
+  "by_question": {
+    "click_target": {
+      "n": 2,
+      "correct": 2,
+      "accuracy": 1
+    },
+    "action": {
+      "n": 3,
+      "correct": 3,
+      "accuracy": 1
+    },
+    "blocker": {
+      "n": 2,
+      "correct": 2,
+      "accuracy": 1
+    },
+    "goal_done": {
+      "n": 1,
+      "correct": 1,
+      "accuracy": 1
+    },
+    "type_target": {
+      "n": 3,
+      "correct": 3,
+      "accuracy": 1
+    },
+    "submit_after_type": {
+      "n": 2,
+      "correct": 1,
+      "accuracy": 0.5
+    },
+    "type_value": {
+      "n": 1,
+      "correct": 1,
+      "accuracy": 1
+    },
+    "progress": {
+      "n": 1,
+      "correct": 1,
+      "accuracy": 1
+    },
+    "answer": {
+      "n": 5,
+      "correct": 5,
+      "accuracy": 1
+    }
+  },
+  "unanswerable": [],
+  "latency_ms": {
+    "mean": 2223,
+    "median": 395,
+    "max": 12183,
+    "total": 44461
+  },
+  "probabilities": {
+    "answers_checked": 12,
+    "sum_mean": 1,
+    "sum_min": 0.9999,
+    "sum_max": 1.0001,
+    "deviations_gt_tolerance": [],
+    "near_uniform": [],
+    "coinflip_margin": [],
+    "missing_keys": []
+  },
+  "noul": {
+    "values": [
+      {
+        "id": "ddg-goal-done-aapl",
+        "kind": "browser",
+        "expected": "false",
+        "noul": 0.0613,
+        "predicted": "false",
+        "correct": true,
+        "dev_from_half": 0.4387,
+        "near_half": false
+      },
+      {
+        "id": "ddg-typed-submit",
+        "kind": "browser",
+        "expected": "true",
+        "noul": 0.9511,
+        "predicted": "true",
+        "correct": true,
+        "dev_from_half": 0.45109999999999995,
+        "near_half": false
+      },
+      {
+        "id": "github-login-submit",
+        "kind": "browser",
+        "expected": "false",
+        "noul": 0.6194,
+        "predicted": "true",
+        "correct": false,
+        "dev_from_half": 0.11939999999999995,
+        "near_half": false
+      },
+      {
+        "id": "bq-paris",
+        "kind": "noul",
+        "expected": "true",
+        "noul": 0.9942,
+        "predicted": "true",
+        "correct": true,
+        "dev_from_half": 0.4942,
+        "near_half": false
+      },
+      {
+        "id": "bq-penguins",
+        "kind": "noul",
+        "expected": "false",
+        "noul": 0.2567,
+        "predicted": "false",
+        "correct": true,
+        "dev_from_half": 0.24330000000000002,
+        "near_half": false
+      },
+      {
+        "id": "bq-python",
+        "kind": "noul",
+        "expected": "false",
+        "noul": 0.1934,
+        "predicted": "false",
+        "correct": true,
+        "dev_from_half": 0.3066,
+        "near_half": false
+      },
+      {
+        "id": "bq-everest",
+        "kind": "noul",
+        "expected": "true",
+        "noul": 0.9918,
+        "predicted": "true",
+        "correct": true,
+        "dev_from_half": 0.4918,
+        "near_half": false
+      },
+      {
+        "id": "bq-trap-failed",
+        "kind": "noul",
+        "expected": "false",
+        "noul": 0.2556,
+        "predicted": "false",
+        "correct": true,
+        "dev_from_half": 0.2444,
+        "near_half": false
+      }
+    ],
+    "mean_true": 0.979,
+    "mean_false": 0.2773,
+    "separation": 0.7018,
+    "by_kind": {
+      "browser": {
+        "n": 3,
+        "mean_true": 0.9511,
+        "mean_false": 0.3403,
+        "separation": 0.6107
+      },
+      "noul": {
+        "n": 5,
+        "mean_true": 0.993,
+        "mean_false": 0.2352,
+        "separation": 0.7578
+      }
+    },
+    "near_half_count": 0,
+    "entropy_norm_mean": 0.5054
+  },
+  "fixture_step": {
+    "label": "kev-4b-ctx16384",
+    "state": {
+      "bytes": 16355,
+      "page_url": "https://html.duckduckgo.com/html/?q=apple+stock+price",
+      "elements": 55,
+      "visible_text_chars": 3000
+    },
+    "questions": [
+      "goal_done",
+      "blocker",
+      "action",
+      "click_target",
+      "select_target"
+    ],
+    "packed": true,
+    "ms": 23769,
+    "server_latency_ms": 23752.7,
+    "usage": {
+      "input_tokens": 12073,
+      "output_tokens": 1008
+    },
+    "model_echo": "kev-latest",
+    "answers": {
+      "goal_done": {
+        "type": "noul",
+        "noul": 0.0607
+      },
+      "blocker": {
+        "type": "choice",
+        "choice": "none",
+        "confidence": 0.3782,
+        "probabilities": {
+          "none": 0.4819,
+          "login_required": 0.077,
+          "verification_challenge": 0.0761,
+          "consent_or_permission_dialog": 0.1204,
+          "error_page": 0.093,
+          "missing_information": 0.1516
+        }
+      },
+      "action": {
+        "type": "choice",
+        "choice": "click",
+        "confidence": 0.6929,
+        "probabilities": {
+          "click": 0.7543,
+          "select": 0.0381,
+          "scroll_down": 0.0965,
+          "wait": 0.0265,
+          "stop": 0.0845
+        }
+      },
+      "click_target": {
+        "type": "choice",
+        "choice": "e1",
+        "confidence": 0.1997,
+        "probabilities": {
+          "e1": 0.2142,
+          "e2": 0.0051,
+          "e4": 0.0095,
+          "e5": 0.0026,
+          "e6": 0.0087,
+          "e7": 0.0016,
+          "e8": 0.0017,
+          "e9": 0.0017,
+          "e10": 0.0018,
+          "e11": 0.0014,
+          "e12": 0.0017,
+          "e13": 0.0019,
+          "e14": 0.0021,
+          "e15": 0.0991,
+          "e16": 0.0158,
+          "e17": 0.0578,
+          "e18": 0.0338,
+          "e19": 0.0186,
+          "e20": 0.0168,
+          "e21": 0.0154,
+          "e22": 0.0034,
+          "e23": 0.0148,
+          "e24": 0.0122,
+          "e25": 0.0165,
+          "e26": 0.0083,
+          "e27": 0.01,
+          "e28": 0.0064,
+          "e29": 0.0068,
+          "e30": 0.0103,
+          "e31": 0.0063,
+          "e32": 0.0043,
+          "e33": 0.01,
+          "e34": 0.0081,
+          "e35": 0.0883,
+          "e36": 0.0399,
+          "e37": 0.1227,
+          "e38": 0.0114,
+          "e39": 0.013,
+          "e40": 0.0124,
+          "e41": 0.0148,
+          "e42": 0.0016,
+          "e43": 0.001,
+          "e44": 0.0022,
+          "e45": 0.0021,
+          "e46": 0.0028,
+          "e47": 0.0026,
+          "e48": 0.0035,
+          "e49": 0.0102,
+          "e50": 0.0052,
+          "e51": 0.0036,
+          "e52": 0.004,
+          "e53": 0.0085,
+          "e54": 0.0028,
+          "e55": 0.0037,
+          "none": 0.0151
+        }
+      },
+      "select_target": {
+        "type": "choice",
+        "choice": "none",
+        "confidence": 0.5533,
+        "probabilities": {
+          "e5": 0.0814,
+          "e6": 0.2164,
+          "none": 0.7022
+        }
+      }
+    },
+    "per_question": {
+      "goal_done": {
+        "type": "noul",
+        "noul": 0.0607,
+        "probabilities": {
+          "true": 0.0607,
+          "false": 0.9393
+        },
+        "p_sum": 1,
+        "p_sum_dev": 0,
+        "sums_conventionally": true,
+        "missing_keys": [],
+        "extra_keys": [],
+        "n_options": 2,
+        "top": "false",
+        "top_p": 0.9393,
+        "margin": 0.8786,
+        "entropy_bits": 0.3302174132571947,
+        "entropy_norm": 0.3302174132571947,
+        "dev_from_half": 0.4393,
+        "near_half": false,
+        "pinned_high": false,
+        "confidence": null,
+        "question_type": "noul"
+      },
+      "blocker": {
+        "type": "choice",
+        "probabilities": {
+          "none": 0.4819,
+          "login_required": 0.077,
+          "verification_challenge": 0.0761,
+          "consent_or_permission_dialog": 0.1204,
+          "error_page": 0.093,
+          "missing_information": 0.1516
+        },
+        "p_sum": 1,
+        "p_sum_dev": 0,
+        "sums_conventionally": true,
+        "missing_keys": [],
+        "extra_keys": [],
+        "n_options": 6,
+        "choice": "none",
+        "reported_choice": "none",
+        "choice_is_argmax": true,
+        "top": "none",
+        "top_p": 0.4819,
+        "second_p": 0.1516,
+        "margin": 0.3303,
+        "entropy_bits": 2.1741340273947176,
+        "entropy_norm": 0.8410698518017863,
+        "near_uniform": false,
+        "coinflip_margin": false,
+        "confidence": 0.3782,
+        "question_type": "choice"
+      },
+      "action": {
+        "type": "choice",
+        "probabilities": {
+          "click": 0.7543,
+          "select": 0.0381,
+          "scroll_down": 0.0965,
+          "wait": 0.0265,
+          "stop": 0.0845
+        },
+        "p_sum": 0.9999,
+        "p_sum_dev": 0.00009999999999998899,
+        "sums_conventionally": true,
+        "missing_keys": [],
+        "extra_keys": [],
+        "n_options": 5,
+        "choice": "click",
+        "reported_choice": "click",
+        "choice_is_argmax": true,
+        "top": "click",
+        "top_p": 0.7543,
+        "second_p": 0.0965,
+        "margin": 0.6577999999999999,
+        "entropy_bits": 1.2520112616753027,
+        "entropy_norm": 0.5392119008474456,
+        "near_uniform": false,
+        "coinflip_margin": false,
+        "confidence": 0.6929,
+        "question_type": "choice"
+      },
+      "click_target": {
+        "type": "choice",
+        "probabilities": {
+          "e1": 0.2142,
+          "e2": 0.0051,
+          "e4": 0.0095,
+          "e5": 0.0026,
+          "e6": 0.0087,
+          "e7": 0.0016,
+          "e8": 0.0017,
+          "e9": 0.0017,
+          "e10": 0.0018,
+          "e11": 0.0014,
+          "e12": 0.0017,
+          "e13": 0.0019,
+          "e14": 0.0021,
+          "e15": 0.0991,
+          "e16": 0.0158,
+          "e17": 0.0578,
+          "e18": 0.0338,
+          "e19": 0.0186,
+          "e20": 0.0168,
+          "e21": 0.0154,
+          "e22": 0.0034,
+          "e23": 0.0148,
+          "e24": 0.0122,
+          "e25": 0.0165,
+          "e26": 0.0083,
+          "e27": 0.01,
+          "e28": 0.0064,
+          "e29": 0.0068,
+          "e30": 0.0103,
+          "e31": 0.0063,
+          "e32": 0.0043,
+          "e33": 0.01,
+          "e34": 0.0081,
+          "e35": 0.0883,
+          "e36": 0.0399,
+          "e37": 0.1227,
+          "e38": 0.0114,
+          "e39": 0.013,
+          "e40": 0.0124,
+          "e41": 0.0148,
+          "e42": 0.0016,
+          "e43": 0.001,
+          "e44": 0.0022,
+          "e45": 0.0021,
+          "e46": 0.0028,
+          "e47": 0.0026,
+          "e48": 0.0035,
+          "e49": 0.0102,
+          "e50": 0.0052,
+          "e51": 0.0036,
+          "e52": 0.004,
+          "e53": 0.0085,
+          "e54": 0.0028,
+          "e55": 0.0037,
+          "none": 0.0151
+        },
+        "p_sum": 1.0001,
+        "p_sum_dev": 0.00009999999999998899,
+        "sums_conventionally": true,
+        "missing_keys": [],
+        "extra_keys": [],
+        "n_options": 55,
+        "choice": "e1",
+        "reported_choice": "e1",
+        "choice_is_argmax": true,
+        "top": "e1",
+        "top_p": 0.2142,
+        "second_p": 0.1227,
+        "margin": 0.0915,
+        "entropy_bits": 4.396266466997753,
+        "entropy_norm": 0.760420849910674,
+        "near_uniform": false,
+        "coinflip_margin": false,
+        "confidence": 0.1997,
+        "question_type": "choice"
+      },
+      "select_target": {
+        "type": "choice",
+        "probabilities": {
+          "e5": 0.0814,
+          "e6": 0.2164,
+          "none": 0.7022
+        },
+        "p_sum": 1,
+        "p_sum_dev": 0,
+        "sums_conventionally": true,
+        "missing_keys": [],
+        "extra_keys": [],
+        "n_options": 3,
+        "choice": "none",
+        "reported_choice": "none",
+        "choice_is_argmax": true,
+        "top": "none",
+        "top_p": 0.7022,
+        "second_p": 0.2164,
+        "margin": 0.4858,
+        "entropy_bits": 1.130587372175588,
+        "entropy_norm": 0.7133212121177454,
+        "near_uniform": false,
+        "coinflip_margin": false,
+        "confidence": 0.5533,
+        "question_type": "choice"
+      }
+    },
+    "click_target_pick": "e1",
+    "goal_done_noul": 0.0607
+  },
+  "aborted": null,
+  "rows": [
+    {
+      "id": "ddg-click-target-aapl",
+      "kind": "browser",
+      "question": "click_target",
+      "type": "choice",
+      "expected": "e1",
+      "predicted": "e1",
+      "correct": true,
+      "got": "choice=e1 P(correct)=0.2142",
+      "ms": 12183,
+      "server_latency_ms": 12157.7,
+      "usage": {
+        "input_tokens": 11107,
+        "output_tokens": 730
+      },
+      "model_echo": "kev-latest",
+      "analysis": {
+        "type": "choice",
+        "probabilities": {
+          "e1": 0.2142,
+          "e2": 0.0051,
+          "e4": 0.0095,
+          "e5": 0.0026,
+          "e6": 0.0087,
+          "e7": 0.0016,
+          "e8": 0.0017,
+          "e9": 0.0017,
+          "e10": 0.0018,
+          "e11": 0.0014,
+          "e12": 0.0017,
+          "e13": 0.0019,
+          "e14": 0.0021,
+          "e15": 0.0991,
+          "e16": 0.0158,
+          "e17": 0.0578,
+          "e18": 0.0338,
+          "e19": 0.0186,
+          "e20": 0.0168,
+          "e21": 0.0154,
+          "e22": 0.0034,
+          "e23": 0.0148,
+          "e24": 0.0122,
+          "e25": 0.0165,
+          "e26": 0.0083,
+          "e27": 0.01,
+          "e28": 0.0064,
+          "e29": 0.0068,
+          "e30": 0.0103,
+          "e31": 0.0063,
+          "e32": 0.0043,
+          "e33": 0.01,
+          "e34": 0.0081,
+          "e35": 0.0883,
+          "e36": 0.0399,
+          "e37": 0.1227,
+          "e38": 0.0114,
+          "e39": 0.013,
+          "e40": 0.0124,
+          "e41": 0.0148,
+          "e42": 0.0016,
+          "e43": 0.001,
+          "e44": 0.0022,
+          "e45": 0.0021,
+          "e46": 0.0028,
+          "e47": 0.0026,
+          "e48": 0.0035,
+          "e49": 0.0102,
+          "e50": 0.0052,
+          "e51": 0.0036,
+          "e52": 0.004,
+          "e53": 0.0085,
+          "e54": 0.0028,
+          "e55": 0.0037,
+          "none": 0.0151
+        },
+        "p_sum": 1.0001,
+        "p_sum_dev": 0.00009999999999998899,
+        "sums_conventionally": true,
+        "missing_keys": [],
+        "extra_keys": [],
+        "n_options": 55,
+        "choice": "e1",
+        "reported_choice": "e1",
+        "choice_is_argmax": true,
+        "top": "e1",
+        "top_p": 0.2142,
+        "second_p": 0.1227,
+        "margin": 0.0915,
+        "entropy_bits": 4.396266466997753,
+        "entropy_norm": 0.760420849910674,
+        "near_uniform": false,
+        "coinflip_margin": false,
+        "confidence": 0.1997
+      },
+      "request": {
+        "state": {
+          "bytes": 16355,
+          "page_url": "https://html.duckduckgo.com/html/?q=apple+stock+price",
+          "elements": 55,
+          "visible_text_chars": 3000
+        },
+        "questions": {
+          "click_target": {
+            "type": "choice",
+            "instructions": {
+              "question": "If the next action is a click, which element in `page.elements` should be clicked to make progress toward `goal`?",
+              "rules": [
+                "Choose `none` if no listed element helps.",
+                "Each option id refers to `page.elements[].id`."
+              ]
+            },
+            "criteria": {
+              "e1": "link 'View today's Apple Inc stock price and latest AAPL news and analysis. Create re…' → //duckduckgo.com/l/?uddg=https%3A%2F%2Fwww.investing.com%2Fequities%2Fapple%2Dcomputer%2Dinc&rut=17856eb98fb1220a5fdc8f…",
+              "e2": "link 'DuckDuckGo' → /html/",
+              "e4": "button 'Search'",
+              "e5": "dropdown 'All Regions Argentina Australia Austria Belgium (fr) Belgium (nl) Brazil Bulgar…' (nothing selected yet; options: All Regions | Argentina | Australia | Austria | Belgium (fr) | Belgium (nl) | Brazil | Bulgaria | Canada (en) | Canada (fr) | Catalonia | Chile | …)",
+              "e6": "dropdown 'Any Time Past Day Past Week Past Month Past Year' (nothing selected yet; options: Any Time | Past Day | Past Week | Past Month | Past Year)",
+              "e7": "link 'Plus500™ Trade Stocks CFDs - 24/7 Support' → //duckduckgo.com/l/?uddg=https%3A%2F%2Fduckduckgo.com%2Fy.js%3Fad_domain%3Dplus500.com%26ad_provider%3Dbingv7aa%26ad_ty…",
+              "e8": "button 'AD'",
+              "e9": "link 'plus500.com' → //duckduckgo.com/l/?uddg=https%3A%2F%2Fduckduckgo.com%2Fy.js%3Fad_domain%3Dplus500.com%26ad_provider%3Dbingv7aa%26ad_ty…",
+              "e10": "link 'CFD Trading. Access the Stock Market via CFDs. Free Demo. Capital at risk. Trad…' → //duckduckgo.com/l/?uddg=https%3A%2F%2Fduckduckgo.com%2Fy.js%3Fad_domain%3Dplus500.com%26ad_provider%3Dbingv7aa%26ad_ty…",
+              "e11": "link 'Lightspeed Trading Platform - Online Stock Trading' → //duckduckgo.com/l/?uddg=https%3A%2F%2Fduckduckgo.com%2Fy.js%3Fad_domain%3Dlightspeed.com%26ad_provider%3Dbingv7aa%26ad…",
+              "e12": "button 'AD'",
+              "e13": "link 'lightspeed.com' → //duckduckgo.com/l/?uddg=https%3A%2F%2Fduckduckgo.com%2Fy.js%3Fad_domain%3Dlightspeed.com%26ad_provider%3Dbingv7aa%26ad…",
+              "e14": "link 'Open an Account Today with a Brokerage Firm Designed for Active Traders. Trade …' → //duckduckgo.com/l/?uddg=https%3A%2F%2Fduckduckgo.com%2Fy.js%3Fad_domain%3Dlightspeed.com%26ad_provider%3Dbingv7aa%26ad…",
+              "e15": "link 'Apple Inc. (AAPL) Stock Price, News, Quote & History - Yahoo Finance' → //duckduckgo.com/l/?uddg=https%3A%2F%2Ffinance.yahoo.com%2Fquote%2FAAPL%2F&rut=925d117f51b2d2c549bcef4bb77bffae9afc4460…",
+              "e16": "link '//duckduckgo.com/l/?uddg=https%3A%2F%2Ffinance.yahoo.com%2Fquote%2FAAPL%2F&rut=…' → //duckduckgo.com/l/?uddg=https%3A%2F%2Ffinance.yahoo.com%2Fquote%2FAAPL%2F&rut=925d117f51b2d2c549bcef4bb77bffae9afc4460…",
+              "e17": "link 'finance.yahoo.com/quote/AAPL/' → //duckduckgo.com/l/?uddg=https%3A%2F%2Ffinance.yahoo.com%2Fquote%2FAAPL%2F&rut=925d117f51b2d2c549bcef4bb77bffae9afc4460…",
+              "e18": "link 'Find the latest Apple Inc. (AAPL) stock quote, history, news and other vital in…' → //duckduckgo.com/l/?uddg=https%3A%2F%2Ffinance.yahoo.com%2Fquote%2FAAPL%2F&rut=925d117f51b2d2c549bcef4bb77bffae9afc4460…",
+              "e19": "link 'Stock Price - Apple' → //duckduckgo.com/l/?uddg=https%3A%2F%2Finvestor.apple.com%2Fstock%2Dprice%2Fdefault.aspx&rut=93af5b4e40dd2273d259cb9444…",
+              "e20": "link '//duckduckgo.com/l/?uddg=https%3A%2F%2Finvestor.apple.com%2Fstock%2Dprice%2Fdef…' → //duckduckgo.com/l/?uddg=https%3A%2F%2Finvestor.apple.com%2Fstock%2Dprice%2Fdefault.aspx&rut=93af5b4e40dd2273d259cb9444…",
+              "e21": "link 'investor.apple.com/stock-price/default.aspx' → //duckduckgo.com/l/?uddg=https%3A%2F%2Finvestor.apple.com%2Fstock%2Dprice%2Fdefault.aspx&rut=93af5b4e40dd2273d259cb9444…",
+              "e22": "link 'The stock information provided is for informational purposes only and is not in…' → //duckduckgo.com/l/?uddg=https%3A%2F%2Finvestor.apple.com%2Fstock%2Dprice%2Fdefault.aspx&rut=93af5b4e40dd2273d259cb9444…",
+              "e23": "link 'Apple Inc (AAPL) Stock Price & News - Google Finance' → //duckduckgo.com/l/?uddg=https%3A%2F%2Fwww.google.com%2Ffinance%2Fquote%2FAAPL%3ANASDAQ&rut=99ed6a80895b304658b97cbadae…",
+              "e24": "link '//duckduckgo.com/l/?uddg=https%3A%2F%2Fwww.google.com%2Ffinance%2Fquote%2FAAPL%…' → //duckduckgo.com/l/?uddg=https%3A%2F%2Fwww.google.com%2Ffinance%2Fquote%2FAAPL%3ANASDAQ&rut=99ed6a80895b304658b97cbadae…",
+              "e25": "link 'www.google.com/finance/quote/AAPL:NASDAQ' → //duckduckgo.com/l/?uddg=https%3A%2F%2Fwww.google.com%2Ffinance%2Fquote%2FAAPL%3ANASDAQ&rut=99ed6a80895b304658b97cbadae…",
+              "e26": "link 'Get real-time stock quotes, news, financial details, and analytics for Apple In…' → //duckduckgo.com/l/?uddg=https%3A%2F%2Fwww.google.com%2Ffinance%2Fquote%2FAAPL%3ANASDAQ&rut=99ed6a80895b304658b97cbadae…",
+              "e27": "link 'Apple (AAPL) Stock Price & Overview' → //duckduckgo.com/l/?uddg=https%3A%2F%2Fstockanalysis.com%2Fstocks%2Faapl%2F&rut=c49c036905cbe6eeb9e4eba2ce486e27df27b04…",
+              "e28": "link '//duckduckgo.com/l/?uddg=https%3A%2F%2Fstockanalysis.com%2Fstocks%2Faapl%2F&rut…' → //duckduckgo.com/l/?uddg=https%3A%2F%2Fstockanalysis.com%2Fstocks%2Faapl%2F&rut=c49c036905cbe6eeb9e4eba2ce486e27df27b04…",
+              "e29": "link 'stockanalysis.com/stocks/aapl/' → //duckduckgo.com/l/?uddg=https%3A%2F%2Fstockanalysis.com%2Fstocks%2Faapl%2F&rut=c49c036905cbe6eeb9e4eba2ce486e27df27b04…",
+              "e30": "link 'A detailed overview of Apple Inc. (AAPL) stock, including real-time price, char…' → //duckduckgo.com/l/?uddg=https%3A%2F%2Fstockanalysis.com%2Fstocks%2Faapl%2F&rut=c49c036905cbe6eeb9e4eba2ce486e27df27b04…",
+              "e31": "link 'AAPL Stock Price | Apple Inc. Stock Quote (U.S.: Nasdaq) | MarketWatch' → //duckduckgo.com/l/?uddg=https%3A%2F%2Fwww.marketwatch.com%2Finvesting%2Fstock%2Faapl&rut=a975440bcf4c749c2e44e0f226f07…",
+              "e32": "link '//duckduckgo.com/l/?uddg=https%3A%2F%2Fwww.marketwatch.com%2Finvesting%2Fstock%…' → //duckduckgo.com/l/?uddg=https%3A%2F%2Fwww.marketwatch.com%2Finvesting%2Fstock%2Faapl&rut=a975440bcf4c749c2e44e0f226f07…",
+              "e33": "link 'www.marketwatch.com/investing/stock/aapl' → //duckduckgo.com/l/?uddg=https%3A%2F%2Fwww.marketwatch.com%2Finvesting%2Fstock%2Faapl&rut=a975440bcf4c749c2e44e0f226f07…",
+              "e34": "link 'AAPL | Complete Apple Inc. stock news by MarketWatch. View real-time stock pric…' → //duckduckgo.com/l/?uddg=https%3A%2F%2Fwww.marketwatch.com%2Finvesting%2Fstock%2Faapl&rut=a975440bcf4c749c2e44e0f226f07…",
+              "e35": "link 'Apple Stock Price Today | NASDAQ: AAPL Live - Investing.com' → //duckduckgo.com/l/?uddg=https%3A%2F%2Fwww.investing.com%2Fequities%2Fapple%2Dcomputer%2Dinc&rut=17856eb98fb1220a5fdc8f…",
+              "e36": "link '//duckduckgo.com/l/?uddg=https%3A%2F%2Fwww.investing.com%2Fequities%2Fapple%2Dc…' → //duckduckgo.com/l/?uddg=https%3A%2F%2Fwww.investing.com%2Fequities%2Fapple%2Dcomputer%2Dinc&rut=17856eb98fb1220a5fdc8f…",
+              "e37": "link 'www.investing.com/equities/apple-computer-inc' → //duckduckgo.com/l/?uddg=https%3A%2F%2Fwww.investing.com%2Fequities%2Fapple%2Dcomputer%2Dinc&rut=17856eb98fb1220a5fdc8f…",
+              "e38": "link 'AAPL: Apple Inc. - Stock Price, Quote and News - CNBC' → //duckduckgo.com/l/?uddg=https%3A%2F%2Fwww.cnbc.com%2Fquotes%2FAAPL&rut=3b031a9b3e5a0b19c668563be2ef460a4704e1d15fd04a4…",
+              "e39": "link '//duckduckgo.com/l/?uddg=https%3A%2F%2Fwww.cnbc.com%2Fquotes%2FAAPL&rut=3b031a9…' → //duckduckgo.com/l/?uddg=https%3A%2F%2Fwww.cnbc.com%2Fquotes%2FAAPL&rut=3b031a9b3e5a0b19c668563be2ef460a4704e1d15fd04a4…",
+              "e40": "link 'www.cnbc.com/quotes/AAPL' → //duckduckgo.com/l/?uddg=https%3A%2F%2Fwww.cnbc.com%2Fquotes%2FAAPL&rut=3b031a9b3e5a0b19c668563be2ef460a4704e1d15fd04a4…",
+              "e41": "link 'Get Apple Inc. (AAPL:NASDAQ) real-time stock quotes, news, price and financial …' → //duckduckgo.com/l/?uddg=https%3A%2F%2Fwww.cnbc.com%2Fquotes%2FAAPL&rut=3b031a9b3e5a0b19c668563be2ef460a4704e1d15fd04a4…",
+              "e42": "link 'Apple Inc. (AAPL) Stock Historical Prices & Data - Yahoo Finance' → //duckduckgo.com/l/?uddg=https%3A%2F%2Ffinance.yahoo.com%2Fquote%2FAAPL%2Fhistory%2F&rut=bfee86f6722c9d4e1633b5411cd3e1…",
+              "e43": "link '//duckduckgo.com/l/?uddg=https%3A%2F%2Ffinance.yahoo.com%2Fquote%2FAAPL%2Fhisto…' → //duckduckgo.com/l/?uddg=https%3A%2F%2Ffinance.yahoo.com%2Fquote%2FAAPL%2Fhistory%2F&rut=bfee86f6722c9d4e1633b5411cd3e1…",
+              "e44": "link 'finance.yahoo.com/quote/AAPL/history/' → //duckduckgo.com/l/?uddg=https%3A%2F%2Ffinance.yahoo.com%2Fquote%2FAAPL%2Fhistory%2F&rut=bfee86f6722c9d4e1633b5411cd3e1…",
+              "e45": "link 'Discover historical prices for AAPL stock on Yahoo Finance. View daily, weekly …' → //duckduckgo.com/l/?uddg=https%3A%2F%2Ffinance.yahoo.com%2Fquote%2FAAPL%2Fhistory%2F&rut=bfee86f6722c9d4e1633b5411cd3e1…",
+              "e46": "link 'Apple Inc - AAPL - Stock Price & Analysis | Finbox' → //duckduckgo.com/l/?uddg=https%3A%2F%2Ffinbox.com%2FNASDAQGS%3AAAPL%2F%3Fai%3Dkuy15sh%26pi%3Dmfnbx&rut=83e76c56e0f88e1d…",
+              "e47": "link '//duckduckgo.com/l/?uddg=https%3A%2F%2Ffinbox.com%2FNASDAQGS%3AAAPL%2F%3Fai%3Dk…' → //duckduckgo.com/l/?uddg=https%3A%2F%2Ffinbox.com%2FNASDAQGS%3AAAPL%2F%3Fai%3Dkuy15sh%26pi%3Dmfnbx&rut=83e76c56e0f88e1d…",
+              "e48": "link 'finbox.com/NASDAQGS:AAPL/?ai=kuy15sh&pi=mfnbx' → //duckduckgo.com/l/?uddg=https%3A%2F%2Ffinbox.com%2FNASDAQGS%3AAAPL%2F%3Fai%3Dkuy15sh%26pi%3Dmfnbx&rut=83e76c56e0f88e1d…",
+              "e49": "link 'Get real-time Apple (AAPL) stock price quotes, analyst insights, forecasts, new…' → //duckduckgo.com/l/?uddg=https%3A%2F%2Ffinbox.com%2FNASDAQGS%3AAAPL%2F%3Fai%3Dkuy15sh%26pi%3Dmfnbx&rut=83e76c56e0f88e1d…",
+              "e50": "link 'AAPL Stock Quote Price and Forecast | CNN' → //duckduckgo.com/l/?uddg=https%3A%2F%2Fwww.cnn.com%2Fmarkets%2Fstocks%2FAAPL&rut=d671cad119cac68b3c3dc1bd8450e6a92bfb6c…",
+              "e51": "link '//duckduckgo.com/l/?uddg=https%3A%2F%2Fwww.cnn.com%2Fmarkets%2Fstocks%2FAAPL&ru…' → //duckduckgo.com/l/?uddg=https%3A%2F%2Fwww.cnn.com%2Fmarkets%2Fstocks%2FAAPL&rut=d671cad119cac68b3c3dc1bd8450e6a92bfb6c…",
+              "e52": "link 'www.cnn.com/markets/stocks/AAPL' → //duckduckgo.com/l/?uddg=https%3A%2F%2Fwww.cnn.com%2Fmarkets%2Fstocks%2FAAPL&rut=d671cad119cac68b3c3dc1bd8450e6a92bfb6c…",
+              "e53": "link 'View Apple Inc. AAPL stock quote prices, financial information, real-time forec…' → //duckduckgo.com/l/?uddg=https%3A%2F%2Fwww.cnn.com%2Fmarkets%2Fstocks%2FAAPL&rut=d671cad119cac68b3c3dc1bd8450e6a92bfb6c…",
+              "e54": "button 'Next'",
+              "e55": "link 'Feedback' → //duckduckgo.com/feedback.html",
+              "none": "No listed element should be clicked."
+            }
+          }
+        }
+      },
+      "response_answers": {
+        "click_target": {
+          "type": "choice",
+          "choice": "e1",
+          "confidence": 0.1997,
+          "probabilities": {
+            "e1": 0.2142,
+            "e2": 0.0051,
+            "e4": 0.0095,
+            "e5": 0.0026,
+            "e6": 0.0087,
+            "e7": 0.0016,
+            "e8": 0.0017,
+            "e9": 0.0017,
+            "e10": 0.0018,
+            "e11": 0.0014,
+            "e12": 0.0017,
+            "e13": 0.0019,
+            "e14": 0.0021,
+            "e15": 0.0991,
+            "e16": 0.0158,
+            "e17": 0.0578,
+            "e18": 0.0338,
+            "e19": 0.0186,
+            "e20": 0.0168,
+            "e21": 0.0154,
+            "e22": 0.0034,
+            "e23": 0.0148,
+            "e24": 0.0122,
+            "e25": 0.0165,
+            "e26": 0.0083,
+            "e27": 0.01,
+            "e28": 0.0064,
+            "e29": 0.0068,
+            "e30": 0.0103,
+            "e31": 0.0063,
+            "e32": 0.0043,
+            "e33": 0.01,
+            "e34": 0.0081,
+            "e35": 0.0883,
+            "e36": 0.0399,
+            "e37": 0.1227,
+            "e38": 0.0114,
+            "e39": 0.013,
+            "e40": 0.0124,
+            "e41": 0.0148,
+            "e42": 0.0016,
+            "e43": 0.001,
+            "e44": 0.0022,
+            "e45": 0.0021,
+            "e46": 0.0028,
+            "e47": 0.0026,
+            "e48": 0.0035,
+            "e49": 0.0102,
+            "e50": 0.0052,
+            "e51": 0.0036,
+            "e52": 0.004,
+            "e53": 0.0085,
+            "e54": 0.0028,
+            "e55": 0.0037,
+            "none": 0.0151
+          }
+        }
+      }
+    },
+    {
+      "id": "ddg-action-aapl",
+      "kind": "browser",
+      "question": "action",
+      "type": "choice",
+      "expected": "click",
+      "predicted": "click",
+      "correct": true,
+      "got": "choice=click P(correct)=0.7450",
+      "ms": 2171,
+      "server_latency_ms": 2145.3,
+      "usage": {
+        "input_tokens": 6802,
+        "output_tokens": 84
+      },
+      "model_echo": "kev-latest",
+      "analysis": {
+        "type": "choice",
+        "probabilities": {
+          "click": 0.745,
+          "select": 0.0388,
+          "scroll_down": 0.0996,
+          "wait": 0.0275,
+          "stop": 0.089
+        },
+        "p_sum": 0.9999,
+        "p_sum_dev": 0.00009999999999998899,
+        "sums_conventionally": true,
+        "missing_keys": [],
+        "extra_keys": [],
+        "n_options": 5,
+        "choice": "click",
+        "reported_choice": "click",
+        "choice_is_argmax": true,
+        "top": "click",
+        "top_p": 0.745,
+        "second_p": 0.0996,
+        "margin": 0.6454,
+        "entropy_bits": 1.2829050979418575,
+        "entropy_norm": 0.5525171519164084,
+        "near_uniform": false,
+        "coinflip_margin": false,
+        "confidence": 0.6813
+      },
+      "request": {
+        "state": {
+          "bytes": 16355,
+          "page_url": "https://html.duckduckgo.com/html/?q=apple+stock+price",
+          "elements": 55,
+          "visible_text_chars": 3000
+        },
+        "questions": {
+          "action": {
+            "type": "choice",
+            "instructions": {
+              "question": "Which single browser action should be performed next to make progress toward `goal` from the current `page`?",
+              "rules": [
+                "Every element in `page.elements` can be clicked, filled or selected right now, even when its in_viewport is false (the browser scrolls to it). Scroll only when the needed element or text is not listed at all.",
+                "Use `type` only when a value in `inputs` belongs in a listed text field.",
+                "Use `stop` when `goal` is already accomplished or nothing listed can help.",
+                "Consider `last_action` and `history`: do not repeat an action that produced no change."
+              ]
+            },
+            "criteria": {
+              "click": {
+                "what": "Click one element listed in `page.elements` (a link, button, checkbox, radio, tab, menu item, or similar).",
+                "use_when": "The next step toward `goal` is to open, choose, submit, toggle, or confirm something that is listed."
+              },
+              "select": {
+                "what": "Choose an option in a dropdown listed in `page.elements`.",
+                "use_when": "A dropdown must be set to a value implied by `goal` or `inputs`."
+              },
+              "scroll_down": {
+                "what": "Scroll down to reveal content that is not listed in `page.elements` and not in `page.visible_text`.",
+                "use_when": "Nothing listed can serve `goal` and more content probably exists further down. Never needed to reach an element that is already listed: clicking scrolls to it automatically."
+              },
+              "wait": {
+                "what": "Do nothing for a moment because the page is still loading or a result is still pending.",
+                "use_when": "The visible text or a dialog indicates loading, processing, or a countdown."
+              },
+              "stop": {
+                "what": "Stop: no listed action can make progress toward `goal`.",
+                "use_when": "`goal` is already accomplished as shown by `page`, or it is impossible from here with the listed actions."
+              }
+            }
+          }
+        }
+      },
+      "response_answers": {
+        "action": {
+          "type": "choice",
+          "choice": "click",
+          "confidence": 0.6813,
+          "probabilities": {
+            "click": 0.745,
+            "select": 0.0388,
+            "scroll_down": 0.0996,
+            "wait": 0.0275,
+            "stop": 0.089
+          }
+        }
+      }
+    },
+    {
+      "id": "ddg-blocker-aapl",
+      "kind": "browser",
+      "question": "blocker",
+      "type": "choice",
+      "expected": "none",
+      "predicted": "none",
+      "correct": true,
+      "got": "choice=none P(correct)=0.4790",
+      "ms": 355,
+      "server_latency_ms": 345.6,
+      "usage": {
+        "input_tokens": 6648,
+        "output_tokens": 104
+      },
+      "model_echo": "kev-latest",
+      "analysis": {
+        "type": "choice",
+        "probabilities": {
+          "none": 0.479,
+          "login_required": 0.0764,
+          "verification_challenge": 0.0772,
+          "consent_or_permission_dialog": 0.1219,
+          "error_page": 0.0931,
+          "missing_information": 0.1524
+        },
+        "p_sum": 1,
+        "p_sum_dev": 0,
+        "sums_conventionally": true,
+        "missing_keys": [],
+        "extra_keys": [],
+        "n_options": 6,
+        "choice": "none",
+        "reported_choice": "none",
+        "choice_is_argmax": true,
+        "top": "none",
+        "top_p": 0.479,
+        "second_p": 0.1524,
+        "margin": 0.3266,
+        "entropy_bits": 2.180005097034436,
+        "entropy_norm": 0.8433410915733809,
+        "near_uniform": false,
+        "coinflip_margin": false,
+        "confidence": 0.3748
+      },
+      "request": {
+        "state": {
+          "bytes": 16355,
+          "page_url": "https://html.duckduckgo.com/html/?q=apple+stock+price",
+          "elements": 55,
+          "visible_text_chars": 3000
+        },
+        "questions": {
+          "blocker": {
+            "type": "choice",
+            "instructions": {
+              "question": "Does `page` present an obstacle that an automated browser agent cannot resolve with the listed elements and `inputs`, stopping progress toward `goal`?",
+              "rules": [
+                "Pick `none` unless the obstacle is clearly visible in `page`.",
+                "Cookie banners or dialogs that have a listed button to dismiss them are not obstacles."
+              ]
+            },
+            "criteria": {
+              "none": "No obstacle: the page can be operated normally (a login form that can be filled with provided `inputs` is not an obstacle).",
+              "login_required": "The page requires signing in and `inputs` does not provide the credentials needed to sign in.",
+              "verification_challenge": "A CAPTCHA, one-time code, two-factor prompt, or similar human verification is shown.",
+              "consent_or_permission_dialog": "A modal dialog demanding consent, permissions, or a choice from the user blocks the content and nothing listed dismisses it.",
+              "error_page": "The page shows an error (not found, access denied, server error, network failure) instead of the expected content.",
+              "missing_information": "Progress requires information (an account, payment details, a value) that is neither on the page nor in `inputs`."
+            }
+          }
+        }
+      },
+      "response_answers": {
+        "blocker": {
+          "type": "choice",
+          "choice": "none",
+          "confidence": 0.3748,
+          "probabilities": {
+            "none": 0.479,
+            "login_required": 0.0764,
+            "verification_challenge": 0.0772,
+            "consent_or_permission_dialog": 0.1219,
+            "error_page": 0.0931,
+            "missing_information": 0.1524
+          }
+        }
+      }
+    },
+    {
+      "id": "ddg-goal-done-aapl",
+      "kind": "browser",
+      "question": "goal_done",
+      "type": "noul",
+      "expected": "false",
+      "predicted": "false",
+      "correct": true,
+      "got": "P(yes)=0.0613",
+      "ms": 186,
+      "server_latency_ms": 177.5,
+      "usage": {
+        "input_tokens": 6584,
+        "output_tokens": 23
+      },
+      "model_echo": "kev-latest",
+      "analysis": {
+        "type": "noul",
+        "noul": 0.0613,
+        "probabilities": {
+          "true": 0.0613,
+          "false": 0.9387
+        },
+        "p_sum": 1,
+        "p_sum_dev": 0,
+        "sums_conventionally": true,
+        "missing_keys": [],
+        "extra_keys": [],
+        "n_options": 2,
+        "top": "false",
+        "top_p": 0.9387,
+        "margin": 0.8774,
+        "entropy_bits": 0.33258396313800187,
+        "entropy_norm": 0.33258396313800187,
+        "dev_from_half": 0.4387,
+        "near_half": false,
+        "pinned_high": false,
+        "confidence": null
+      },
+      "request": {
+        "state": {
+          "bytes": 16355,
+          "page_url": "https://html.duckduckgo.com/html/?q=apple+stock+price",
+          "elements": 55,
+          "visible_text_chars": 3000
+        },
+        "questions": {
+          "goal_done": {
+            "type": "noul",
+            "instructions": {
+              "question": "Is `goal` already fully accomplished according to what `page` shows right now?",
+              "rules": [
+                "Judge only from `page` (its url, title, headings, visible_text, dialog and elements).",
+                "A page that merely offers a way to accomplish `goal` does not count as accomplished.",
+                "If `goal` asks to open or view something, it is accomplished when that thing is what `page` shows.",
+                "If `goal` asks to perform an action (submit, add, sign in, start), it is accomplished only when `page` shows the result or confirmation of that action."
+              ]
+            },
+            "criteria": {
+              "true": "`page` shows the end result that `goal` asks for.",
+              "false": "At least one more action is needed, `page` shows something else, or it is unclear."
+            }
+          }
+        }
+      },
+      "response_answers": {
+        "goal_done": {
+          "type": "noul",
+          "noul": 0.0613
+        }
+      }
+    },
+    {
+      "id": "ddg-typed-action",
+      "kind": "browser",
+      "question": "action",
+      "type": "choice",
+      "expected": "type",
+      "predicted": "type",
+      "correct": true,
+      "got": "choice=type P(correct)=0.6165",
+      "ms": 7552,
+      "server_latency_ms": 7540.6,
+      "usage": {
+        "input_tokens": 6570,
+        "output_tokens": 97
+      },
+      "model_echo": "kev-latest",
+      "analysis": {
+        "type": "choice",
+        "probabilities": {
+          "click": 0.2084,
+          "type": 0.6165,
+          "select": 0.0452,
+          "scroll_down": 0.0447,
+          "wait": 0.0137,
+          "stop": 0.0716
+        },
+        "p_sum": 1.0001000000000002,
+        "p_sum_dev": 0.00010000000000021103,
+        "sums_conventionally": true,
+        "missing_keys": [],
+        "extra_keys": [],
+        "n_options": 6,
+        "choice": "type",
+        "reported_choice": "type",
+        "choice_is_argmax": true,
+        "top": "type",
+        "top_p": 0.6165,
+        "second_p": 0.2084,
+        "margin": 0.4081,
+        "entropy_bits": 1.6612368580394135,
+        "entropy_norm": 0.6426541420140368,
+        "near_uniform": false,
+        "coinflip_margin": false,
+        "confidence": 0.5398
+      },
+      "request": {
+        "state": {
+          "bytes": 15566,
+          "page_url": "https://html.duckduckgo.com/html/?q=apple+stock+price",
+          "elements": 51,
+          "visible_text_chars": 3000
+        },
+        "questions": {
+          "action": {
+            "type": "choice",
+            "instructions": {
+              "question": "Which single browser action should be performed next to make progress toward `goal` from the current `page`?",
+              "rules": [
+                "Every element in `page.elements` can be clicked, filled or selected right now, even when its in_viewport is false (the browser scrolls to it). Scroll only when the needed element or text is not listed at all.",
+                "Use `type` only when a value in `inputs` belongs in a listed text field.",
+                "Use `stop` when `goal` is already accomplished or nothing listed can help.",
+                "Consider `last_action` and `history`: do not repeat an action that produced no change."
+              ]
+            },
+            "criteria": {
+              "click": {
+                "what": "Click one element listed in `page.elements` (a link, button, checkbox, radio, tab, menu item, or similar).",
+                "use_when": "The next step toward `goal` is to open, choose, submit, toggle, or confirm something that is listed."
+              },
+              "type": {
+                "what": "Type one of the provided `inputs` values into a text field listed in `page.elements`.",
+                "use_when": "A form field or search box must be filled before progress is possible, and a suitable value exists in `inputs`."
+              },
+              "select": {
+                "what": "Choose an option in a dropdown listed in `page.elements`.",
+                "use_when": "A dropdown must be set to a value implied by `goal` or `inputs`."
+              },
+              "scroll_down": {
+                "what": "Scroll down to reveal content that is not listed in `page.elements` and not in `page.visible_text`.",
+                "use_when": "Nothing listed can serve `goal` and more content probably exists further down. Never needed to reach an element that is already listed: clicking scrolls to it automatically."
+              },
+              "wait": {
+                "what": "Do nothing for a moment because the page is still loading or a result is still pending.",
+                "use_when": "The visible text or a dialog indicates loading, processing, or a countdown."
+              },
+              "stop": {
+                "what": "Stop: no listed action can make progress toward `goal`.",
+                "use_when": "`goal` is already accomplished as shown by `page`, or it is impossible from here with the listed actions."
+              }
+            }
+          }
+        }
+      },
+      "response_answers": {
+        "action": {
+          "type": "choice",
+          "choice": "type",
+          "confidence": 0.5398,
+          "probabilities": {
+            "click": 0.2084,
+            "type": 0.6165,
+            "select": 0.0452,
+            "scroll_down": 0.0447,
+            "wait": 0.0137,
+            "stop": 0.0716
+          }
+        }
+      }
+    },
+    {
+      "id": "ddg-typed-type-target",
+      "kind": "browser",
+      "question": "type_target",
+      "type": "choice",
+      "expected": "e3",
+      "predicted": "e3",
+      "correct": true,
+      "got": "choice=e3 P(correct)=0.8577",
+      "ms": 211,
+      "server_latency_ms": 181.2,
+      "usage": {
+        "input_tokens": 6223,
+        "output_tokens": 55
+      },
+      "model_echo": "kev-latest",
+      "analysis": {
+        "type": "choice",
+        "probabilities": {
+          "e3": 0.8577,
+          "none": 0.1423
+        },
+        "p_sum": 1,
+        "p_sum_dev": 0,
+        "sums_conventionally": true,
+        "missing_keys": [],
+        "extra_keys": [],
+        "n_options": 2,
+        "choice": "e3",
+        "reported_choice": "e3",
+        "choice_is_argmax": true,
+        "top": "e3",
+        "top_p": 0.8577,
+        "second_p": 0.1423,
+        "margin": 0.7154,
+        "entropy_bits": 0.5902307545881025,
+        "entropy_norm": 0.5902307545881025,
+        "near_uniform": false,
+        "coinflip_margin": false,
+        "confidence": 0.7154
+      },
+      "request": {
+        "state": {
+          "bytes": 15566,
+          "page_url": "https://html.duckduckgo.com/html/?q=apple+stock+price",
+          "elements": 51,
+          "visible_text_chars": 3000
+        },
+        "questions": {
+          "type_target": {
+            "type": "choice",
+            "instructions": {
+              "question": "If the next action is typing, which text field in `page.elements` should receive a value from `inputs` to make progress toward `goal`?",
+              "rules": [
+                "Prefer empty fields over fields that already contain the right value.",
+                "Choose `none` if no listed field should be filled now."
+              ]
+            },
+            "criteria": {
+              "e3": "text field 'q' (current value \"apple stock price\")",
+              "none": "No listed text field should be filled now."
+            }
+          }
+        }
+      },
+      "response_answers": {
+        "type_target": {
+          "type": "choice",
+          "choice": "e3",
+          "confidence": 0.7154,
+          "probabilities": {
+            "e3": 0.8577,
+            "none": 0.1423
+          }
+        }
+      }
+    },
+    {
+      "id": "ddg-typed-submit",
+      "kind": "browser",
+      "question": "submit_after_type",
+      "type": "noul",
+      "expected": "true",
+      "predicted": "true",
+      "correct": true,
+      "got": "P(yes)=0.9511",
+      "ms": 809,
+      "server_latency_ms": 703.5,
+      "usage": {
+        "input_tokens": 6246,
+        "output_tokens": 24
+      },
+      "model_echo": "kev-latest",
+      "analysis": {
+        "type": "noul",
+        "noul": 0.9511,
+        "probabilities": {
+          "true": 0.9511,
+          "false": 0.048900000000000055
+        },
+        "p_sum": 1,
+        "p_sum_dev": 0,
+        "sums_conventionally": true,
+        "missing_keys": [],
+        "extra_keys": [],
+        "n_options": 2,
+        "top": "true",
+        "top_p": 0.9511,
+        "margin": 0.9021999999999999,
+        "entropy_bits": 0.28170573238446267,
+        "entropy_norm": 0.28170573238446267,
+        "dev_from_half": 0.45109999999999995,
+        "near_half": false,
+        "pinned_high": true,
+        "confidence": null
+      },
+      "request": {
+        "state": {
+          "bytes": 15566,
+          "page_url": "https://html.duckduckgo.com/html/?q=apple+stock+price",
+          "elements": 51,
+          "visible_text_chars": 3000
+        },
+        "questions": {
+          "submit_after_type": {
+            "type": "noul",
+            "instructions": {
+              "question": "After typing the value into the chosen text field, should the Enter key be pressed immediately to submit (as with a search box or a single-field form)?",
+              "rules": [
+                "Answer no when other fields still need values or when a separate submit button must be clicked after all fields are filled."
+              ]
+            },
+            "criteria": {
+              "true": "Pressing Enter right after typing is the natural way to submit this field (search boxes, single-field forms, the last field of a form).",
+              "false": "More fields must be filled first, or a separate button should be clicked, or Enter would do nothing useful."
+            }
+          }
+        }
+      },
+      "response_answers": {
+        "submit_after_type": {
+          "type": "noul",
+          "noul": 0.9511
+        }
+      }
+    },
+    {
+      "id": "wiki-login-click-target",
+      "kind": "browser",
+      "question": "click_target",
+      "type": "choice",
+      "expected": "e9",
+      "predicted": "e9",
+      "correct": true,
+      "got": "choice=e9 P(correct)=0.9378",
+      "ms": 8712,
+      "server_latency_ms": 8446.2,
+      "usage": {
+        "input_tokens": 7639,
+        "output_tokens": 1319
+      },
+      "model_echo": "kev-latest",
+      "analysis": {
+        "type": "choice",
+        "probabilities": {
+          "e1": 0.0007,
+          "e2": 0.0009,
+          "e3": 0.0007,
+          "e4": 0.001,
+          "e6": 0.0007,
+          "e7": 0.0004,
+          "e8": 0.003,
+          "e9": 0.9378,
+          "e10": 0.0026,
+          "e11": 0.0009,
+          "e12": 0.0023,
+          "e13": 0.0009,
+          "e14": 0.0009,
+          "e15": 0.0006,
+          "e16": 0.0017,
+          "e17": 0.0005,
+          "e18": 0.0014,
+          "e19": 0.0003,
+          "e20": 0.0006,
+          "e21": 0.0005,
+          "e22": 0.0011,
+          "e23": 0.0004,
+          "e24": 0.0006,
+          "e25": 0.0003,
+          "e26": 0.0005,
+          "e27": 0.0007,
+          "e28": 0.0005,
+          "e29": 0.0005,
+          "e30": 0.0007,
+          "e31": 0.0004,
+          "e32": 0.0004,
+          "e33": 0.0004,
+          "e34": 0.0006,
+          "e35": 0.0004,
+          "e36": 0.0003,
+          "e37": 0.0002,
+          "e38": 0.0005,
+          "e39": 0.0005,
+          "e40": 0.0007,
+          "e41": 0.0003,
+          "e42": 0.0004,
+          "e43": 0.0006,
+          "e44": 0.0004,
+          "e45": 0.0004,
+          "e46": 0.0006,
+          "e47": 0.0004,
+          "e48": 0.0002,
+          "e49": 0.0003,
+          "e50": 0.001,
+          "e51": 0.0011,
+          "e52": 0.0022,
+          "e53": 0.0001,
+          "e54": 0.0002,
+          "e55": 0.0004,
+          "e56": 0.0008,
+          "e57": 0.0005,
+          "e58": 0.0002,
+          "e59": 0.0002,
+          "e60": 0.0003,
+          "e61": 0.0007,
+          "e62": 0.0008,
+          "e63": 0.0003,
+          "e64": 0.0002,
+          "e65": 0.0001,
+          "e66": 0.0002,
+          "e67": 0.0002,
+          "e68": 0.0003,
+          "e69": 0.0001,
+          "e70": 0.0002,
+          "e71": 0.0002,
+          "e72": 0.0003,
+          "e73": 0.0002,
+          "e74": 0.0004,
+          "e75": 0.0001,
+          "e76": 0.0002,
+          "e77": 0.0008,
+          "e78": 0.0003,
+          "e79": 0.0002,
+          "e80": 0.0001,
+          "e81": 0.0002,
+          "e82": 0.001,
+          "e83": 0.0006,
+          "e84": 0.0003,
+          "e85": 0.0003,
+          "e86": 0.0003,
+          "e87": 0.0001,
+          "e88": 0.0003,
+          "e89": 0.0002,
+          "e90": 0.0002,
+          "e91": 0.0005,
+          "e92": 0.0007,
+          "e93": 0.0005,
+          "e94": 0.0005,
+          "e95": 0.0003,
+          "e96": 0.0005,
+          "e97": 0.0005,
+          "e98": 0.0007,
+          "e99": 0.0007,
+          "e100": 0.0019,
+          "none": 0.0051
+        },
+        "p_sum": 0.9999999999999984,
+        "p_sum_dev": 1.5543122344752192e-15,
+        "sums_conventionally": true,
+        "missing_keys": [],
+        "extra_keys": [],
+        "n_options": 100,
+        "choice": "e9",
+        "reported_choice": "e9",
+        "choice_is_argmax": true,
+        "top": "e9",
+        "top_p": 0.9378,
+        "second_p": 0.0051,
+        "margin": 0.9327,
+        "entropy_bits": 0.7152232046592335,
+        "entropy_norm": 0.1076518190986739,
+        "near_uniform": false,
+        "coinflip_margin": false,
+        "confidence": 0.9372
+      },
+      "request": {
+        "state": {
+          "bytes": 16085,
+          "page_url": "https://en.wikipedia.org/wiki/Main_Page",
+          "elements": 100,
+          "visible_text_chars": 3000
+        },
+        "questions": {
+          "click_target": {
+            "type": "choice",
+            "instructions": {
+              "question": "If the next action is a click, which element in `page.elements` should be clicked to make progress toward `goal`?",
+              "rules": [
+                "Choose `none` if no listed element helps.",
+                "Each option id refers to `page.elements[].id`."
+              ]
+            },
+            "criteria": {
+              "e1": "link 'Archive' → https://en.wikipedia.org/wiki/Wikipedia:Today's_featured_article/September_2026",
+              "e2": "link 'About' → https://en.wikipedia.org/wiki/Wikipedia:About_Today's_featured_article",
+              "e3": "link 'Archive' → https://en.wikipedia.org/wiki/Wikipedia:Today's_featured_list/September_2026",
+              "e4": "link '/wiki/Main_Page' → /wiki/Main_Page",
+              "e6": "button 'Search'",
+              "e7": "link 'Donate' → https://donate.wikimedia.org/?wmf_source=donate&wmf_medium=sidebar&wmf_campaign=en.wikipedia.org&uselang=en",
+              "e8": "link 'Create account' → /w/index.php?title=Special:CreateAccount&returnto=Main+Page",
+              "e9": "link 'Log in' → /w/index.php?title=Special:UserLogin&returnto=Main+Page",
+              "e10": "link 'Main Page' → /wiki/Main_Page",
+              "e11": "link 'Talk' → /wiki/Talk:Main_Page",
+              "e12": "link 'Read' → /wiki/Main_Page",
+              "e13": "link 'View source' → /w/index.php?title=Main_Page&action=edit",
+              "e14": "link 'View history' → /w/index.php?title=Main_Page&action=history",
+              "e15": "button 'Hide Appearance'",
+              "e16": "link 'Wikipedia' → https://en.wikipedia.org/wiki/Wikipedia",
+              "e17": "link 'free' → https://en.wikipedia.org/wiki/Free_content",
+              "e18": "link 'anyone can edit' → https://en.wikipedia.org/wiki/Help:Introduction_to_Wikipedia",
+              "e19": "link '265,014' → https://en.wikipedia.org/wiki/Special:Statistics",
+              "e20": "link '7,243,180' → https://en.wikipedia.org/wiki/Special:Statistics",
+              "e21": "link 'English' → https://en.wikipedia.org/wiki/English_language",
+              "e22": "link 'Mary Mallon' → https://en.wikipedia.org/wiki/Mary_Mallon",
+              "e23": "link 'An attack on a police complex' → https://en.wikipedia.org/wiki/2026_Kohat_attack",
+              "e24": "link 'Kohat' → https://en.wikipedia.org/wiki/Kohat",
+              "e25": "link 'Tilcayo' → https://en.wikipedia.org/wiki/File:Leopardus_tilcayo_(5x3_cropped).jpg",
+              "e26": "link 'bacteria' → https://en.wikipedia.org/wiki/Bacteria",
+              "e27": "link 'typhoid fever' → https://en.wikipedia.org/wiki/Typhoid_fever",
+              "e28": "link 'tilcayo' → https://en.wikipedia.org/wiki/Tilcayo",
+              "e29": "link 'Mary Mallon' → https://en.wikipedia.org/wiki/File:Mary_Mallon,_aka_Typhoid_Mary.jpg",
+              "e30": "link 'quarantined' → https://en.wikipedia.org/wiki/Quarantine",
+              "e31": "link 'Hashim Thaçi' → https://en.wikipedia.org/wiki/Hashim_Thaçi",
+              "e32": "link 'war crimes during his leadership' → https://en.wikipedia.org/wiki/War_crimes_in_the_Kosovo_War#KLA_war_crimes",
+              "e33": "link 'Sloane Maternity Hospital' → https://en.wikipedia.org/wiki/Sloane_Hospital_for_Women",
+              "e34": "link 'Kosovo Liberation Army' → https://en.wikipedia.org/wiki/Kosovo_Liberation_Army",
+              "e35": "link 'the Primetime Emmy Awards' → https://en.wikipedia.org/wiki/78th_Primetime_Emmy_Awards",
+              "e36": "link 'Widow's Bay' → https://en.wikipedia.org/wiki/Widow's_Bay",
+              "e37": "link 'Outstanding Comedy Series' → https://en.wikipedia.org/wiki/Primetime_Emmy_Award_for_Outstanding_Comedy_Series",
+              "e38": "link 'The Pitt' → https://en.wikipedia.org/wiki/The_Pitt",
+              "e39": "link 'Outstanding Drama Series' → https://en.wikipedia.org/wiki/Primetime_Emmy_Award_for_Outstanding_Drama_Series",
+              "e40": "link 'public health' → https://en.wikipedia.org/wiki/Public_health",
+              "e41": "link 'Iran war' → https://en.wikipedia.org/wiki/2026_Iran_war",
+              "e42": "link 'Lebanon war' → https://en.wikipedia.org/wiki/2026_Lebanon_war",
+              "e43": "link 'Russo-Ukrainian war' → https://en.wikipedia.org/wiki/Russo-Ukrainian_war_(2022–present)",
+              "e44": "link 'timeline' → https://en.wikipedia.org/wiki/Timeline_of_the_Russo-Ukrainian_war_(1_September_2026_–_present)",
+              "e45": "link 'HIV/AIDS' → https://en.wikipedia.org/wiki/HIV/AIDS",
+              "e46": "link 'tuberculosis' → https://en.wikipedia.org/wiki/Tuberculosis",
+              "e47": "link 'Recent deaths' → https://en.wikipedia.org/wiki/Deaths_in_2026",
+              "e48": "link 'Dolores Sibonga' → https://en.wikipedia.org/wiki/Dolores_Sibonga",
+              "e49": "link 'Aracy Amaral' → https://en.wikipedia.org/wiki/Aracy_Amaral",
+              "e50": "link 'Bonnie Greer' → https://en.wikipedia.org/wiki/Bonnie_Greer",
+              "e51": "link 'COVID-19' → https://en.wikipedia.org/wiki/COVID-19",
+              "e52": "link 'Full article...' → https://en.wikipedia.org/wiki/Mary_Mallon",
+              "e53": "link 'Peter Max' → https://en.wikipedia.org/wiki/Peter_Max",
+              "e54": "link 'Chung Ho-yong' → https://en.wikipedia.org/wiki/Chung_Ho-yong",
+              "e55": "link 'Win Aung' → https://en.wikipedia.org/wiki/Win_Aung_(footballer)",
+              "e56": "link 'More current events' → https://en.wikipedia.org/wiki/Portal:Current_events",
+              "e57": "link 'Nominate an article' → https://en.wikipedia.org/wiki/Wikipedia:In_the_news/Candidates",
+              "e58": "link 'Alison Frantz' → https://en.wikipedia.org/wiki/Alison_Frantz",
+              "e59": "link 'Early Netherlandish painting' → https://en.wikipedia.org/wiki/Early_Netherlandish_painting",
+              "e60": "link 'Misti' → https://en.wikipedia.org/wiki/Misti",
+              "e61": "link 'By email' → https://lists.wikimedia.org/postorius/lists/daily-article-l.lists.wikimedia.org/",
+              "e62": "link 'More featured articles' → https://en.wikipedia.org/wiki/Wikipedia:Featured_articles_(linked_from_TFAfooter)",
+              "e63": "link 'September 23' → https://en.wikipedia.org/wiki/September_23",
+              "e64": "link 'Celebrate Bisexuality Day' → https://en.wikipedia.org/wiki/Celebrate_Bisexuality_Day",
+              "e65": "link '1803' → https://en.wikipedia.org/wiki/1803",
+              "e66": "link 'Maratha' → https://en.wikipedia.org/wiki/Maratha_Empire",
+              "e67": "link 'East India Company' → https://en.wikipedia.org/wiki/East_India_Company",
+              "e68": "link 'Lotte Rakhat' → https://en.wikipedia.org/wiki/Lotte_Rakhat",
+              "e69": "link 'Lotte Rakhat chocolate bar' → https://en.wikipedia.org/wiki/File:Rakhat_Kazakhstan_dark_chocolate_bar_(square_crop).jpg",
+              "e70": "link 'U2 performing in Sarajevo' → https://en.wikipedia.org/wiki/File:U2_performing_in_Sarajevo_on_Sept_23_1997_(11).jpg",
+              "e71": "link 'Battle of Assaye' → https://en.wikipedia.org/wiki/Battle_of_Assaye",
+              "e72": "link 'Jackie Robinson commemorative coins' → https://en.wikipedia.org/wiki/Jackie_Robinson_commemorative_coins",
+              "e73": "link 'Second Anglo-Maratha War' → https://en.wikipedia.org/wiki/Second_Anglo-Maratha_War",
+              "e74": "link 'baseball card' → https://en.wikipedia.org/wiki/Baseball_card",
+              "e75": "link '1884' → https://en.wikipedia.org/wiki/1884",
+              "e76": "link 'Cape Virgenes' → https://en.wikipedia.org/wiki/Cape_Virgenes",
+              "e77": "link 'Candidatus Magnetoglobus multicellularis' → https://en.wikipedia.org/wiki/Candidatus_Magnetoglobus_multicellularis",
+              "e78": "link 'prokaryotes' → https://en.wikipedia.org/wiki/Prokaryote",
+              "e79": "link 'Tierra del Fuego Gold Rush' → https://en.wikipedia.org/wiki/Tierra_del_Fuego_Gold_Rush",
+              "e80": "link '1983' → https://en.wikipedia.org/wiki/1983",
+              "e81": "link 'Gulf Air Flight 771' → https://en.wikipedia.org/wiki/Gulf_Air_Flight_771",
+              "e82": "link 'Leona E. Prasse' → https://en.wikipedia.org/wiki/Leona_E._Prasse",
+              "e83": "link '1972 Feininger catalogue' → https://en.wikipedia.org/wiki/Lyonel_Feininger:_A_Definitive_Catalogue_of_His_Graphic_Work",
+              "e84": "link 'Abu Nidal Organization' → https://en.wikipedia.org/wiki/Abu_Nidal_Organization",
+              "e85": "link 'the subject's widow' → https://en.wikipedia.org/wiki/Julia_Feininger",
+              "e86": "link 'a previous Feininger book from 1959' → https://en.wikipedia.org/wiki/Lyonel_Feininger_(Hess_book)",
+              "e87": "link 'United Arab Emirates' → https://en.wikipedia.org/wiki/United_Arab_Emirates",
+              "e88": "link '1997' → https://en.wikipedia.org/wiki/1997",
+              "e89": "link 'U2' → https://en.wikipedia.org/wiki/U2",
+              "e90": "link 'performed' → https://en.wikipedia.org/wiki/U2_concert_in_Sarajevo",
+              "e91": "link 'Sarajevo' → https://en.wikipedia.org/wiki/Sarajevo",
+              "e92": "link 'Umbellaoolithus' → https://en.wikipedia.org/wiki/Umbellaoolithus",
+              "e93": "link 'Bosnian War' → https://en.wikipedia.org/wiki/Bosnian_War",
+              "e94": "link 'Makan Nasiri' → https://en.wikipedia.org/wiki/Makan_Nasiri",
+              "e95": "link '2016' → https://en.wikipedia.org/wiki/2016",
+              "e96": "link '2026 Minab school attack' → https://en.wikipedia.org/wiki/2026_Minab_school_attack",
+              "e97": "link 'rape in Germany' → https://en.wikipedia.org/wiki/Rape_in_Germany",
+              "e98": "link 'I Became the Main Role of a BL Drama' → https://en.wikipedia.org/wiki/I_Became_the_Main_Role_of_a_BL_Drama",
+              "e99": "link 'script' → https://en.wikipedia.org/wiki/Script_(comics)",
+              "e100": "link 'Eleonora Gonzaga' → https://en.wikipedia.org/wiki/Eleonora_Gonzaga_(born_1598)",
+              "none": "No listed element should be clicked."
+            }
+          }
+        }
+      },
+      "response_answers": {
+        "click_target": {
+          "type": "choice",
+          "choice": "e9",
+          "confidence": 0.9372,
+          "probabilities": {
+            "e1": 0.0007,
+            "e2": 0.0009,
+            "e3": 0.0007,
+            "e4": 0.001,
+            "e6": 0.0007,
+            "e7": 0.0004,
+            "e8": 0.003,
+            "e9": 0.9378,
+            "e10": 0.0026,
+            "e11": 0.0009,
+            "e12": 0.0023,
+            "e13": 0.0009,
+            "e14": 0.0009,
+            "e15": 0.0006,
+            "e16": 0.0017,
+            "e17": 0.0005,
+            "e18": 0.0014,
+            "e19": 0.0003,
+            "e20": 0.0006,
+            "e21": 0.0005,
+            "e22": 0.0011,
+            "e23": 0.0004,
+            "e24": 0.0006,
+            "e25": 0.0003,
+            "e26": 0.0005,
+            "e27": 0.0007,
+            "e28": 0.0005,
+            "e29": 0.0005,
+            "e30": 0.0007,
+            "e31": 0.0004,
+            "e32": 0.0004,
+            "e33": 0.0004,
+            "e34": 0.0006,
+            "e35": 0.0004,
+            "e36": 0.0003,
+            "e37": 0.0002,
+            "e38": 0.0005,
+            "e39": 0.0005,
+            "e40": 0.0007,
+            "e41": 0.0003,
+            "e42": 0.0004,
+            "e43": 0.0006,
+            "e44": 0.0004,
+            "e45": 0.0004,
+            "e46": 0.0006,
+            "e47": 0.0004,
+            "e48": 0.0002,
+            "e49": 0.0003,
+            "e50": 0.001,
+            "e51": 0.0011,
+            "e52": 0.0022,
+            "e53": 0.0001,
+            "e54": 0.0002,
+            "e55": 0.0004,
+            "e56": 0.0008,
+            "e57": 0.0005,
+            "e58": 0.0002,
+            "e59": 0.0002,
+            "e60": 0.0003,
+            "e61": 0.0007,
+            "e62": 0.0008,
+            "e63": 0.0003,
+            "e64": 0.0002,
+            "e65": 0.0001,
+            "e66": 0.0002,
+            "e67": 0.0002,
+            "e68": 0.0003,
+            "e69": 0.0001,
+            "e70": 0.0002,
+            "e71": 0.0002,
+            "e72": 0.0003,
+            "e73": 0.0002,
+            "e74": 0.0004,
+            "e75": 0.0001,
+            "e76": 0.0002,
+            "e77": 0.0008,
+            "e78": 0.0003,
+            "e79": 0.0002,
+            "e80": 0.0001,
+            "e81": 0.0002,
+            "e82": 0.001,
+            "e83": 0.0006,
+            "e84": 0.0003,
+            "e85": 0.0003,
+            "e86": 0.0003,
+            "e87": 0.0001,
+            "e88": 0.0003,
+            "e89": 0.0002,
+            "e90": 0.0002,
+            "e91": 0.0005,
+            "e92": 0.0007,
+            "e93": 0.0005,
+            "e94": 0.0005,
+            "e95": 0.0003,
+            "e96": 0.0005,
+            "e97": 0.0005,
+            "e98": 0.0007,
+            "e99": 0.0007,
+            "e100": 0.0019,
+            "none": 0.0051
+          }
+        }
+      }
+    },
+    {
+      "id": "wiki-typed-type-target",
+      "kind": "browser",
+      "question": "type_target",
+      "type": "choice",
+      "expected": "e1",
+      "predicted": "e1",
+      "correct": true,
+      "got": "choice=e1 P(correct)=0.9888",
+      "ms": 8206,
+      "server_latency_ms": 8186.4,
+      "usage": {
+        "input_tokens": 4985,
+        "output_tokens": 55
+      },
+      "model_echo": "kev-latest",
+      "analysis": {
+        "type": "choice",
+        "probabilities": {
+          "e1": 0.9888,
+          "none": 0.0112
+        },
+        "p_sum": 1,
+        "p_sum_dev": 0,
+        "sums_conventionally": true,
+        "missing_keys": [],
+        "extra_keys": [],
+        "n_options": 2,
+        "choice": "e1",
+        "reported_choice": "e1",
+        "choice_is_argmax": true,
+        "top": "e1",
+        "top_p": 0.9888,
+        "second_p": 0.0112,
+        "margin": 0.9776,
+        "entropy_bits": 0.08864736243055862,
+        "entropy_norm": 0.08864736243055862,
+        "near_uniform": false,
+        "coinflip_margin": false,
+        "confidence": 0.9776
+      },
+      "request": {
+        "state": {
+          "bytes": 16145,
+          "page_url": "https://en.wikipedia.org/wiki/Main_Page",
+          "elements": 100,
+          "visible_text_chars": 3000
+        },
+        "questions": {
+          "type_target": {
+            "type": "choice",
+            "instructions": {
+              "question": "If the next action is typing, which text field in `page.elements` should receive a value from `inputs` to make progress toward `goal`?",
+              "rules": [
+                "Prefer empty fields over fields that already contain the right value.",
+                "Choose `none` if no listed field should be filled now."
+              ]
+            },
+            "criteria": {
+              "e1": "text field 'Search Wikipedia' (type search, placeholder \"Search Wikipedia\", empty)",
+              "none": "No listed text field should be filled now."
+            }
+          }
+        }
+      },
+      "response_answers": {
+        "type_target": {
+          "type": "choice",
+          "choice": "e1",
+          "confidence": 0.9776,
+          "probabilities": {
+            "e1": 0.9888,
+            "none": 0.0112
+          }
+        }
+      }
+    },
+    {
+      "id": "github-login-type-target",
+      "kind": "browser",
+      "question": "type_target",
+      "type": "choice",
+      "expected": "e3",
+      "predicted": "e3",
+      "correct": true,
+      "got": "choice=e3 P(correct)=0.7278",
+      "ms": 647,
+      "server_latency_ms": 638.3,
+      "usage": {
+        "input_tokens": 605,
+        "output_tokens": 67
+      },
+      "model_echo": "kev-latest",
+      "analysis": {
+        "type": "choice",
+        "probabilities": {
+          "e3": 0.7278,
+          "e5": 0.2629,
+          "none": 0.0092
+        },
+        "p_sum": 0.9999,
+        "p_sum_dev": 0.00009999999999998899,
+        "sums_conventionally": true,
+        "missing_keys": [],
+        "extra_keys": [],
+        "n_options": 3,
+        "choice": "e3",
+        "reported_choice": "e3",
+        "choice_is_argmax": true,
+        "top": "e3",
+        "top_p": 0.7278,
+        "second_p": 0.2629,
+        "margin": 0.4649,
+        "entropy_bits": 0.9025606747323208,
+        "entropy_norm": 0.5694523840921516,
+        "near_uniform": false,
+        "coinflip_margin": false,
+        "confidence": 0.5918
+      },
+      "request": {
+        "state": {
+          "bytes": 1754,
+          "page_url": "https://github.com/login",
+          "elements": 11,
+          "visible_text_chars": 212
+        },
+        "questions": {
+          "type_target": {
+            "type": "choice",
+            "instructions": {
+              "question": "If the next action is typing, which text field in `page.elements` should receive a value from `inputs` to make progress toward `goal`?",
+              "rules": [
+                "Prefer empty fields over fields that already contain the right value.",
+                "Choose `none` if no listed field should be filled now."
+              ]
+            },
+            "criteria": {
+              "e3": "text field 'Username or email address' (empty, required)",
+              "e5": "text field 'Password' (type password, empty, required)",
+              "none": "No listed text field should be filled now."
+            }
+          }
+        }
+      },
+      "response_answers": {
+        "type_target": {
+          "type": "choice",
+          "choice": "e3",
+          "confidence": 0.5918,
+          "probabilities": {
+            "e3": 0.7278,
+            "e5": 0.2629,
+            "none": 0.0092
+          }
+        }
+      }
+    },
+    {
+      "id": "github-login-type-value",
+      "kind": "browser",
+      "question": "type_value",
+      "type": "choice",
+      "expected": "username",
+      "predicted": "username",
+      "correct": true,
+      "got": "choice=username P(correct)=0.9627",
+      "ms": 138,
+      "server_latency_ms": 133.2,
+      "usage": {
+        "input_tokens": 590,
+        "output_tokens": 63
+      },
+      "model_echo": "kev-latest",
+      "analysis": {
+        "type": "choice",
+        "probabilities": {
+          "username": 0.9627,
+          "password": 0.0226,
+          "none": 0.0148
+        },
+        "p_sum": 1.0001,
+        "p_sum_dev": 0.00009999999999998899,
+        "sums_conventionally": true,
+        "missing_keys": [],
+        "extra_keys": [],
+        "n_options": 3,
+        "choice": "username",
+        "reported_choice": "username",
+        "choice_is_argmax": true,
+        "top": "username",
+        "top_p": 0.9627,
+        "second_p": 0.0226,
+        "margin": 0.9401,
+        "entropy_bits": 0.2663206938701595,
+        "entropy_norm": 0.1680296497544793,
+        "near_uniform": false,
+        "coinflip_margin": false,
+        "confidence": 0.944
+      },
+      "request": {
+        "state": {
+          "bytes": 1754,
+          "page_url": "https://github.com/login",
+          "elements": 11,
+          "visible_text_chars": 212
+        },
+        "questions": {
+          "type_value": {
+            "type": "choice",
+            "instructions": {
+              "question": "If the next action is typing, which entry of `inputs` belongs in the text field that should be filled next?",
+              "rules": [
+                "Match the field's label, placeholder and type to the meaning of the input key.",
+                "Choose `none` if no provided input belongs there."
+              ]
+            },
+            "criteria": {
+              "username": "inputs.username = \"octocat\"",
+              "password": "inputs.password (a secret value such as a password)",
+              "none": "No provided input belongs in the field."
+            }
+          }
+        }
+      },
+      "response_answers": {
+        "type_value": {
+          "type": "choice",
+          "choice": "username",
+          "confidence": 0.944,
+          "probabilities": {
+            "username": 0.9627,
+            "password": 0.0226,
+            "none": 0.0148
+          }
+        }
+      }
+    },
+    {
+      "id": "github-login-submit",
+      "kind": "browser",
+      "question": "submit_after_type",
+      "type": "noul",
+      "expected": "false",
+      "predicted": "true",
+      "correct": false,
+      "got": "P(yes)=0.6194",
+      "ms": 418,
+      "server_latency_ms": 414.7,
+      "usage": {
+        "input_tokens": 610,
+        "output_tokens": 24
+      },
+      "model_echo": "kev-latest",
+      "analysis": {
+        "type": "noul",
+        "noul": 0.6194,
+        "probabilities": {
+          "true": 0.6194,
+          "false": 0.38060000000000005
+        },
+        "p_sum": 1,
+        "p_sum_dev": 0,
+        "sums_conventionally": true,
+        "missing_keys": [],
+        "extra_keys": [],
+        "n_options": 2,
+        "top": "true",
+        "top_p": 0.6194,
+        "margin": 0.2387999999999999,
+        "entropy_bits": 0.9584646814998704,
+        "entropy_norm": 0.9584646814998704,
+        "dev_from_half": 0.11939999999999995,
+        "near_half": false,
+        "pinned_high": false,
+        "confidence": null
+      },
+      "request": {
+        "state": {
+          "bytes": 1754,
+          "page_url": "https://github.com/login",
+          "elements": 11,
+          "visible_text_chars": 212
+        },
+        "questions": {
+          "submit_after_type": {
+            "type": "noul",
+            "instructions": {
+              "question": "After typing the value into the chosen text field, should the Enter key be pressed immediately to submit (as with a search box or a single-field form)?",
+              "rules": [
+                "Answer no when other fields still need values or when a separate submit button must be clicked after all fields are filled."
+              ]
+            },
+            "criteria": {
+              "true": "Pressing Enter right after typing is the natural way to submit this field (search boxes, single-field forms, the last field of a form).",
+              "false": "More fields must be filled first, or a separate button should be clicked, or Enter would do nothing useful."
+            }
+          }
+        }
+      },
+      "response_answers": {
+        "submit_after_type": {
+          "type": "noul",
+          "noul": 0.6194
+        }
+      }
+    },
+    {
+      "id": "github-login-action",
+      "kind": "browser",
+      "question": "action",
+      "type": "choice",
+      "expected": "type",
+      "predicted": "type",
+      "correct": true,
+      "got": "choice=type P(correct)=0.9792",
+      "ms": 395,
+      "server_latency_ms": 391.8,
+      "usage": {
+        "input_tokens": 830,
+        "output_tokens": 73
+      },
+      "model_echo": "kev-latest",
+      "analysis": {
+        "type": "choice",
+        "probabilities": {
+          "click": 0.009,
+          "type": 0.9792,
+          "wait": 0.0044,
+          "stop": 0.0075
+        },
+        "p_sum": 1.0001,
+        "p_sum_dev": 0.00009999999999998899,
+        "sums_conventionally": true,
+        "missing_keys": [],
+        "extra_keys": [],
+        "n_options": 4,
+        "choice": "type",
+        "reported_choice": "type",
+        "choice_is_argmax": true,
+        "top": "type",
+        "top_p": 0.9792,
+        "second_p": 0.009,
+        "margin": 0.9702,
+        "entropy_bits": 0.1782426580550695,
+        "entropy_norm": 0.08912132902753475,
+        "near_uniform": false,
+        "coinflip_margin": false,
+        "confidence": 0.9722
+      },
+      "request": {
+        "state": {
+          "bytes": 1754,
+          "page_url": "https://github.com/login",
+          "elements": 11,
+          "visible_text_chars": 212
+        },
+        "questions": {
+          "action": {
+            "type": "choice",
+            "instructions": {
+              "question": "Which single browser action should be performed next to make progress toward `goal` from the current `page`?",
+              "rules": [
+                "Every element in `page.elements` can be clicked, filled or selected right now, even when its in_viewport is false (the browser scrolls to it). Scroll only when the needed element or text is not listed at all.",
+                "Use `type` only when a value in `inputs` belongs in a listed text field.",
+                "Use `stop` when `goal` is already accomplished or nothing listed can help.",
+                "Consider `last_action` and `history`: do not repeat an action that produced no change."
+              ]
+            },
+            "criteria": {
+              "click": {
+                "what": "Click one element listed in `page.elements` (a link, button, checkbox, radio, tab, menu item, or similar).",
+                "use_when": "The next step toward `goal` is to open, choose, submit, toggle, or confirm something that is listed."
+              },
+              "type": {
+                "what": "Type one of the provided `inputs` values into a text field listed in `page.elements`.",
+                "use_when": "A form field or search box must be filled before progress is possible, and a suitable value exists in `inputs`."
+              },
+              "wait": {
+                "what": "Do nothing for a moment because the page is still loading or a result is still pending.",
+                "use_when": "The visible text or a dialog indicates loading, processing, or a countdown."
+              },
+              "stop": {
+                "what": "Stop: no listed action can make progress toward `goal`.",
+                "use_when": "`goal` is already accomplished as shown by `page`, or it is impossible from here with the listed actions."
+              }
+            }
+          }
+        }
+      },
+      "response_answers": {
+        "action": {
+          "type": "choice",
+          "choice": "type",
+          "confidence": 0.9722,
+          "probabilities": {
+            "click": 0.009,
+            "type": 0.9792,
+            "wait": 0.0044,
+            "stop": 0.0075
+          }
+        }
+      }
+    },
+    {
+      "id": "github-login-blocker",
+      "kind": "browser",
+      "question": "blocker",
+      "type": "choice",
+      "expected": "none",
+      "predicted": "none",
+      "correct": true,
+      "got": "choice=none P(correct)=0.8953",
+      "ms": 206,
+      "server_latency_ms": 201.5,
+      "usage": {
+        "input_tokens": 728,
+        "output_tokens": 104
+      },
+      "model_echo": "kev-latest",
+      "analysis": {
+        "type": "choice",
+        "probabilities": {
+          "none": 0.8953,
+          "login_required": 0.0318,
+          "verification_challenge": 0.0145,
+          "consent_or_permission_dialog": 0.021,
+          "error_page": 0.0127,
+          "missing_information": 0.0247
+        },
+        "p_sum": 1,
+        "p_sum_dev": 0,
+        "sums_conventionally": true,
+        "missing_keys": [],
+        "extra_keys": [],
+        "n_options": 6,
+        "choice": "none",
+        "reported_choice": "none",
+        "choice_is_argmax": true,
+        "top": "none",
+        "top_p": 0.8953,
+        "second_p": 0.0318,
+        "margin": 0.8634999999999999,
+        "entropy_bits": 0.718536304621151,
+        "entropy_norm": 0.277967786542626,
+        "near_uniform": false,
+        "coinflip_margin": false,
+        "confidence": 0.8743
+      },
+      "request": {
+        "state": {
+          "bytes": 1754,
+          "page_url": "https://github.com/login",
+          "elements": 11,
+          "visible_text_chars": 212
+        },
+        "questions": {
+          "blocker": {
+            "type": "choice",
+            "instructions": {
+              "question": "Does `page` present an obstacle that an automated browser agent cannot resolve with the listed elements and `inputs`, stopping progress toward `goal`?",
+              "rules": [
+                "Pick `none` unless the obstacle is clearly visible in `page`.",
+                "Cookie banners or dialogs that have a listed button to dismiss them are not obstacles."
+              ]
+            },
+            "criteria": {
+              "none": "No obstacle: the page can be operated normally (a login form that can be filled with provided `inputs` is not an obstacle).",
+              "login_required": "The page requires signing in and `inputs` does not provide the credentials needed to sign in.",
+              "verification_challenge": "A CAPTCHA, one-time code, two-factor prompt, or similar human verification is shown.",
+              "consent_or_permission_dialog": "A modal dialog demanding consent, permissions, or a choice from the user blocks the content and nothing listed dismisses it.",
+              "error_page": "The page shows an error (not found, access denied, server error, network failure) instead of the expected content.",
+              "missing_information": "Progress requires information (an account, payment details, a value) that is neither on the page nor in `inputs`."
+            }
+          }
+        }
+      },
+      "response_answers": {
+        "blocker": {
+          "type": "choice",
+          "choice": "none",
+          "confidence": 0.8743,
+          "probabilities": {
+            "none": 0.8953,
+            "login_required": 0.0318,
+            "verification_challenge": 0.0145,
+            "consent_or_permission_dialog": 0.021,
+            "error_page": 0.0127,
+            "missing_information": 0.0247
+          }
+        }
+      }
+    },
+    {
+      "id": "wiki-progress-after-login-click",
+      "kind": "browser",
+      "question": "progress",
+      "type": "score",
+      "expected": "2",
+      "predicted": "1.8823",
+      "correct": true,
+      "got": "score=1.882 p=[0:0.04 1:0.05 2:0.90 3:0.01]",
+      "ms": 1521,
+      "server_latency_ms": 1511.6,
+      "usage": {
+        "input_tokens": 1614,
+        "output_tokens": 161
+      },
+      "model_echo": "kev-latest",
+      "analysis": {
+        "type": "score",
+        "probabilities": {
+          "0": 0.0398,
+          "1": 0.0513,
+          "2": 0.8957,
+          "3": 0.0132
+        },
+        "p_sum": 1,
+        "p_sum_dev": 0,
+        "sums_conventionally": true,
+        "missing_keys": [],
+        "extra_keys": [],
+        "n_options": 4,
+        "choice": "2",
+        "reported_choice": null,
+        "choice_is_argmax": null,
+        "score": 1.8823,
+        "top": "2",
+        "top_p": 0.8957,
+        "second_p": 0.0513,
+        "margin": 0.8444,
+        "entropy_bits": 0.6296782447454287,
+        "entropy_norm": 0.31483912237271433,
+        "near_uniform": false,
+        "coinflip_margin": false,
+        "confidence": 0.952
+      },
+      "request": {
+        "state": {
+          "bytes": 5031,
+          "page_url": "https://auth.wikimedia.org/enwiki/wiki/Special:UserLogin?useformat=desktop&usesul3=1&returnto=Main+Page&centralauthLoginToken=8ba9892a14010d510d885378ffc13139",
+          "elements": 23,
+          "visible_text_chars": 490
+        },
+        "questions": {
+          "progress": {
+            "type": "score",
+            "instructions": {
+              "question": "Compared with `previous_page`, how did `last_action` change progress toward `goal`, judging by `page`?"
+            },
+            "criteria": [
+              "`page` moved away from `goal`: a wrong page, an error, or lost progress compared with `previous_page`.",
+              "No meaningful change toward `goal` compared with `previous_page`.",
+              "`page` is closer to `goal` than `previous_page` was.",
+              "`page` now shows `goal` accomplished."
+            ]
+          }
+        }
+      },
+      "response_answers": {
+        "progress": {
+          "type": "score",
+          "score": 1.8823,
+          "legend": {
+            "0": "`page` moved away from `goal`: a wrong page, an error, or lost progress compared with `previous_page`.",
+            "1": "No meaningful change toward `goal` compared with `previous_page`.",
+            "2": "`page` is closer to `goal` than `previous_page` was.",
+            "3": "`page` now shows `goal` accomplished."
+          },
+          "probabilities": {
+            "0": 0.0398,
+            "1": 0.0513,
+            "2": 0.8957,
+            "3": 0.0132
+          },
+          "confidence": 0.952
+        }
+      }
+    },
+    {
+      "id": "bq-paris",
+      "kind": "noul",
+      "question": "answer",
+      "type": "noul",
+      "expected": "true",
+      "predicted": "true",
+      "correct": true,
+      "got": "P(yes)=0.9942",
+      "ms": 172,
+      "server_latency_ms": 168.2,
+      "usage": {
+        "input_tokens": 103,
+        "output_tokens": 22
+      },
+      "model_echo": "kev-latest",
+      "analysis": {
+        "type": "noul",
+        "noul": 0.9942,
+        "probabilities": {
+          "true": 0.9942,
+          "false": 0.005800000000000027
+        },
+        "p_sum": 1,
+        "p_sum_dev": 0,
+        "sums_conventionally": true,
+        "missing_keys": [],
+        "extra_keys": [],
+        "n_options": 2,
+        "top": "true",
+        "top_p": 0.9942,
+        "margin": 0.9884,
+        "entropy_bits": 0.051435760085168786,
+        "entropy_norm": 0.051435760085168786,
+        "dev_from_half": 0.4942,
+        "near_half": false,
+        "pinned_high": true,
+        "confidence": null
+      },
+      "request": {
+        "state": {
+          "bytes": 201,
+          "page_url": null,
+          "elements": null,
+          "visible_text_chars": null
+        },
+        "questions": {
+          "answer": {
+            "type": "noul",
+            "instructions": {
+              "question": "Is the Eiffel Tower located in Paris?",
+              "rules": [
+                "Answer only from the passage in the state."
+              ]
+            },
+            "criteria": {
+              "true": "The passage states this.",
+              "false": "The passage does not state this."
+            }
+          }
+        }
+      },
+      "response_answers": {
+        "answer": {
+          "type": "noul",
+          "noul": 0.9942
+        }
+      }
+    },
+    {
+      "id": "bq-penguins",
+      "kind": "noul",
+      "question": "answer",
+      "type": "noul",
+      "expected": "false",
+      "predicted": "false",
+      "correct": true,
+      "got": "P(yes)=0.2567",
+      "ms": 175,
+      "server_latency_ms": 169.1,
+      "usage": {
+        "input_tokens": 77,
+        "output_tokens": 22
+      },
+      "model_echo": "kev-latest",
+      "analysis": {
+        "type": "noul",
+        "noul": 0.2567,
+        "probabilities": {
+          "true": 0.2567,
+          "false": 0.7433000000000001
+        },
+        "p_sum": 1,
+        "p_sum_dev": 0,
+        "sums_conventionally": true,
+        "missing_keys": [],
+        "extra_keys": [],
+        "n_options": 2,
+        "top": "false",
+        "top_p": 0.7433000000000001,
+        "margin": 0.4866000000000001,
+        "entropy_bits": 0.8217256856878922,
+        "entropy_norm": 0.8217256856878922,
+        "dev_from_half": 0.24330000000000002,
+        "near_half": false,
+        "pinned_high": false,
+        "confidence": null
+      },
+      "request": {
+        "state": {
+          "bytes": 138,
+          "page_url": null,
+          "elements": null,
+          "visible_text_chars": null
+        },
+        "questions": {
+          "answer": {
+            "type": "noul",
+            "instructions": {
+              "question": "Can penguins fly?",
+              "rules": [
+                "Answer only from the passage in the state."
+              ]
+            },
+            "criteria": {
+              "true": "The passage states this.",
+              "false": "The passage does not state this."
+            }
+          }
+        }
+      },
+      "response_answers": {
+        "answer": {
+          "type": "noul",
+          "noul": 0.2567
+        }
+      }
+    },
+    {
+      "id": "bq-python",
+      "kind": "noul",
+      "question": "answer",
+      "type": "noul",
+      "expected": "false",
+      "predicted": "false",
+      "correct": true,
+      "got": "P(yes)=0.1934",
+      "ms": 135,
+      "server_latency_ms": 131.4,
+      "usage": {
+        "input_tokens": 91,
+        "output_tokens": 22
+      },
+      "model_echo": "kev-latest",
+      "analysis": {
+        "type": "noul",
+        "noul": 0.1934,
+        "probabilities": {
+          "true": 0.1934,
+          "false": 0.8066
+        },
+        "p_sum": 1,
+        "p_sum_dev": 0,
+        "sums_conventionally": true,
+        "missing_keys": [],
+        "extra_keys": [],
+        "n_options": 2,
+        "top": "false",
+        "top_p": 0.8066,
+        "margin": 0.6132,
+        "entropy_bits": 0.7085300582972487,
+        "entropy_norm": 0.7085300582972487,
+        "dev_from_half": 0.3066,
+        "near_half": false,
+        "pinned_high": false,
+        "confidence": null
+      },
+      "request": {
+        "state": {
+          "bytes": 171,
+          "page_url": null,
+          "elements": null,
+          "visible_text_chars": null
+        },
+        "questions": {
+          "answer": {
+            "type": "noul",
+            "instructions": {
+              "question": "Was Python created before 1990?",
+              "rules": [
+                "Answer only from the passage in the state."
+              ]
+            },
+            "criteria": {
+              "true": "The passage states this.",
+              "false": "The passage does not state this."
+            }
+          }
+        }
+      },
+      "response_answers": {
+        "answer": {
+          "type": "noul",
+          "noul": 0.1934
+        }
+      }
+    },
+    {
+      "id": "bq-everest",
+      "kind": "noul",
+      "question": "answer",
+      "type": "noul",
+      "expected": "true",
+      "predicted": "true",
+      "correct": true,
+      "got": "P(yes)=0.9918",
+      "ms": 136,
+      "server_latency_ms": 133.1,
+      "usage": {
+        "input_tokens": 105,
+        "output_tokens": 22
+      },
+      "model_echo": "kev-latest",
+      "analysis": {
+        "type": "noul",
+        "noul": 0.9918,
+        "probabilities": {
+          "true": 0.9918,
+          "false": 0.008199999999999985
+        },
+        "p_sum": 1,
+        "p_sum_dev": 0,
+        "sums_conventionally": true,
+        "missing_keys": [],
+        "extra_keys": [],
+        "n_options": 2,
+        "top": "true",
+        "top_p": 0.9918,
+        "margin": 0.9836,
+        "entropy_bits": 0.06860877788022149,
+        "entropy_norm": 0.06860877788022149,
+        "dev_from_half": 0.4918,
+        "near_half": false,
+        "pinned_high": true,
+        "confidence": null
+      },
+      "request": {
+        "state": {
+          "bytes": 197,
+          "page_url": null,
+          "elements": null,
+          "visible_text_chars": null
+        },
+        "questions": {
+          "answer": {
+            "type": "noul",
+            "instructions": {
+              "question": "Is Mount Everest taller than 8,000 metres?",
+              "rules": [
+                "Answer only from the passage in the state."
+              ]
+            },
+            "criteria": {
+              "true": "The passage states this.",
+              "false": "The passage does not state this."
+            }
+          }
+        }
+      },
+      "response_answers": {
+        "answer": {
+          "type": "noul",
+          "noul": 0.9918
+        }
+      }
+    },
+    {
+      "id": "bq-trap-failed",
+      "kind": "noul",
+      "question": "answer",
+      "type": "noul",
+      "expected": "false",
+      "predicted": "false",
+      "correct": true,
+      "got": "P(yes)=0.2556",
+      "ms": 133,
+      "server_latency_ms": 130.9,
+      "usage": {
+        "input_tokens": 71,
+        "output_tokens": 22
+      },
+      "model_echo": "kev-latest",
+      "analysis": {
+        "type": "noul",
+        "noul": 0.2556,
+        "probabilities": {
+          "true": 0.2556,
+          "false": 0.7444
+        },
+        "p_sum": 1,
+        "p_sum_dev": 0,
+        "sums_conventionally": true,
+        "missing_keys": [],
+        "extra_keys": [],
+        "n_options": 2,
+        "top": "false",
+        "top_p": 0.7444,
+        "margin": 0.48879999999999996,
+        "entropy_bits": 0.8200338594953652,
+        "entropy_norm": 0.8200338594953652,
+        "dev_from_half": 0.2444,
+        "near_half": false,
+        "pinned_high": false,
+        "confidence": null
+      },
+      "request": {
+        "state": {
+          "bytes": 137,
+          "page_url": null,
+          "elements": null,
+          "visible_text_chars": null
+        },
+        "questions": {
+          "answer": {
+            "type": "noul",
+            "instructions": {
+              "question": "Did the experiment succeed?",
+              "rules": [
+                "Answer only from the passage in the state."
+              ]
+            },
+            "criteria": {
+              "true": "The passage states this.",
+              "false": "The passage does not state this."
+            }
+          }
+        }
+      },
+      "response_answers": {
+        "answer": {
+          "type": "noul",
+          "noul": 0.2556
+        }
+      }
+    }
+  ]
+}

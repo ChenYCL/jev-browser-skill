@@ -1,0 +1,103 @@
+{
+  "id": "ddg-action-aapl",
+  "kind": "browser",
+  "question": "action",
+  "type": "choice",
+  "expected": "click",
+  "predicted": "click",
+  "correct": true,
+  "got": "choice=click P(correct)=0.4984",
+  "ms": 6353,
+  "server_latency_ms": 6340.9,
+  "usage": {
+    "input_tokens": 6802,
+    "output_tokens": 85
+  },
+  "model_echo": "kev-latest",
+  "analysis": {
+    "type": "choice",
+    "probabilities": {
+      "click": 0.4984,
+      "select": 0.0862,
+      "scroll_down": 0.2385,
+      "wait": 0.0144,
+      "stop": 0.1625
+    },
+    "p_sum": 0.9999999999999999,
+    "p_sum_dev": 1.1102230246251565e-16,
+    "sums_conventionally": true,
+    "missing_keys": [],
+    "extra_keys": [],
+    "n_options": 5,
+    "choice": "click",
+    "reported_choice": "click",
+    "choice_is_argmax": true,
+    "top": "click",
+    "top_p": 0.4984,
+    "second_p": 0.2385,
+    "margin": 0.2599,
+    "entropy_bits": 1.8128137341445703,
+    "entropy_norm": 0.7807363794495585,
+    "near_uniform": false,
+    "coinflip_margin": false,
+    "confidence": 0.373
+  },
+  "request": {
+    "state": {
+      "bytes": 16355,
+      "page_url": "https://html.duckduckgo.com/html/?q=apple+stock+price",
+      "elements": 55,
+      "visible_text_chars": 3000
+    },
+    "questions": {
+      "action": {
+        "type": "choice",
+        "instructions": {
+          "question": "Which single browser action should be performed next to make progress toward `goal` from the current `page`?",
+          "rules": [
+            "Every element in `page.elements` can be clicked, filled or selected right now, even when its in_viewport is false (the browser scrolls to it). Scroll only when the needed element or text is not listed at all.",
+            "Use `type` only when a value in `inputs` belongs in a listed text field.",
+            "Use `stop` when `goal` is already accomplished or nothing listed can help.",
+            "Consider `last_action` and `history`: do not repeat an action that produced no change."
+          ]
+        },
+        "criteria": {
+          "click": {
+            "what": "Click one element listed in `page.elements` (a link, button, checkbox, radio, tab, menu item, or similar).",
+            "use_when": "The next step toward `goal` is to open, choose, submit, toggle, or confirm something that is listed."
+          },
+          "select": {
+            "what": "Choose an option in a dropdown listed in `page.elements`.",
+            "use_when": "A dropdown must be set to a value implied by `goal` or `inputs`."
+          },
+          "scroll_down": {
+            "what": "Scroll down to reveal content that is not listed in `page.elements` and not in `page.visible_text`.",
+            "use_when": "Nothing listed can serve `goal` and more content probably exists further down. Never needed to reach an element that is already listed: clicking scrolls to it automatically."
+          },
+          "wait": {
+            "what": "Do nothing for a moment because the page is still loading or a result is still pending.",
+            "use_when": "The visible text or a dialog indicates loading, processing, or a countdown."
+          },
+          "stop": {
+            "what": "Stop: no listed action can make progress toward `goal`.",
+            "use_when": "`goal` is already accomplished as shown by `page`, or it is impossible from here with the listed actions."
+          }
+        }
+      }
+    }
+  },
+  "response_answers": {
+    "action": {
+      "type": "choice",
+      "choice": "click",
+      "confidence": 0.373,
+      "probabilities": {
+        "click": 0.4984,
+        "select": 0.0862,
+        "scroll_down": 0.2385,
+        "wait": 0.0144,
+        "stop": 0.1625
+      }
+    }
+  }
+}

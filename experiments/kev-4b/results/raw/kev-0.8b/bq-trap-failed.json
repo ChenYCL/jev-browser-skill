@@ -1,0 +1,69 @@
+{
+  "id": "bq-trap-failed",
+  "kind": "noul",
+  "question": "answer",
+  "type": "noul",
+  "expected": "false",
+  "predicted": "false",
+  "correct": true,
+  "got": "P(yes)=0.0053",
+  "ms": 32,
+  "server_latency_ms": 29.5,
+  "usage": {
+    "input_tokens": 71,
+    "output_tokens": 22
+  },
+  "model_echo": "kev-latest",
+  "analysis": {
+    "type": "noul",
+    "noul": 0.0053,
+    "probabilities": {
+      "true": 0.0053,
+      "false": 0.9947
+    },
+    "p_sum": 1,
+    "p_sum_dev": 0,
+    "sums_conventionally": true,
+    "missing_keys": [],
+    "extra_keys": [],
+    "n_options": 2,
+    "top": "false",
+    "top_p": 0.9947,
+    "margin": 0.9894000000000001,
+    "entropy_bits": 0.04769288237477199,
+    "entropy_norm": 0.04769288237477199,
+    "dev_from_half": 0.4947,
+    "near_half": false,
+    "pinned_high": false,
+    "confidence": null
+  },
+  "request": {
+    "state": {
+      "bytes": 137,
+      "page_url": null,
+      "elements": null,
+      "visible_text_chars": null
+    },
+    "questions": {
+      "answer": {
+        "type": "noul",
+        "instructions": {
+          "question": "Did the experiment succeed?",
+          "rules": [
+            "Answer only from the passage in the state."
+          ]
+        },
+        "criteria": {
+          "true": "The passage states this.",
+          "false": "The passage does not state this."
+        }
+      }
+    }
+  },
+  "response_answers": {
+    "answer": {
+      "type": "noul",
+      "noul": 0.0053
+    }
+  }
+}

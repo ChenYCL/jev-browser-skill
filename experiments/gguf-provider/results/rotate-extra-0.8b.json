@@ -1,0 +1,53 @@
+{
+  "model": "qwen3.5-0.8b-q8",
+  "ending": "answer",
+  "items": 0,
+  "overall": {
+    "n": 0,
+    "correct": 0,
+    "accuracy": null
+  },
+  "by_question": {},
+  "by_kind": {},
+  "latency_ms": {
+    "total": 0,
+    "mean": 0,
+    "median": null,
+    "max": null
+  },
+  "rows": [],
+  "rotations": [
+    {
+      "id": "ddg-click-target-aapl",
+      "rotation": 0,
+      "expected": "e1",
+      "got": "e3",
+      "correct": false,
+      "p_correct": 0.2903938117384956
+    },
+    {
+      "id": "ddg-click-target-aapl",
+      "rotation": 1,
+      "expected": "e54",
+      "got": "e2",
+      "correct": false,
+      "p_correct": 6.137411468610632e-7
+    },
+    {
+      "id": "ddg-click-target-aapl",
+      "rotation": 2,
+      "expected": "e53",
+      "got": "e1",
+      "correct": false,
+      "p_correct": 0.000014113630469186783
+    },
+    {
+      "id": "ddg-click-target-aapl",
+      "rotation": 3,
+      "expected": "e52",
+      "got": "e2",
+      "correct": false,
+      "p_correct": 2.1828021977985232e-7
+    }
+  ]
+}
