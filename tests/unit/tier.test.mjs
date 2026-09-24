@@ -236,11 +236,30 @@ test("tier use prints the launcher's export line and writes nothing without --pe
     assert.match(hosted.stdout, /already the default/);
     await assert.rejects(fs.access(configFile));
 
-    // --persist is the explicit opt-in, and it stores only the baseUrl.
+    // --persist is the explicit opt-in: a local tier stores baseUrl AND its placeholder key, so the
+    // run that follows needs no export.
     const persisted = JSON.parse((await cli(["tier", "use", "kev", "--persist", "--json"], { env, home })).stdout);
     assert.equal(persisted.persisted, configFile);
-    assert.equal(JSON.parse(await fs.readFile(configFile, "utf8")).baseUrl, "http://127.0.0.1:8008");
+    const stored = JSON.parse(await fs.readFile(configFile, "utf8"));
+    assert.equal(stored.baseUrl, "http://127.0.0.1:8008");
+    assert.equal(stored.apiKey, "local", "a local tier persists its placeholder key too");
     assert.equal(JSON.parse((await cli(["config", "show", "--json"], { env, home })).stdout).config.baseUrl, "http://127.0.0.1:8008");
+
+    // Hosted has no key to store: baseUrl alone, and the text says which it wrote.
+    const hostedHome = await fs.mkdtemp(path.join(os.tmpdir(), "jev-tier-hosted-"));
+    try {
+      const hostedPersist = await cli(["tier", "use", "hosted", "--persist"], { env, home: hostedHome });
+      assert.equal(hostedPersist.code, 0, hostedPersist.stderr);
+      assert.match(hostedPersist.stdout, /Stored baseUrl=https:\/\/api\.typesafe\.ai/);
+      const hostedConfig = JSON.parse(await fs.readFile(path.join(hostedHome, ".config", "jev-browser", "config.json"), "utf8"));
+      assert.equal(hostedConfig.baseUrl, "https://api.typesafe.ai");
+      assert.equal("apiKey" in hostedConfig, false, "hosted has no placeholder key to store");
+
+      const kevPersist = await cli(["tier", "use", "kev", "--persist"], { env, home: hostedHome });
+      assert.match(kevPersist.stdout, /Stored apiKey=local and baseUrl=http:\/\/127\.0\.0\.1:8008/);
+    } finally {
+      await fs.rm(hostedHome, { recursive: true, force: true });
+    }
 
     const unknown = await cli(["tier", "use", "bogus"], { env, home });
     assert.equal(unknown.code, 2, "an unknown tier is a usage error");

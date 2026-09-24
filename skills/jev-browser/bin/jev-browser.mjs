@@ -8,6 +8,7 @@ import { loadConfig, describeConfig, saveUserConfig, unsetUserConfig, patchFromK
 import { executeJob } from "../lib/runner.mjs";
 import { TypeSafeClient } from "../lib/typesafe.mjs";
 import { doctor, formatDoctor } from "../lib/doctor.mjs";
+import { setupCommand } from "../lib/setup.mjs";
 import { DEFAULT_TIER, TIERS, describeTier, fetchModels, formatTierList, formatTierStatus, formatTierUse, launcherCommand, probeEndpoint, tierByName, tierEnv, tierRows } from "../lib/tiers.mjs";
 import { installTargets, formatInstall, DEFAULT_TARGETS, DEFAULT_SKILL_DIR } from "../lib/install.mjs";
 import { parseKeyValue, rankProbabilities } from "../lib/util.mjs";
@@ -23,6 +24,7 @@ Usage:
   jev-browser judge --state <json|text> --questions <json>   (or --state-file / --questions-file)
   jev-browser pick --question "<q>" --candidate id=description... [--context <json|text>]
   jev-browser doctor [--json] [--offline]
+  jev-browser setup [local-readout | kev | status | stop <tier>] [--model-name <id>] [--skip-deps]
   jev-browser tier [list | status | use <hosted|local-readout|kev>] [--json] [--persist]
   jev-browser config show | path | set <key.path> <value> | unset <key.path> | set-key [<key> | --from-env]
   jev-browser install [--targets a,b,c] [--dry-run] [--copy] [--uninstall]
@@ -49,10 +51,26 @@ tier:
                       thresholds profile and value, and whether a local endpoint answers.
   use <tier>          print that tier's export line (and the command that starts it) — nothing is
                       written to your configuration unless you add --persist.
-      --persist       with "use": store that tier's baseUrl in the user config (never automatic)
+      --persist       with "use": store that tier's baseUrl (and, for a local tier, its placeholder
+                      apiKey) in the user config — never automatic
       --json          machine-readable list / status / use
       --offline       with "status": skip the loopback probe instead of asking the endpoint
       exit codes: 0 ok, 2 unknown tier or bad usage
+
+setup — one command per local tier, from nothing installed to a verified, configured server:
+  setup               what is installed, what is running, what a run uses, and what to type next
+  setup local-readout fetch the registry model unattended, serve it in the background, write
+                      baseUrl + apiKey into the user config, then ask it one real question
+                      (llama.cpp is required: brew install llama.cpp)
+  setup kev           clone the Kev checkout and uv sync it (unless --skip-deps), fetch the pinned
+                      checkpoint, serve it in the background, write the config, ask it a question
+                      (uv is required: brew install uv)
+      --model-name    with "setup local-readout": serve that registry entry instead of the default
+      --skip-deps     with "setup kev": skip git clone + uv sync, require them to exist already
+      --json          machine-readable result (each setup prints its log file and pid)
+  setup status        per local tier: installed / running / configured, and the log path
+  setup stop <tier>   stop the launcher that setup started (its pid file) — never a foreign process
+  exit codes: 0 ok, 2 usage or a missing prerequisite, 1 a runtime failure (the log path is named)
 
 Config precedence: defaults < ~/.config/jev-browser/config.json < ./jev-browser.config.json (or $JEV_BROWSER_CONFIG) < env < flags
 Env: TYPESAFE_API_KEY TYPESAFE_BASE_URL TYPESAFE_DEFAULT_MODEL JEV_BROWSER_BACKEND JEV_BROWSER_MAX_STEPS JEV_BROWSER_BUDGET_USD JEV_BROWSER_JOURNAL_DIR JEV_BROWSER_CHROME_CDP_URL JEV_BROWSER_HEADLESS JEV_BROWSER_EGO_SERVER_NAME
@@ -90,6 +108,8 @@ const OPTIONS = {
   offline: { type: "boolean" },
   targets: { type: "string" },
   home: { type: "string" },
+  "model-name": { type: "string" },
+  "skip-deps": { type: "boolean" },
   copy: { type: "boolean" },
   uninstall: { type: "boolean" },
   "from-env": { type: "boolean" },
@@ -180,7 +200,7 @@ async function main(argv) {
 
   switch (command) {
     case "run": {
-      const { config } = await loadConfig({ flags: flagsFromValues(values) });
+      const { config } = await loadConfig({ flags: flagsFromValues(values), ...(values.home ? { home: values.home } : {}) });
       if (!values.goal && !values["dry-run"]) throw new Error("--goal is required");
       if (!values.url && !values["space-id"]) throw new Error("--url is required (or --space-id to resume an ego task space)");
       if (!config.apiKey && !values["dry-run"]) throw new Error("no TypeSafe API key: export TYPESAFE_API_KEY or run `jev-browser config set-key --from-env`");
@@ -208,14 +228,14 @@ async function main(argv) {
       return result.status === "success" ? 0 : result.status === "needs_user" ? 3 : 2;
     }
     case "observe": {
-      const { config } = await loadConfig({ flags: flagsFromValues(values) });
+      const { config } = await loadConfig({ flags: flagsFromValues(values), ...(values.home ? { home: values.home } : {}) });
       if (!values.url) throw new Error("--url is required");
       const out = await executeJob({ config, job: { mode: "observe", startUrl: values.url, headless: values.headless || undefined, cdpUrl: values["cdp-url"], screenshotPath: values.screenshot ? path.resolve(values.screenshot) : undefined, keep: values.keep ?? false }, log });
       print(values.json ? out.page : { backend: out.backend, page: out.page }, values, `${out.page.title} <${out.page.url}> — ${out.page.elements.length} interactive elements`);
       return 0;
     }
     case "judge": {
-      const { config } = await loadConfig({ flags: flagsFromValues(values) });
+      const { config } = await loadConfig({ flags: flagsFromValues(values), ...(values.home ? { home: values.home } : {}) });
       const state = values["state-file"] ? parseMaybeJson(await fs.readFile(values["state-file"], "utf8")) : parseMaybeJson(values.state);
       const questions = values["questions-file"] ? JSON.parse(await fs.readFile(values["questions-file"], "utf8")) : values.questions ? JSON.parse(values.questions) : undefined;
       if (state === undefined || !questions) throw new Error("--state/--state-file and --questions/--questions-file are required");
@@ -225,7 +245,7 @@ async function main(argv) {
       return 0;
     }
     case "pick": {
-      const { config } = await loadConfig({ flags: flagsFromValues(values) });
+      const { config } = await loadConfig({ flags: flagsFromValues(values), ...(values.home ? { home: values.home } : {}) });
       if (!values.question || !values.candidate?.length) throw new Error("--question and at least two --candidate id=description are required");
       const criteria = toMap(values.candidate);
       if (!values["no-none"] && !("none" in criteria)) criteria.none = "No candidate fits.";
@@ -243,6 +263,19 @@ async function main(argv) {
       if (values.json) print(report, { json: true });
       else process.stdout.write(`${formatDoctor(report)}\n`);
       return report.ok ? 0 : 1;
+    }
+    case "setup": {
+      // The one-click path to a local tier: `setupCommand` composes the launchers and throws a
+      // `config: true` error (exit 2) for anything the user has to change.
+      const { config } = await loadConfig({ flags: flagsFromValues(values), ...(values.home ? { home: values.home } : {}) });
+      const out = await setupCommand({
+        sub: positionals[1],
+        rest: positionals.slice(2),
+        options: { home: values.home, modelName: values["model-name"], skipDeps: values["skip-deps"], json: values.json, config, skillDir: SKILL_DIR, env: process.env, log },
+      });
+      if (values.json) print(out.json, { json: true });
+      else process.stdout.write(`${out.text}\n`);
+      return out.code;
     }
     case "config": {
       const sub = positionals[1] ?? "show";
@@ -304,7 +337,9 @@ async function main(argv) {
         const tier = tierByName(name);
         if (!tier) throw configError(`unknown tier "${name}" (expected ${TIERS.map((t) => t.name).join(", ")})`);
         const home = values.home;
-        const persisted = values.persist ? await saveUserConfig({ baseUrl: tier.baseUrl }, home ? { home } : {}) : null;
+        // A local tier is only half configured by baseUrl: its key is the literal placeholder the
+        // client requires and the server ignores, so --persist stores both. Hosted has no key.
+        const persisted = values.persist ? await saveUserConfig({ baseUrl: tier.baseUrl, ...(tier.apiKey ? { apiKey: tier.apiKey } : {}) }, home ? { home } : {}) : null;
         if (values.json) print({ tier: tier.name, baseUrl: tier.baseUrl, apiKey: tier.apiKey, port: tier.port, command: launcherCommand(tier, SKILL_DIR), env: tierEnv(tier), persisted }, { json: true });
         else process.stdout.write(`${formatTierUse(tier, { skillDir: SKILL_DIR, persisted, configPath: userConfigPath(home) })}\n`);
         return 0;

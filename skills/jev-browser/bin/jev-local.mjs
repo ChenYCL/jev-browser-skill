@@ -21,6 +21,7 @@ import path from "node:path";
 import { spawn } from "node:child_process";
 import { Readable } from "node:stream";
 import { pipeline } from "node:stream/promises";
+import { fileURLToPath } from "node:url";
 
 // Static on purpose: --help must work even while the registry is being edited.
 const HELP = `jev-local — serve the local (experimental) Jev backend for jev-browser
@@ -48,6 +49,9 @@ Tuning:
       --port N           port of the Jev-compatible server     (default 8092)
       --llama-port N     port of the llama.cpp server          (default 8090)
       --download-only    fetch the model file and exit
+      --detach           run in the background: logs to ~/.jev-browser/run/jev-local-8092.log,
+                         writes the pid file, prints the env line once it answers /health and
+                         returns (the server keeps running; opt in, never the default)
   -h, --help             this text
 
 Env:
@@ -172,7 +176,7 @@ async function main() {
     log(`[local] ${error.message}`);
     return 2;
   }
-  const { LOCAL_DEFAULTS, LocalProvider, SERVICE, defaultLocalModel, findLlamaServer, getJson, handleLocalRequest, llamaServedModel, localModel, localPaths } = local;
+  const { LOCAL_DEFAULTS, LocalProvider, SERVICE, defaultLocalModel, findLlamaServer, getJson, handleLocalRequest, llamaMissingHint, llamaServedModel, localModel, localPaths } = local;
 
   const port = Number(arg("--port", LOCAL_DEFAULTS.port));
   const llamaPort = Number(arg("--llama-port", LOCAL_DEFAULTS.llamaPort));
@@ -192,6 +196,35 @@ async function main() {
   if (explicitPath && requestedId) throw configError("use either --model-name <id> or --model <path>, not both");
 
   if (flag("--list-models")) return listModels(local);
+
+  // --detach: run this same launcher again in the background (args minus the flag), then wait for
+  // the endpoint it starts to answer and print the one line callers read. Opt-in; the foreground
+  // path below is untouched.
+  if (flag("--detach")) {
+    if (downloadOnly) throw configError("--detach cannot be combined with --download-only: one backgrounds a server, the other only fetches and exits");
+    const { spawnSelfDetached, waitUntilReady } = await import("../lib/detach.mjs");
+    const runDir = localPaths().run;
+    const pidFile = path.join(runDir, `jev-local-${port}.pid`);
+    const logFile = path.join(runDir, `jev-local-${port}.log`);
+    const child = spawnSelfDetached({ script: fileURLToPath(import.meta.url), args: argv.filter((argument) => argument !== "--detach"), logFile });
+    const serving = async () => {
+      const health = await getJson(`${serviceUrl}/health`, 1500);
+      return health?.service === SERVICE && health?.status === "ok";
+    };
+    const ready = await waitUntilReady(serving, { timeoutMs: 180_000 });
+    if (!ready) {
+      log(`[local] --detach: nothing answered ${serviceUrl}/health within 180s; see ${logFile} (pid ${child.pid})`);
+      return 1;
+    }
+    // The child writes this itself once it listens; a detached server must be stoppable even if it
+    // was still writing when the health check passed.
+    if (child.exitCode === null && !fs.existsSync(pidFile)) {
+      await fsp.mkdir(runDir, { recursive: true });
+      await fsp.writeFile(pidFile, `${child.pid}\n`);
+    }
+    process.stdout.write(`${envLine}\n`);
+    return 0;
+  }
 
   // Resolve which GGUF to serve: a registry entry (default or --model-name), or an explicit path.
   const entry = requestedId ? localModel(requestedId) : explicitPath ? null : defaultLocalModel();
@@ -225,7 +258,7 @@ async function main() {
 
   const bin = findLlamaServer();
   if (!bin) {
-    log("[local] llama-server not found (looked on PATH and in /opt/homebrew/bin).\n\nInstall it with:\n\n  brew install llama.cpp\n");
+    log(`[local] ${llamaMissingHint()}`);
     return 2;
   }
   log(`[local] llama-server: ${bin}`);

@@ -121,6 +121,18 @@ export function localPaths(home = os.homedir(), model = { id: LOCAL_MODEL_ID, fi
 
 /** `llama-server` on PATH, then the Homebrew prefix (macOS default). Never throws. */
 export function findLlamaServer({ env = process.env, extra = ["/opt/homebrew/bin"] } = {}) {
+  // An explicit path wins outright: JEV_LLAMA_SERVER is how a build outside Homebrew is pointed
+  // at, and a value that does not resolve is "not found" rather than a silent fall-through.
+  const override = env.JEV_LLAMA_SERVER?.trim();
+  if (override) {
+    try {
+      const stat = fs.statSync(override);
+      if (stat.isFile() && (stat.mode & 0o111) !== 0) return override;
+    } catch {
+      // fall through to not-found
+    }
+    return null;
+  }
   const dirs = [...new Set([...(env.PATH ?? "").split(path.delimiter).filter(Boolean), ...extra])];
   for (const dir of dirs) {
     const candidate = path.join(dir, "llama-server");
@@ -132,6 +144,15 @@ export function findLlamaServer({ env = process.env, extra = ["/opt/homebrew/bin
     }
   }
   return null;
+}
+
+/** The one hint for a missing llama.cpp, shared by the launcher and `jev-browser setup`. */
+export function llamaMissingHint({ env = process.env } = {}) {
+  const override = env.JEV_LLAMA_SERVER?.trim();
+  const where = override
+    ? `llama-server not found at ${override} (JEV_LLAMA_SERVER overrides PATH and /opt/homebrew/bin)`
+    : "llama-server not found (looked on PATH and in /opt/homebrew/bin)";
+  return `${where}.\n\nInstall it with:\n\n  brew install llama.cpp\n`;
 }
 
 /** GET JSON with a short timeout; null on any failure (unreachable, non-JSON, timeout). */

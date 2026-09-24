@@ -7,8 +7,8 @@ import { promisify } from "node:util";
 import { findChromeExecutable } from "./backends/chrome.mjs";
 import { SAFARI_ENABLE_HINT } from "./backends/safari.mjs";
 import { describeConfig, userConfigPath } from "./config.mjs";
-import { describeTier, loopbackPort, probeEndpoint } from "./tiers.mjs";
-import { TypeSafeClient } from "./typesafe.mjs";
+import { describeTier, loopbackPort, probeEndpoint, tierByPort } from "./tiers.mjs";
+import { TypeSafeClient, isLoopbackBaseUrl } from "./typesafe.mjs";
 import { installTargets } from "./install.mjs";
 
 const run = promisify(execFile);
@@ -38,7 +38,20 @@ export async function doctor({ config, sources, home = os.homedir(), skillDir, l
   const major = Number(process.versions.node.split(".")[0]);
   add("node", major >= 22, `node ${process.version}`, major >= 22 ? undefined : "Node 22+ is required (global fetch + WebSocket)");
 
-  add("api key", Boolean(config.apiKey), config.apiKey ? `present (${sources.some((s) => s.kind === "env" && s.keys.includes("apiKey")) ? "env TYPESAFE_API_KEY" : "config file"})` : "missing", config.apiKey ? undefined : "export TYPESAFE_API_KEY=... or run: jev-browser config set-key --from-env");
+  // A local tier is a complete configuration without a real key: the server ignores the header,
+  // but the client refuses to send without one — so only the placeholder is missing, and that is a
+  // warning, not a failure.
+  const loopback = isLoopbackBaseUrl(config.baseUrl);
+  add(
+    "api key",
+    config.apiKey ? true : loopback ? null : false,
+    config.apiKey ? `present (${sources.some((s) => s.kind === "env" && s.keys.includes("apiKey")) ? "env TYPESAFE_API_KEY" : "config file"})` : "missing",
+    config.apiKey
+      ? undefined
+      : loopback
+        ? "a local tier takes the literal placeholder: export TYPESAFE_API_KEY=local, or run: jev-browser config set-key local (or: jev-browser setup local-readout)"
+        : "export TYPESAFE_API_KEY=... or run: jev-browser config set-key --from-env",
+  );
   let models = null;
   if (config.apiKey && live) {
     try {
@@ -50,40 +63,67 @@ export async function doctor({ config, sources, home = os.homedir(), skillDir, l
     }
   }
 
-  // The fully local backend is optional: report it, never fail on it, never throw. The registry
-  // is imported dynamically so a half-edited lib/local-models.json shows up as a line here
-  // instead of breaking doctor.
+  // The fully local backends are optional: report them, never fail on them, never throw. Both
+  // modules are imported dynamically so a half-edited registry (or a broken Kev checkout) shows up
+  // as a line here instead of breaking doctor.
   const endpoint = await probeEndpoint({ config, live, models });
-  try {
-    const { localStatus } = await import("./local.mjs");
-    // Probe the port the *run* uses, so a Kev endpoint on 8008 is reported rather than the GGUF
-    // default of 8092 sitting idle beside it.
-    const port = loopbackPort(config.baseUrl) ?? undefined;
-    const local = await localStatus({ home, ...(port ? { port } : {}) });
-    const ready = Boolean(local.llamaServer && local.bytes > 0);
-    const size = local.bytes > 0 ? `${Math.round(local.bytes / 1024 / 1024)} MiB` : `not downloaded (${Math.round(local.expectedBytes / 1024 / 1024)} MiB expected)`;
-    const livePort = local.serving
-      ? `127.0.0.1:${local.port} up${local.servingModel ? ` (serving ${local.servingModel})` : ""}`
-      : local.endpoint
-        ? `127.0.0.1:${local.port} up (${local.endpoint.kind}${local.endpoint.run ? ` ${local.endpoint.run}` : ` "${local.endpoint.name}"`})`
-        : `127.0.0.1:${local.port} not running`;
-    const detail = [
-      local.llamaServer ? `llama-server ${local.llamaServer}` : "llama-server not found",
-      `${local.id}${local.label ? ` "${local.label}"` : ""} ${size}`,
-      livePort,
-    ].join(" · ");
-    const hint = local.endpoint
-      ? `the port your baseUrl uses is serving a ${local.endpoint.kind}, not this registry entry — see the goal_done bar line`
-      : !local.llamaServer
-        ? "brew install llama.cpp"
-        : local.bytes === 0
-          ? `download it: node <skill-dir>/bin/jev-local.mjs --download-only (registry: ${local.registry.path})`
-          : local.serving
-            ? undefined
-            : "start it: node <skill-dir>/bin/jev-local.mjs (--list-models shows the registry)";
-    add("local model", local.endpoint || ready ? true : null, detail, hint);
-  } catch (error) {
-    add("local model", null, `registry problem: ${error.message}`, "fix skills/jev-browser/lib/local-models.json, or run --list-models with a working file");
+  const port = loopbackPort(config.baseUrl);
+  const kevTarget = tierByPort(port)?.name === "kev" || endpoint?.profile === "kev";
+  if (kevTarget) {
+    // Kev needs a checkout, a venv that imports torch + mlx_lm and its cached assets — not the GGUF
+    // registry. A Kev endpoint never gets a jev-local hint.
+    try {
+      const { probeKevRuntime } = await import("./kev.mjs");
+      const kev = await probeKevRuntime({ clone: path.join(home, ".local", "share", "jev-browser", "kev") });
+      add(
+        "kev",
+        kev.ok ? true : null,
+        `${kev.clone} · ${kev.detail}`,
+        kev.ok ? undefined : "prepare it with: node <skill-dir>/bin/jev-kev.mjs (it prints the clone and uv commands), or: node <skill-dir>/bin/jev-browser.mjs setup kev",
+      );
+    } catch (error) {
+      add("kev", null, `runtime check failed: ${error.message}`, "node <skill-dir>/bin/jev-kev.mjs --help");
+    }
+  } else {
+    try {
+      const { localStatus } = await import("./local.mjs");
+      // Probe the port the *run* uses, so a Kev endpoint on 8008 is reported rather than the GGUF
+      // default of 8092 sitting idle beside it.
+      const local = await localStatus({ home, ...(port ? { port } : {}) });
+      // The registry's exact byte size is the check: a non-empty file is not a usable model.
+      const truncated = local.bytes > 0 && local.expectedBytes > 0 && local.bytes !== local.expectedBytes;
+      const ready = Boolean(local.llamaServer && local.bytes > 0 && !truncated);
+      const size =
+        local.bytes === 0
+          ? `not downloaded (${Math.round(local.expectedBytes / 1024 / 1024)} MiB expected)`
+          : truncated
+            ? `truncated (${local.bytes} of ${local.expectedBytes} bytes)`
+            : `${Math.round(local.bytes / 1024 / 1024)} MiB`;
+      const livePort = local.serving
+        ? `127.0.0.1:${local.port} up${local.servingModel ? ` (serving ${local.servingModel})` : ""}`
+        : local.endpoint
+          ? `127.0.0.1:${local.port} up (${local.endpoint.kind}${local.endpoint.run ? ` ${local.endpoint.run}` : ` "${local.endpoint.name}"`})`
+          : `127.0.0.1:${local.port} not running`;
+      const detail = [
+        local.llamaServer ? `llama-server ${local.llamaServer}` : "llama-server not found",
+        `${local.id}${local.label ? ` "${local.label}"` : ""} ${size}`,
+        livePort,
+      ].join(" · ");
+      const hint = local.endpoint
+        ? `the port your baseUrl uses is serving a ${local.endpoint.kind}, not this registry entry — see the goal_done bar line`
+        : !local.llamaServer
+          ? "brew install llama.cpp"
+          : truncated
+            ? `delete it and download it again: node <skill-dir>/bin/jev-local.mjs --download-only (or in one step: jev-browser setup local-readout)`
+            : local.bytes === 0
+              ? `download it: node <skill-dir>/bin/jev-local.mjs --download-only (registry: ${local.registry.path}); or in one step: jev-browser setup local-readout`
+              : local.serving
+                ? undefined
+                : "start it: node <skill-dir>/bin/jev-local.mjs (--list-models shows the registry)";
+      add("local model", local.endpoint || ready ? true : null, detail, hint);
+    } catch (error) {
+      add("local model", null, `registry problem: ${error.message}`, "fix skills/jev-browser/lib/local-models.json, or run --list-models with a working file");
+    }
   }
 
   // The bar and the tier come from one resolution (lib/tiers.mjs), so the name on this line and the

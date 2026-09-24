@@ -5,7 +5,9 @@
   "type": "module",
   "license": "MIT",
   "bin": {
-    "jev-browser": "./bin/jev-browser.mjs"
+    "jev-browser": "./bin/jev-browser.mjs",
+    "jev-local": "./bin/jev-local.mjs",
+    "jev-kev": "./bin/jev-kev.mjs"
   },
   "engines": {
     "node": ">=22"
