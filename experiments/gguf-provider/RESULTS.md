@@ -89,9 +89,12 @@ default) for that reason; at `-c 8192` llama.cpp hard-fails the request with
 
 - Candidates 2 and 3 (`Qwen3-4B-Instruct-2507`, `gemma-3-4b-it`) never finished downloading — the
   link collapsed to ~10–25 KB/s with bursts — so their accuracy **and** their drivability through
-  the render path (chat template via `/apply-template`) are unexercised. No download is running now;
-  the retry script is `/tmp/jev-ceiling/fetch-4b.sh` (start with `hub`, then
-  `bash /tmp/jev-ceiling/run-candidate.sh <slug> 8100`).
+  the render path (chat template via `/apply-template`) are unexercised. No download is running now.
+  The retry driver was the scratch script `/tmp/jev-ceiling/fetch-4b.sh`, which is gone with the
+  `/tmp` cleanup and was never committed; recreate the retry with the tracked tools:
+  `node experiments/gguf-provider/lab/fetch.mjs <repo>` (resumable download, sha256 gate), then the
+  per-candidate protocol in `results/local-models-4b.md` §1
+  (`eval/run.mjs` + `cli.mjs --request` against the llama-server on :8100).
 - `ddg-click-target-aapl`'s ground-truth label is debatable: the hand label is `e1` (investing.com,
   `in_viewport=false`), while hosted Jev and the 4B both pick `e15` (Yahoo Finance AAPL quote page,
   in viewport). Every model is therefore scored down by up to one item on that question.

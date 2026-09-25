@@ -65,8 +65,12 @@ llama.cpp 的「首 token 选项标签 logprob」读法，把本 skill 的 `POST
 
 > ⚠️ 0.6B 这份量化文件是 **Instruct** 版本（`general.name = "Qwen3 0.6B Instruct"`），
 > 不是 JEV-CPU / SemIf 用的 `Qwen3-0.6B-Base`；Base 未测（见 §8）。
-> ⚠️ 0.6B 的 GGUF 放在 `/tmp/gguf/`（重启即失）；0.8B 放在 `~/.jev-browser/models/`
-> ——`jev-local` / `jev-kev` 的模型缓存目录，仓库内不再保留副本（`*.gguf` 已在 `.gitignore` 兜底）。
+> ⚠️ 0.6B 的 GGUF 放在 `/tmp/gguf/`，**现已不在本机**（`/tmp` 清理掉了，仓库与模型缓存里都没有副本）。
+> 重跑 0.6B 这一行前要先重建它：重新下载 Qwen3-0.6B **Instruct** 的 Q8_0 量化
+> （`general.name` 必须是 `Qwen3 0.6B Instruct`，不是 `Qwen3-0.6B-Base`），
+> 放到任意路径后核对上表的字节数 639,446,688 与 sha256 `9465e63a…bb031`，再把 §2 命令里的 `-m` 指过去。
+> 0.8B 放在 `~/.jev-browser/models/`（`jev-local` / `jev-kev` 的模型缓存目录，仍在）；
+> 仓库内不再保留任何 GGUF 副本（`*.gguf` 已在 `.gitignore` 兜底）。
 
 ---
 
@@ -77,7 +81,8 @@ llama.cpp 的「首 token 选项标签 logprob」读法，把本 skill 的 `POST
 brew install llama.cpp            # 实测 0.4.0 / build 10809
 
 # 1) 两个 llama-server（0.6B:8090，0.8B:8091）
-/opt/homebrew/bin/llama-server -m /tmp/gguf/Qwen3-0.6B-Q8_0.gguf \
+# 0.6B 文件已不在 /tmp/gguf/（见 §1 的重建步骤：重新下载 Instruct Q8_0 并校验 sha256 9465e63a…）
+/opt/homebrew/bin/llama-server -m <重建后的 Qwen3-0.6B-Q8_0.gguf 路径> \
   --port 8090 --ctx-size 16384 --jinja --threads 8 -np 1 --no-warmup
 /opt/homebrew/bin/llama-server -m ~/.jev-browser/models/Qwen3.5-0.8B-Q8_0.gguf \
   --port 8091 --ctx-size 16384 --jinja --threads 8 -np 1 --no-warmup
