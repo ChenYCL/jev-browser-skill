@@ -329,10 +329,14 @@ The skill's loopback bar (`thresholds.goalDone` / `goalDoneFinal` = **0.174**, s
 goals were replayed against Kev 4B with the same method and the same scoring.
 
 ```bash
-# Kev 4B already up on :8008 (bin/jev-kev.mjs --row-limit 16384) and the fixture site on :3111
+# Kev 4B already up on :8008 (bin/jev-kev.mjs --row-limit 16384) and the fixture site on :3111.
+# The original run wrote its journals to /tmp/kev-threshold, which the /tmp cleanup removed;
+# the journals were copied into the repo first (results/threshold-replay/journal/, 15 runs),
+# so recreate the scratch dir from the tracked copy and point both commands at it:
+mkdir -p /tmp/kev-replay && cp -R experiments/kev-4b/results/threshold-replay/. /tmp/kev-replay/
 TYPESAFE_BASE_URL=http://127.0.0.1:8008 TYPESAFE_API_KEY=local \
-  bash experiments/kev-4b/threshold-replay.sh /tmp/kev-threshold
-node experiments/kev-4b/threshold-replay.mjs /tmp/kev-threshold
+  bash experiments/kev-4b/threshold-replay.sh /tmp/kev-replay
+node experiments/kev-4b/threshold-replay.mjs /tmp/kev-replay
 ```
 
 Method, unchanged from §9: one real `chrome --headless` run per goal with the controller's default

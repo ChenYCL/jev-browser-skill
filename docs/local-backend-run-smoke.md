@@ -7,7 +7,7 @@
 - 后端：本机全本地 `Qwen3.5-4B-Q4_K_M`（registry 默认项），llama-server `:8090` + Jev 契约服务 `:8092`
 - 浏览器：`--backend chrome --headless`（每次 run 独立 profile，可复现）
 - 实测日期：2026-09-24
-- 原始件（15 个 journal、16 项校准探针、39 步请求日志）：`/tmp/jev-local-smoke/`
+- 原始件（15 个 journal、16 项校准探针、39 步请求日志）当时在 `/tmp/jev-local-smoke/`，**该目录已随 `/tmp` 清理删除，且从未入库**——下面的数字都来自当时的现场记录，原始 journal 无法再回放
 - **`skills/**` 与 `docs/**` 之外一行未改：§6 列出的观测/代码层问题只报告、不改动，本次也没有提交任何 commit**
 
 ---
@@ -54,7 +54,8 @@ node --input-type=module -e "const {createSite}=await import('./tests/fixtures/s
 
 ```bash
 export TYPESAFE_BASE_URL=http://127.0.0.1:8092 TYPESAFE_API_KEY=local
-export JEV_BROWSER_CONFIG=/tmp/jev-local-smoke/config-<name>.json   # journalDir + chrome.userDataDir 指向 /tmp
+export JEV_BROWSER_CONFIG=/tmp/jev-run/config-<name>.json   # 重建：mkdir -p /tmp/jev-run，写一份只改 journalDir 与 chrome.userDataDir 的 config
+# （当时的 /tmp/jev-local-smoke/ 已随 /tmp 清理删除，见文首说明）
 node skills/jev-browser/bin/jev-browser.mjs run --goal "<goal>" --url <url> \
   --backend chrome --headless --max-steps <8|5|6> --json
 ```
@@ -198,7 +199,7 @@ node skills/jev-browser/bin/jev-browser.mjs run --goal "<goal>" --url <url> \
 
 按严重度排序（全部有 journal 逐字证据）：
 
-1. **p4（登录页）——模型知道该填哪儿、填什么，就是不选「type」。** 同一 state 的完整判读（`/tmp/jev-local-smoke/login.dryrun.json` 重放，确定性复现）：
+1. **p4（登录页）——模型知道该填哪儿、填什么，就是不选「type」。** 同一 state 的完整判读（当时用 `/tmp/jev-local-smoke/login.dryrun.json` 重放，该文件已随 `/tmp` 清理删除；数字是现场记录，按 §7.3 的 `--dry-run` 流程重放同一登录页可复现）：
    ```
    action         click 0.430 · stop 0.246 · wait 0.220 · type 0.105     ← 四选一里 type 垫底
    type_target    e2 (Email)  0.851   ← 正确
@@ -313,10 +314,10 @@ fetch("http://127.0.0.1:8092/v1/systemone",{method:"POST",headers:{authorization
   body:JSON.stringify({model:"local",state:d.state,questions:{goal_done:d.questions.goal_done}})})
   .then(r=>r.json()).then(j=>console.log(j.answers.goal_done));'   # → noul≈0.969
 
-# 4) 汇总脚本（本次全量数据来自它们；脚本本身在 /tmp，不入库）
-node /tmp/jev-local-smoke/probe.mjs        # → /tmp/jev-local-smoke/goal-done-probes.json（§4.1 的 16 项）
-node /tmp/jev-local-smoke/latency.mjs      # → 逐步/逐问延迟画像（§3）
-node /tmp/jev-local-smoke/analyze.mjs      # → 全部 journal 的逐 step 汇总（§2/§4.2）
+# 4) 汇总脚本：probe.mjs / latency.mjs / analyze.mjs 当时在 /tmp/jev-local-smoke/，
+#    从未入库，且已随 /tmp 清理删除，无法恢复。它们只是把 journal 聚合成 §3/§4 的表，
+#    重跑这轮实测 = 用上面 1)–3) 的命令重建（起 jev-local + fixture，再跑 jev-browser run），
+#    产物 journal 落在配置的 journalDir 下，自行汇总即可。
 ```
 
 注：DDG 在本机 + headless 下会返回**人机验证**（“Unfortunately, bots use DuckDuckGo too. … Select all squares
@@ -350,7 +351,7 @@ containing a duck: Submit”，见 `r6.dryrun.json` 的 `visible_text`），所�
 
 ## 9. 终止规则回放：哪条规则能让本地 `run` 正确地报 `success`
 
-离线回放，无新浏览器 run；模型调用只用已保存的 state（§9.4）。脚本 `/tmp/jev-local-smoke/rules.mjs`（纯离线，只读 `steps.jsonl`）。
+离线回放，无新浏览器 run；模型调用只用已保存的 state（§9.4）。回放脚本是 `/tmp/jev-local-smoke/rules.mjs`（纯离线，只读 `steps.jsonl`）——**该脚本与它读的 journal 都在 `/tmp/jev-local-smoke/`，已随 `/tmp` 清理删除、从未入库**；§9 的计分表是当时的现场记录，按 §9.1 的口径对一份 journal 重算即可复现。
 
 ### 9.1 计分口径（严格）
 

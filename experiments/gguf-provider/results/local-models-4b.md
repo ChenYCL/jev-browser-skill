@@ -130,13 +130,25 @@ MLX 服务），比 GGUF 候选 1 高 3 题，并且与 hosted Jev 天花板同�
 - 量化：统一 `Q4_K_M`（若两候选差 ≤3 点，再补 `Q8_0`）。
 - 天花板：hosted Jev（`api.typesafe.ai`，`jev-latest` → 实测 `jev-1.13.0`），同样 20 条 + 同一步 fixture。
 
-命令（每个候选；`<file>` = `~/.jev-browser/models/` 下的 GGUF）：
+命令（每个候选；`<file>` = `~/.jev-browser/models/` 下的 GGUF）。
+下面这条协议当时包在 `/tmp/jev-ceiling/run-candidate.sh` 里——那是临时脚本，
+**已随 `/tmp` 清理删除，仓库内没有副本**；重跑时按下面三步重建它（或直接逐步执行）：
 
 ```bash
+# 1) 起 llama-server（一次只起一个；跑完即停）
 /opt/homebrew/bin/llama-server -m ~/.jev-browser/models/<file> \
   --port 8100 -c 16384 -ngl 99 --cache-type-k q8_0 --cache-type-v q8_0 -t 8 --jinja -np 1 --no-warmup
-bash /tmp/jev-ceiling/run-candidate.sh <slug> 8100     # eval(20+轮转) -> fixture step -> analysis row
+# 2) 20 条自明真值 + 标签轮转（--url 指向上面的 llama-server）
+node experiments/gguf-provider/eval/run.mjs --url http://127.0.0.1:8100 --json \
+  > experiments/gguf-provider/results/eval-<slug>.json
+node experiments/gguf-provider/eval/run.mjs --url http://127.0.0.1:8100 --rotate --json
+# 3) 真实捕获页面的完整一步（fixtures/judge-state.json + judge-questions.json 拼成请求体）
+node experiments/gguf-provider/cli.mjs --request experiments/gguf-provider/results/fixture-step-request.json \
+  --url http://127.0.0.1:8100 > experiments/gguf-provider/results/fixture-step-<slug>.json
 ```
+
+`run-candidate.sh` 的第三步（汇总行）就是把上面两份产物整理成 `results/analysis-<slug>.json`
+的一行，口径见 §4；那部分逻辑也在被删除的临时脚本里，仓库没有留下生成器。
 
 ## 2. 候选状态
 
@@ -225,13 +237,19 @@ hf `.cache` 只剩 6 MB 旧分片 —— 928 MB / 202 MB 两个大分片已在�
 
 ```bash
 # 候选 2 与候选 1 只差 1 题（≤3 点）→ 早先 brief 约定补 Q5_K_M/Q8_0 对拍；每个量化 ~2.5-3 GB。
+# 驱动脚本 /tmp/jev-ceiling/run-candidate.sh 与 make-table.mjs 已随 /tmp 清理删除（仓库无副本），
+# 重跑 = 重建：llama-server + §1 的两步 eval/cli 命令，再用 §4 口径汇总。
 /opt/homebrew/bin/llama-server -m ~/.jev-browser/models/<file> --port 8100 -c 16384 \
   -ngl 99 --cache-type-k q8_0 --cache-type-v q8_0 -t 8 --jinja -np 1 --no-warmup
-bash /tmp/jev-ceiling/run-candidate.sh <slug> 8100 ; hub stop name=eval-4b-8100
-node /tmp/jev-ceiling/make-table.mjs qwen35-4b qwen3-4b-instruct-2507 gemma-3-4b-it qwen35-08b-c16384
+node experiments/gguf-provider/eval/run.mjs --url http://127.0.0.1:8100 --json
+node experiments/gguf-provider/cli.mjs --request experiments/gguf-provider/results/fixture-step-request.json \
+  --url http://127.0.0.1:8100
+# 汇总（make-table.mjs 已删除）：按 §4 口径把 eval/fixture 产物整理成 §2 表的一行。
+# 当时的调用是：node /tmp/jev-ceiling/make-table.mjs qwen35-4b qwen3-4b-instruct-2507 gemma-3-4b-it qwen35-08b-c16384
 ```
 
-（上表两行新数据由 `make-table.mjs` 机械复算过，与手写行逐格一致；`eval/**` 代码一行未改。）
+（上表两行新数据由 `make-table.mjs` 机械复算过，与手写行逐格一致；`eval/**` 代码一行未改。
+该脚本是临时工具，现已不在本机。）
 
 ## 4. 备注与判分口径
 
@@ -322,7 +340,7 @@ results/ramp-gemma-sustained-2026-09-24.json      本轮：150 MiB 采样窗口�
 results/throughput-summary-2026-09-24.json        本轮：链路汇总 + 每候选 ETA
 ```
 
-本轮新增的**仓库内**工具（上一窗口的临时工具仍在 `/tmp/jev-ceiling/`）：
+本轮新增的**仓库内**工具（上一窗口的临时工具当时在 `/tmp/jev-ceiling/`，现已删除）：
 
 ```
 lab/fetch.mjs        受监督下载器：curl 引擎、hf 分片断点续传、0.3 MB/s 十分钟中止规则、sha256 硬门
@@ -330,6 +348,9 @@ lab/throughput.sh    定长分段抓取的吞吐探针
 lab/ramp.mjs         采样式速率探针（把 slow start 和稳态区分开 —— 本轮结论的关键工具）
 ```
 
-临时工具（不在仓库内）：`/tmp/jev-ceiling/{ceiling-run,analyze,make-table,gguf-meta}.mjs`、
-`/tmp/jev-ceiling/run-candidate.sh`、`/tmp/jev-ceiling/fetch-4b.sh`（后两者本轮仍在使用，
-`run-candidate.sh` 就是上面每候选跑的那条协议）。
+临时工具（**从未入库，且已随 `/tmp` 清理从本机删除，无法恢复**）：
+`/tmp/jev-ceiling/{ceiling-run,analyze,make-table,gguf-meta}.mjs`、
+`/tmp/jev-ceiling/run-candidate.sh`、`/tmp/jev-ceiling/fetch-4b.sh`。
+`run-candidate.sh` 就是 §1 每候选跑的那条协议，等价重建步骤见 §1 的命令块
+（`eval/run.mjs` + `cli.mjs --request`，都在仓库内）；`fetch-4b.sh` 的下载逻辑
+已由仓库内的 `lab/fetch.mjs` 覆盖（断点续传 + sha256 硬门）。
