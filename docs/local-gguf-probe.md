@@ -55,7 +55,7 @@ llama.cpp 的「首 token 选项标签 logprob」读法，把本 skill 的 `POST
 
 | | 0.6B | 0.8B |
 |---|---|---|
-| 文件 | `/tmp/gguf/Qwen3-0.6B-Q8_0.gguf` | `./Qwen3.5-0.8B-Q8_0.gguf`（仓库根目录） |
+| 文件 | `/tmp/gguf/Qwen3-0.6B-Q8_0.gguf` | `~/.jev-browser/models/Qwen3.5-0.8B-Q8_0.gguf`（模型缓存目录） |
 | 字节 | 639,446,688 | 811,843,840 |
 | sha256 | `9465e63a22add5354d9bb4b99e90117043c7124007664907259bd16d043bb031` | `0ad885ffd4bb022fc4f0d33a3308fa108ef8613159d3b3a67e23abca056b7a6c` |
 | GGUF `general.name` | **Qwen3 0.6B Instruct** ⚠️ | Qwen3.5-0.8B |
@@ -65,7 +65,8 @@ llama.cpp 的「首 token 选项标签 logprob」读法，把本 skill 的 `POST
 
 > ⚠️ 0.6B 这份量化文件是 **Instruct** 版本（`general.name = "Qwen3 0.6B Instruct"`），
 > 不是 JEV-CPU / SemIf 用的 `Qwen3-0.6B-Base`；Base 未测（见 §8）。
-> ⚠️ 0.6B 的 GGUF 放在 `/tmp/gguf/`（重启即失）；0.8B 放在仓库根目录（未入库，`*.gguf` 未进 `.gitignore`）。
+> ⚠️ 0.6B 的 GGUF 放在 `/tmp/gguf/`（重启即失）；0.8B 放在 `~/.jev-browser/models/`
+> ——`jev-local` / `jev-kev` 的模型缓存目录，仓库内不再保留副本（`*.gguf` 已在 `.gitignore` 兜底）。
 
 ---
 
@@ -78,7 +79,7 @@ brew install llama.cpp            # 实测 0.4.0 / build 10809
 # 1) 两个 llama-server（0.6B:8090，0.8B:8091）
 /opt/homebrew/bin/llama-server -m /tmp/gguf/Qwen3-0.6B-Q8_0.gguf \
   --port 8090 --ctx-size 16384 --jinja --threads 8 -np 1 --no-warmup
-/opt/homebrew/bin/llama-server -m "$PWD/Qwen3.5-0.8B-Q8_0.gguf" \
+/opt/homebrew/bin/llama-server -m ~/.jev-browser/models/Qwen3.5-0.8B-Q8_0.gguf \
   --port 8091 --ctx-size 16384 --jinja --threads 8 -np 1 --no-warmup
 # --jinja 必须开（适配层用 /apply-template 走模型自带 chat 模板）；-np 1 单槽；--no-warmup 跳过启动预热
 
