@@ -207,7 +207,7 @@ jev-browser tier status    # 当前一次运行会用哪个：baseUrl、tier、�
 jev-browser tier use kev   # 打印某个 tier 的 export 行和启动命令（除非加 --persist，否则不写配置）
 ```
 
-表格与全部实测数字（得分、延迟、磁盘、内存、各后端 `goal_done` 阈值、已知短板）见
+表格与全部实测数字（得分、延迟、磁盘、内存、各后端 `goal_done` 阈值、已知短板）同时见
 [`SKILL.md`](skills/jev-browser/SKILL.md#judging-tiers)；`references/config.md` 只保留阈值 profile 细节。
 
 本地 tier 现在是一条命令：`setup` 通过 launcher 自己把缺的文件拉齐、后台起服务、把 `baseUrl` 和占位 key 写进配置，再用一个真实问题验证端点确实会答。
@@ -219,6 +219,85 @@ jev-browser setup stop local-readout
 ```
 
 `jev-browser setup kev` 是精度档的同款命令，额外需要 `uv`（它会 clone Kev 检出并跑 `uv sync --extra serve`）。两者只写 `~/.jev-browser/` 之下，不会写进本仓库。手动方式照旧 —— 自己起 `bin/jev-local.mjs` 并 export 它打印的两行 —— `jev-browser tier use <tier> --persist` 也能把那两行存下来。
+
+## 判定后端实测对比
+
+同一组 20 道题、同一个真实捕获页 fixture 步骤、每个后端走同一套 harness；run 级别的结论来自同一轮 15 次真实浏览器运行。下面每个数字都读自本仓库自己的记录 —— [`experiments/gguf-provider/RESULTS.md`](experiments/gguf-provider/RESULTS.md)、[`experiments/gguf-provider/results/local-models-4b.md`](experiments/gguf-provider/results/local-models-4b.md)、[`experiments/kev-4b/README.md`](experiments/kev-4b/README.md)、[`docs/local-kev-bringup.md`](docs/local-kev-bringup.md)、[`docs/local-backend-run-smoke.md`](docs/local-backend-run-smoke.md)，以及 `experiments/gguf-provider/results/` 下的原始 JSON。`not measured` 表示记录里这一格没测过；`—` 表示该后端没有这一项。**默认仍然是托管版 Jev**，它的 0.95 是所有本地后端对标的基准。
+
+### 准确率 —— 20 道自明真值题
+
+| 后端 | 全部 20 | browser 15 | noul 5 | action + click_target 5 |
+| --- | --- | --- | --- | --- |
+| **托管版 Jev**（`jev-latest` → `jev-1.13.0`，默认） | **19/20 = 0.95** | 14/15 = 0.933 | 5/5 = 1.00 | 5/5 = 1.00 |
+| **Kev 4B**（`jaredpalmer/kev-4b`，T=2.1435，`--row-limit 16384`） | **19/20 = 0.95** | 14/15 = 0.933 | 5/5 = 1.00 | 5/5 = 1.00 |
+| Kev 4B（同一 checkpoint，发布行上限 8192） | 18/20 = 0.90 | 13/15 = 0.867 | 5/5 = 1.00 | 4/5 = 0.80 |
+| **GGUF 4B**（`Qwen3.5-4B Q4_K_M`，`setup local-readout` 默认档） | 16/20 = 0.80 | 12/15 = 0.80 | 4/5 = 0.80 | 2/5 = 0.40 |
+| Qwen3-4B-Instruct-2507 Q4_K_M | 15/20 = 0.75 | 10/15 = 0.67 | 5/5 = 1.00 | 1/5 = 0.20 |
+| gemma-3-4b-it Q4_K_M | 10/20 = 0.50 | 7/15 = 0.47 | 3/5 = 0.60 | 1/5 = 0.20 |
+| Kev 0.8B（`jaredpalmer/kev-0.8b`，T=2.41） | 14/20 = 0.70（19 道可答中 14 道） | 9/15 = 0.60 | 5/5 = 1.00 | 3/5 = 0.60 |
+| GGUF 0.8B（`Qwen3.5-0.8B Q8_0`） | 10/20 = 0.50 | 7/15 = 0.47 | 3/5 = 0.60 | 1/5 = 0.20 |
+| 「恒选第一个选项」基线 | 11/20 = 0.55 | 9/15 = 0.60 | 2/5 = 0.40 | 2/5 = 0.40 |
+
+两行要带注解：**Kev 4B 的 0.95 需要那个可选的行上限补丁**（发布上限 8192 下，55 选项的 `click_target` 题会被 HTTP 422 直接拒绝，而两行 Kev 4B 的差别正是这一道题）；**`ddg-click-target-aapl` 的手写标签本身有争议** —— 标签是 `e1`（investing.com，`in_viewport=false`），而托管版 Jev、GGUF 4B 与 gemma 都选 `e15`（Yahoo Finance 的 AAPL 行情页，在视口内），所以这几个模型在这一题上都被低估最多 1 道。
+
+### 运行成本
+
+| 后端 | 每题 mean / max | 磁盘 | 内存 | 费用 |
+| --- | --- | --- | --- | --- |
+| **托管版 Jev** | 621 / 1,270 ms | 不用下载 | not measured | 20 道题 $0.0035（`ceiling-jev-20items.json`） |
+| Kev 4B @16384 | 2,223 / 12,183 ms | 9.34 GB 基座 + 152 MiB checkpoint | 空闲 18–19 GB，跑完一轮 **36 GB** GPU footprint | $0 |
+| Kev 4B @8192 | 1,965 / 8,995 ms | 同样两个文件 | 空闲 18–19 GB，一轮内 RSS 峰值 12.2 GiB | $0 |
+| GGUF 4B | 3,072 / 13,895 ms | 2,740,937,888 B（2.6 GiB） | 3,362 MiB（`llama-server` RSS） | $0 |
+| Qwen3-4B-Instruct-2507 | 2,514 / 15,386 ms | 2,497,281,120 B | not measured | $0 |
+| gemma-3-4b-it | 2,189 / 9,725 ms | 2,489,894,016 B | not measured | $0 |
+| Kev 0.8B | 590 / 6,353 ms | 1.72 GiB（基座 + LoRA + 分词器 + head） | 16384 下 RSS 峰值 3.6 GiB（空闲 21–129 MiB） | $0 |
+| GGUF 0.8B | 777 / 4,178 ms | 811,843,840 B（774 MiB） | not measured | $0 |
+| 平凡基线 | — | — | — | $0（不含模型） |
+
+这些延迟不是同一种口径，读表要配三条注解：**GGUF 4B 与 gemma 两行是在后台仍在下载时测的**，偏悲观（GGUF 4B 的干净复测是整步 **冷 18.3 s / 热 9.0 s**，其中 6.1 s 全花在那道 55 选项的 `click_target` 上）；Kev 4B 的每题数字同样包含那道题（12.2 s 就是它 12,183 ms 最坏值的来源）；**packed** 的 5 问 fixture 一步在 Kev 提高上限后要 23.8 s（12,073 input tokens），而在 8192 下会被直接拒绝。`$0` 不是四舍五入：客户端对 loopback `baseUrl` 就是按 0 计价。Kev 4B 真正的约束是内存 —— 要看 **`footprint`** 而不是 `ps -o rss=` 才能看到那 36 GB，而这台 48 GB 机器上提高上限后跑完一轮，swap 从 16.7 GB 顶到 28.3 GB used（只剩 416 MB），但没有任何一次请求超时。
+
+### 这次是怎么测的
+
+- **20 道真值自明的题。** 15 道浏览器题（每道都写好了期望的元素 id / 动作）+ 5 道 passage 是非题；真值是构造出来的，不是模型给的。
+- **一个真实捕获页的步骤。** `experiments/gguf-provider/fixtures/judge-state.json` 加 `judge-questions.json` 回放真实页面上的完整一步 —— 即产品自己的 5 问请求（`goal_done`、`blocker`、`action`、55 选项的 `click_target`、`select_target`）。
+- **轮转探针。** 同一份选项列表换三个起点重渲染、标签不动，于是「跟内容」和「跟位置」可以区分：GGUF 4B 三个轮转全部命中正确元素（k=0/3/7 → `e8`/`e5`/`e1`，P≈0.99），0.8B 则一直在最前面几个位置里打转。
+- **每个后端一套 harness，本地数字全在同一台机器上。** GGUF 候选走 `experiments/gguf-provider/eval/run.mjs`；Kev 由 `experiments/kev-4b/run.mjs` 在**同一组题、同一个 fixture 步骤**上打分，且走托管版 Jev 用的同一条 `/v1/systemone` 客户端路径（`lib/typesafe.mjs`），前置检查会在服务端 checkpoint 与 `--run` 不一致时拒绝开跑 —— 不会静默地给错模型打分。所有本地数字都来自同一台 Apple Silicon 机器：M3 Max / 48 GB / macOS 25.6.0 arm64。
+
+### 15 次真实浏览器运行
+
+由已发布的 GGUF readout 真正驱动 `jev-browser run`（目标、journal 与逐 step 数字见 [`docs/local-backend-run-smoke.md`](docs/local-backend-run-smoke.md)）：
+
+- **结局：4 次 `success` · 8 次 `stuck` · 2 次 `needs_user` · 1 次 `max_steps` —— 零 `error`、零 `timeout`。** 其中一次 4 步跑完了真实的 Wikipedia 搜索目标。两次 `needs_user` 里，一次是真的 CAPTCHA（真阳性），一次是在普通定价页上误报 `missing_information`。
+- **传输层从未出问题：** 39 个步骤请求全部首次尝试即成功，0 次客户端超时、0 次 HTTP 422 `LOW_LABEL_MASS`，最低 label mass 0.870（阈值 0.5）。
+- **强的一半 —— 选元素。** `click_target` 是整轮里最可靠的一问：在 65 个元素的 Wikipedia 页面上，每一步都把正确的链接排在第一（0.71–0.78）。
+- **弱的一半 —— `action` 问题。** 在 fixture 登录页上，它既知道该往哪儿填、也知道填什么（`type_target` Email 0.851、`type_value` email 0.933），却在四选一里把 `type` 排在**最后**（0.105，对手 click 0.430），于是 controller 白走三次无变化动作后放弃；另有 3 次运行在目标只差一次明显点击的页面上选了 `stop`。9 次非 `success` 的运行里有 8 次停在 `action` 选择上 —— 所以本地跑表单类任务要修的是 controller，不是模型。
+
+### 各后端的 `goal_done` 阈值，以及为什么不同
+
+| 后端 | 阈值（每步 / 最终核验） | 实测依据 |
+| --- | --- | --- |
+| 托管版 Jev | **0.85 / 0.70** | 已发布的取值，对应托管版 Jev 被训练的那个尺度。它**不能平移**：把它当作终止规则在同样 15 次本地运行上计分，得到 4 次正确 success 和 **3 次假 `stuck`**（已经完成的运行被报成卡住） |
+| GGUF readout（`local-readout`） | **0.174 / 0.174** | 回放同样 15 次运行：已达成目标的页面读数 0.839–0.997，未达成的 0.007–0.096；按终止规则可用带是 0.12–0.28 —— 0.25 得 7 次正确 success / 0 假 success / 0 假 `stuck`，而 0.85 只有 4 / 0 / 3。0.174 是该可用带的 maximin 中点 |
+| Kev 4B（`kev`） | **0.482 / 0.482** | 同样 15 个目标、同样方法与计分，对 Kev 4B 回放：它的可用带是 **(0.341, 0.683]**，所以 readout 的 0.174 会把四个未达成页面判成成功、并停在那个本该完成目标的动作之前；0.482 是它干净可用带的中点（约 0.35–0.68 内任意取值都干净） |
+
+三者不同，是因为三个后端在**互不重叠的尺度**上回答同一个问题 —— 这是每个后端的性质，不是调参偏好，所以阈值是**按端点解析的 profile**（`thresholds.profile`，默认 `auto`）而不是一个全局数字。loopback 端点在运行开始时用一次 `GET /v1/models` 分类，解析出的 profile、取值和理由会在第一步之前写进 journal 的 `run.json`；`doctor` 会在 `goal_done bar` 一行打印结果。
+
+### 复现
+
+```bash
+# 20 道题 + 标签轮转，对 :8100 上的本地 GGUF 服务
+node experiments/gguf-provider/eval/run.mjs --url http://127.0.0.1:8100 --json
+node experiments/gguf-provider/eval/run.mjs --url http://127.0.0.1:8100 --rotate --json
+
+# 同样 20 道题 + fixture 一步，对 :8008 上的 Kev 服务
+TYPESAFE_API_KEY=local node experiments/kev-4b/run.mjs --run jaredpalmer/kev-4b
+
+# 在 15 次已保存的本地运行上回放终止规则
+bash experiments/kev-4b/threshold-replay.sh /tmp/kev-threshold
+node experiments/kev-4b/threshold-replay.mjs /tmp/kev-threshold
+```
+
+原始 JSON：**`experiments/gguf-provider/results/`**（逐模型 `eval-*.json`、`analysis-*.json`、`fixture-step-*.json`，以及 `ceiling-jev-20items.json` 与 `baseline-first-option.json`）与 **`experiments/kev-4b/results/`**（`eval-<label>.json`、`fixture-step-<label>.json`、逐题 `raw/<label>/`，以及 `threshold-replay/{runs.tsv,labels.json,score.txt,journal/}`）。
 
 ## WebUI
 
