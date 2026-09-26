@@ -228,8 +228,8 @@ jev-browser tier use kev   # one tier's export line and start command (nothing i
 The GGUF readout (`node skills/jev-browser/bin/jev-local.mjs`, port 8092) needs no Python and
 serves an Apple Silicon `llama.cpp` server; Kev (`node skills/jev-browser/bin/jev-kev.mjs`, port
 8008) trades a Python venv, a 9.34 GB base and tens of GB of GPU memory for the accuracy tier. The
-tier table with every measured number — scores, latency, disk, memory, each backend's `goal_done`
-bar and the known holes — lives in [SKILL.md](skills/jev-browser/SKILL.md#judging-tiers).
+The tier table with every measured number — scores, latency, disk, memory, each backend's `goal_done`
+bar and the known holes — also lives in [SKILL.md](skills/jev-browser/SKILL.md#judging-tiers).
 
 A local tier is one command: `setup` fetches whatever is missing through the launcher itself, starts
 the server in the background, writes `baseUrl` and the placeholder key into your config, then proves
@@ -245,6 +245,138 @@ jev-browser setup stop local-readout
 checkout and runs `uv sync --extra serve`). Both write under `~/.jev-browser/`, never into this repo.
 The manual route still exists — start `bin/jev-local.mjs` yourself and export the two variables it
 prints — and `jev-browser tier use <tier> --persist` still stores that line's values for you.
+
+## Judging backends: measured comparison
+
+The same 20 graded items, the same real captured fixture step, and the same harness for every
+backend; the run-level lines come from one campaign of 15 real browser runs. Every figure below is
+read from this repo's own records — [`experiments/gguf-provider/RESULTS.md`](experiments/gguf-provider/RESULTS.md),
+[`experiments/gguf-provider/results/local-models-4b.md`](experiments/gguf-provider/results/local-models-4b.md),
+[`experiments/kev-4b/README.md`](experiments/kev-4b/README.md),
+[`docs/local-kev-bringup.md`](docs/local-kev-bringup.md),
+[`docs/local-backend-run-smoke.md`](docs/local-backend-run-smoke.md) and the raw JSON under
+`experiments/gguf-provider/results/`. `not measured` means the record is silent about that cell;
+`—` means the item does not exist for that backend. **Hosted Jev remains the default**, and its
+0.95 is the number every local backend is measured against.
+
+### Accuracy — 20 graded items, ground truth known by construction
+
+| backend | all 20 | browser 15 | noul 5 | action + click_target 5 |
+| --- | --- | --- | --- | --- |
+| **hosted Jev** — `jev-latest` → `jev-1.13.0`, the default | **19/20 = 0.95** | 14/15 = 0.933 | 5/5 = 1.00 | 5/5 = 1.00 |
+| **Kev 4B** — `jaredpalmer/kev-4b`, T=2.1435, `--row-limit 16384` | **19/20 = 0.95** | 14/15 = 0.933 | 5/5 = 1.00 | 5/5 = 1.00 |
+| Kev 4B — same checkpoint, published row limit 8192 | 18/20 = 0.90 | 13/15 = 0.867 | 5/5 = 1.00 | 4/5 = 0.80 |
+| **GGUF 4B** — `Qwen3.5-4B Q4_K_M`, the `setup local-readout` default | 16/20 = 0.80 | 12/15 = 0.80 | 4/5 = 0.80 | 2/5 = 0.40 |
+| Qwen3-4B-Instruct-2507 Q4_K_M | 15/20 = 0.75 | 10/15 = 0.67 | 5/5 = 1.00 | 1/5 = 0.20 |
+| gemma-3-4b-it Q4_K_M | 10/20 = 0.50 | 7/15 = 0.47 | 3/5 = 0.60 | 1/5 = 0.20 |
+| Kev 0.8B — `jaredpalmer/kev-0.8b`, T=2.41 | 14/20 = 0.70 (14 of 19 answerable) | 9/15 = 0.60 | 5/5 = 1.00 | 3/5 = 0.60 |
+| GGUF 0.8B — `Qwen3.5-0.8B Q8_0` | 10/20 = 0.50 | 7/15 = 0.47 | 3/5 = 0.60 | 1/5 = 0.20 |
+| "always answer the option listed first" — trivial baseline | 11/20 = 0.55 | 9/15 = 0.60 | 2/5 = 0.40 | 2/5 = 0.40 |
+
+Two rows carry a caveat: **Kev 4B reaches 0.95 only with the optional row-limit patch** (at the
+published 8192 the 55-option `click_target` question is refused with HTTP 422, which is the one item
+that separates the two Kev 4B rows); and **`ddg-click-target-aapl`'s hand label is debatable** — the
+label is `e1` (investing.com, `in_viewport=false`) while hosted Jev, the GGUF 4B and gemma all pick
+`e15` (Yahoo Finance's AAPL quote page, in viewport), so every one of those is scored down by up to
+one item on that question.
+
+### What it costs to run
+
+| backend | per item, mean / max | disk | memory | cost |
+| --- | --- | --- | --- | --- |
+| **hosted Jev** | 621 / 1,270 ms | nothing to download | not measured | $0.0035 for the 20 items (`ceiling-jev-20items.json`) |
+| Kev 4B @16384 | 2,223 / 12,183 ms | 9.34 GB base + 152 MiB checkpoint | 18–19 GB idle, **36 GB** GPU footprint after a full pass | $0 |
+| Kev 4B @8192 | 1,965 / 8,995 ms | the same two files | 18–19 GB idle, 12.2 GiB RSS peak during the pass | $0 |
+| GGUF 4B | 3,072 / 13,895 ms | 2,740,937,888 B (2.6 GiB) | 3,362 MiB (`llama-server` RSS) | $0 |
+| Qwen3-4B-Instruct-2507 | 2,514 / 15,386 ms | 2,497,281,120 B | not measured | $0 |
+| gemma-3-4b-it | 2,189 / 9,725 ms | 2,489,894,016 B | not measured | $0 |
+| Kev 0.8B | 590 / 6,353 ms | 1.72 GiB (base + LoRA + tokenizers + head) | 3.6 GiB RSS peak at 16384 (21–129 MiB idle) | $0 |
+| GGUF 0.8B | 777 / 4,178 ms | 811,843,840 B (774 MiB) | not measured | $0 |
+| trivial baseline | — | — | — | $0 (no model) |
+
+The latencies are not all one measurement, so read them with these three notes: the GGUF 4B and
+gemma rows were timed **while a download was still running**, which makes them read pessimistic (the
+GGUF 4B re-measured clean is **18.3 s cold / 9.0 s warm** for the whole 5-question step, and 6.1 s of
+that is the 55-option `click_target` alone); Kev 4B's per-item figures likewise include that
+55-option item (12.2 s of its 12,183 ms worst case); and a **packed** 5-question fixture step costs
+23.8 s at the raised Kev limit (12,073 input tokens) but is refused outright at 8192. `$0` is not a
+rounding: a loopback `baseUrl` is priced at zero by the client. Memory for Kev 4B is the real
+constraint — reading **`footprint`**, not `ps -o rss=`, is what shows the 36 GB, and on this 48 GB
+machine the raised limit drove swap from 16.7 GB to 28.3 GB used (416 MB free) during a full pass,
+without a single request timing out.
+
+### How this was measured
+
+- **20 graded items with ground truth known by construction.** 15 browser items (each with the
+  expected element id / action) + 5 passage yes/no items; the label is written into the item, not
+  produced by a model.
+- **A real captured-page step.** `experiments/gguf-provider/fixtures/judge-state.json` plus
+  `judge-questions.json` replay one genuine browser step — the product's own 5-question request
+  (`goal_done`, `blocker`, `action`, a 55-option `click_target`, `select_target`) on a real page.
+- **A rotation probe.** The same option list is re-rendered at three rotations while the labels stay
+  put, so "reads the text" and "reads the position" are distinguishable: the GGUF 4B hits the
+  expected element at every rotation (k=0/3/7 → `e8`/`e5`/`e1`, P≈0.99), the 0.8B keeps answering
+  inside the first few slots.
+- **One harness per backend, one machine for all the local numbers.** The GGUF candidates run
+  through `experiments/gguf-provider/eval/run.mjs`; Kev is graded by `experiments/kev-4b/run.mjs` on
+  the same items and the same fixture step, over the same `/v1/systemone` client path hosted Jev used
+  (`lib/typesafe.mjs`), behind a preflight that refuses to run unless the served checkpoint equals
+  `--run` — a wrong model cannot be scored silently. Everything local was measured on one Apple
+  Silicon machine: M3 Max, 48 GB, macOS 25.6.0 arm64.
+
+### The 15 real browser runs
+
+The shipped GGUF readout actually driving `jev-browser run` — goals, journals and per-step numbers in
+[`docs/local-backend-run-smoke.md`](docs/local-backend-run-smoke.md):
+
+- **Outcomes: 4 `success` · 8 `stuck` · 2 `needs_user` · 1 `max_steps` — zero `error`, zero
+  `timeout`.** One run finished a real Wikipedia search goal in 4 steps. Of the two `needs_user`, one
+  was a genuine CAPTCHA (true positive) and one a false `missing_information` on a plain pricing page.
+- **The transport never broke:** 39 step requests, every one succeeded on its first attempt, 0 client
+  timeouts, 0 HTTP 422 `LOW_LABEL_MASS`, lowest label mass 0.870 against a 0.5 threshold.
+- **Strong half — element selection.** `click_target` was the most reliable question in the whole
+  campaign: on a 65-element Wikipedia page it put the right link first at every step (0.71–0.78).
+- **Weak half — the `action` question.** On the fixture login page it knew both where to type and what
+  to type (`type_target` Email 0.851, `type_value` email 0.933) yet ranked `type` **last of four**
+  (0.105 against click 0.430), so the controller spent three no-effect actions and gave up; three more
+  runs chose `stop` with the goal one obvious click away. 8 of the 9 non-`success` runs stop on an
+  `action` choice, which is why the controller — not the model — is where a local form-filling run has
+  to be fixed.
+
+### The `goal_done` bars, and why they differ
+
+| backend | bar, per step / final | measured basis |
+| --- | --- | --- |
+| hosted Jev | **0.85 / 0.70** | the shipped value, on the scale hosted Jev is trained for. It does **not** transfer: scored as a termination rule over the same 15 local runs it gives 4 correct successes and **3 false `stuck`** (runs that had already finished reported as stuck) |
+| GGUF readout (`local-readout`) | **0.174 / 0.174** | the same 15 runs replayed: pages that met the goal read 0.839–0.997, pages that did not read 0.007–0.096, and on the termination rule the usable band is 0.12–0.28 — 0.25 scores 7 correct successes / 0 false successes / 0 false `stuck` where 0.85 gives 4 / 0 / 3. 0.174 is that band's maximin midpoint |
+| Kev 4B (`kev`) | **0.482 / 0.482** | the same 15 goals replayed against Kev 4B with the same method and scoring: its band is **(0.341, 0.683]**, so the readout's 0.174 would call four not-met pages a success and stop before the action that finished the goal; 0.482 is the midpoint of its clean band (any value in ~0.35–0.68 is clean) |
+
+They differ because the three backends read the same question on scales that do not overlap — this is
+a property of each backend, not a tuning preference, which is exactly why the bar is a **profile**
+resolved from the endpoint (`thresholds.profile`, `auto` by default) rather than one global number.
+A loopback endpoint is classified from one `GET /v1/models` at run start, and the profile, value and
+reason are written to the run journal's `run.json` before the first step; `doctor` prints the result
+under `goal_done bar`.
+
+### Reproduce
+
+```bash
+# the 20 graded items + the label-rotation probe, against a local GGUF server on :8100
+node experiments/gguf-provider/eval/run.mjs --url http://127.0.0.1:8100 --json
+node experiments/gguf-provider/eval/run.mjs --url http://127.0.0.1:8100 --rotate --json
+
+# the same 20 items and the fixture step against a Kev server on :8008
+TYPESAFE_API_KEY=local node experiments/kev-4b/run.mjs --run jaredpalmer/kev-4b
+
+# the termination-rule replay over the 15 saved local runs
+bash experiments/kev-4b/threshold-replay.sh /tmp/kev-threshold
+node experiments/kev-4b/threshold-replay.mjs /tmp/kev-threshold
+```
+
+Raw JSON: **`experiments/gguf-provider/results/`** (per-model `eval-*.json`, `analysis-*.json`,
+`fixture-step-*.json`, plus `ceiling-jev-20items.json` and `baseline-first-option.json`) and
+**`experiments/kev-4b/results/`** (`eval-<label>.json`, `fixture-step-<label>.json`, per-item
+`raw/<label>/`, and `threshold-replay/{runs.tsv,labels.json,score.txt,journal/}`).
 
 ## WebUI
 
